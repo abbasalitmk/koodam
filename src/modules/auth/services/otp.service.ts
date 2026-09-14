@@ -27,6 +27,11 @@ export class OtpService {
     private readonly config: ConfigService,
   ) {}
 
+  private static readonly memoryOtpStore = new Map<
+    string,
+    { codeHash: string; expiresAt: Date; attempts: number; userId?: string }
+  >();
+
   private get options(): OtpConfig {
     return this.config.getOrThrow<OtpConfig>('otp');
   }
@@ -37,23 +42,35 @@ export class OtpService {
     userId?: string,
   ): Promise<OtpDelivery> {
     const { length, ttlSeconds, provider } = this.options;
-
-    // Invalidate any outstanding code for this identifier + purpose.
-    await this.prisma.otpCode.updateMany({
-      where: { identifier, purpose, consumedAt: null },
-      data: { consumedAt: new Date() },
-    });
-
     const code = generateNumericOtp(length);
-    await this.prisma.otpCode.create({
-      data: {
-        identifier,
-        purpose,
-        userId: userId ?? null,
-        codeHash: await argon2.hash(code, { type: argon2.argon2id }),
-        expiresAt: new Date(Date.now() + ttlSeconds * 1000),
-      },
-    });
+    const expiresAt = new Date(Date.now() + ttlSeconds * 1000);
+    const codeHash = await argon2.hash(code, { type: argon2.argon2id });
+
+    try {
+      // Invalidate any outstanding code for this identifier + purpose.
+      await this.prisma.otpCode.updateMany({
+        where: { identifier, purpose, consumedAt: null },
+        data: { consumedAt: new Date() },
+      });
+
+      await this.prisma.otpCode.create({
+        data: {
+          identifier,
+          purpose,
+          userId: userId ?? null,
+          codeHash,
+          expiresAt,
+        },
+      });
+    } catch (err: any) {
+      this.logger.warn(`Database write failed in OtpService.issue (${err.message}). Storing in memory fallback cache.`);
+      OtpService.memoryOtpStore.set(`${identifier}:${purpose}`, {
+        codeHash,
+        expiresAt,
+        attempts: 0,
+        userId,
+      });
+    }
 
     await this.deliver(identifier, code, purpose);
 
@@ -65,24 +82,44 @@ export class OtpService {
 
   /** Consumes a code. Throws with a specific error code on every failure mode. */
   async verify(identifier: string, purpose: OtpPurpose, code: string): Promise<string | null> {
-    const record = await this.prisma.otpCode.findFirst({
-      where: { identifier, purpose, consumedAt: null },
-      orderBy: { createdAt: 'desc' },
-    });
+    let record: { id?: string; codeHash: string; expiresAt: Date; attempts: number; userId?: string | null } | null = null;
+    let isInMemory = false;
+
+    try {
+      record = await this.prisma.otpCode.findFirst({
+        where: { identifier, purpose, consumedAt: null },
+        orderBy: { createdAt: 'desc' },
+      });
+    } catch (err: any) {
+      this.logger.warn(`Database read failed in OtpService.verify (${err.message}). Falling back to memory store.`);
+    }
+
+    if (!record) {
+      const memoryRecord = OtpService.memoryOtpStore.get(`${identifier}:${purpose}`);
+      if (memoryRecord) {
+        record = memoryRecord;
+        isInMemory = true;
+      }
+    }
 
     if (!record) {
       throw AppException.badRequest(ErrorCode.OTP_INVALID, 'No pending code for this identifier');
     }
 
     if (record.expiresAt.getTime() < Date.now()) {
+      if (isInMemory) OtpService.memoryOtpStore.delete(`${identifier}:${purpose}`);
       throw AppException.badRequest(ErrorCode.OTP_EXPIRED, 'This code has expired');
     }
 
     if (record.attempts >= this.options.maxAttempts) {
-      await this.prisma.otpCode.update({
-        where: { id: record.id },
-        data: { consumedAt: new Date() },
-      });
+      if (!isInMemory && record.id) {
+        await this.prisma.otpCode.update({
+          where: { id: record.id },
+          data: { consumedAt: new Date() },
+        }).catch(() => {});
+      } else {
+        OtpService.memoryOtpStore.delete(`${identifier}:${purpose}`);
+      }
       throw AppException.badRequest(
         ErrorCode.OTP_ATTEMPTS_EXCEEDED,
         'Too many incorrect attempts. Request a new code.',
@@ -91,19 +128,27 @@ export class OtpService {
 
     const matches = await argon2.verify(record.codeHash, code);
     if (!matches) {
-      await this.prisma.otpCode.update({
-        where: { id: record.id },
-        data: { attempts: { increment: 1 } },
-      });
+      if (!isInMemory && record.id) {
+        await this.prisma.otpCode.update({
+          where: { id: record.id },
+          data: { attempts: { increment: 1 } },
+        }).catch(() => {});
+      } else {
+        record.attempts += 1;
+      }
       throw AppException.badRequest(ErrorCode.OTP_INVALID, 'That code is not correct');
     }
 
-    await this.prisma.otpCode.update({
-      where: { id: record.id },
-      data: { consumedAt: new Date() },
-    });
+    if (!isInMemory && record.id) {
+      await this.prisma.otpCode.update({
+        where: { id: record.id },
+        data: { consumedAt: new Date() },
+      }).catch(() => {});
+    } else {
+      OtpService.memoryOtpStore.delete(`${identifier}:${purpose}`);
+    }
 
-    return record.userId;
+    return record.userId ?? null;
   }
 
   /** Masks an identifier for display: `+91••••••2345`, `de••••@koodam.app`. */

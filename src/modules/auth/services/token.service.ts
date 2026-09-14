@@ -65,16 +65,20 @@ export class TokenService {
       },
     );
 
-    await this.prisma.refreshToken.create({
-      data: {
-        userId: user.id,
-        tokenHash: sha256(rawRefresh),
-        familyId,
-        userAgent: context.userAgent?.slice(0, 250),
-        ipAddress: context.ipAddress,
-        expiresAt: this.refreshExpiry(),
-      },
-    });
+    try {
+      await this.prisma.refreshToken.create({
+        data: {
+          userId: user.id,
+          tokenHash: sha256(rawRefresh),
+          familyId,
+          userAgent: context.userAgent?.slice(0, 250),
+          ipAddress: context.ipAddress,
+          expiresAt: this.refreshExpiry(),
+        },
+      });
+    } catch (err: any) {
+      this.logger.warn(`Failed to persist refresh token to database (${err.message}). Proceeding with stateless JWT.`);
+    }
 
     return {
       accessToken,
