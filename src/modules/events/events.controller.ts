@@ -37,6 +37,20 @@ export class EventsController {
     return this.events.getRadarEvents(query);
   }
 
+  @Public()
+  @Get('feed')
+  @ApiOperation({ summary: 'Hyperlocal gatherings feed (Public - no login required to browse)' })
+  getFeed(@Query() query: EventRadarQueryDto) {
+    return this.events.getRadarEvents(query);
+  }
+
+  @Public()
+  @Get()
+  @ApiOperation({ summary: 'List all upcoming gatherings with filters (Public - no login required to browse)' })
+  listEvents(@Query() query: EventRadarQueryDto) {
+    return this.events.getRadarEvents(query);
+  }
+
   @ApiBearerAuth()
   @ThrottleWrite()
   @Post()

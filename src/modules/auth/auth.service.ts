@@ -134,37 +134,43 @@ export class AuthService {
   }
 
   async requestOtp(dto: RequestOtpDto): Promise<OtpChallengeDto> {
-    const user = await this.findByIdentifier(dto.identifier);
+    const identifier = dto.identifier.trim();
+    const purpose = dto.purpose ?? OtpPurpose.LOGIN;
+    const user = await this.findByIdentifier(identifier);
 
     // Password reset for an unknown identifier returns the same shape, so the
     // endpoint cannot be used to enumerate accounts.
-    if (!user && dto.purpose === OtpPurpose.PASSWORD_RESET) {
+    if (!user && purpose === OtpPurpose.PASSWORD_RESET) {
       return {
-        message: `If an account exists, a code has been sent to ${this.otp.mask(dto.identifier)}`,
+        message: `If an account exists, a code has been sent to ${this.otp.mask(identifier)}`,
         expiresInSeconds: 300,
+        isRegistered: false,
       };
     }
 
-    const delivery = await this.otp.issue(dto.identifier, dto.purpose, user?.id);
+    const delivery = await this.otp.issue(identifier, purpose, user?.id);
     return {
-      message: `A verification code has been sent to ${this.otp.mask(dto.identifier)}`,
+      message: `A verification code has been sent to ${this.otp.mask(identifier)}`,
       expiresInSeconds: delivery.expiresInSeconds,
+      isRegistered: Boolean(user),
       ...(delivery.devCode ? { devCode: delivery.devCode } : {}),
     };
   }
 
   /**
-   * Verifies an OTP. For LOGIN it returns a session; for PHONE/EMAIL
-   * verification it stamps the account as verified.
+   * Verifies an OTP. For LOGIN it returns a session (auto-registering new users).
+   * For PHONE/EMAIL verification it stamps the account as verified.
    */
   async verifyOtp(dto: VerifyOtpDto, ctx: RequestContext): Promise<AuthSessionDto | { verified: true }> {
-    const userId = await this.otp.verify(dto.identifier, dto.purpose, dto.code);
+    const identifier = dto.identifier.trim();
+    const purpose = dto.purpose ?? OtpPurpose.LOGIN;
+    const userId = await this.otp.verify(identifier, purpose, dto.code);
 
-    if (dto.purpose === OtpPurpose.PASSWORD_RESET) {
+    if (purpose === OtpPurpose.PASSWORD_RESET) {
       return { verified: true };
     }
 
-    const user = userId
+    let user = userId
       ? await this.prisma.user.findUnique({
           where: { id: userId },
           select: {
@@ -178,37 +184,103 @@ export class AuthService {
             profile: { select: { isProfileComplete: true } },
           },
         })
-      : await this.findByIdentifier(dto.identifier);
+      : await this.findByIdentifier(identifier);
 
+    let isNewUser = false;
+
+    // Automatic registration if the user does not yet exist
     if (!user) {
-      throw AppException.notFound('Account', ErrorCode.NOT_FOUND);
+      isNewUser = true;
+      const isEmail = identifier.includes('@');
+      const email = isEmail ? identifier.toLowerCase() : null;
+      const phone = !isEmail ? identifier : null;
+
+      const created = await this.prisma.user.create({
+        data: {
+          email,
+          phone,
+          isVerified: true,
+          emailVerifiedAt: isEmail ? new Date() : null,
+          phoneVerifiedAt: !isEmail ? new Date() : null,
+          lastActiveAt: new Date(),
+          privacySettings: { create: {} },
+          preferences: { create: {} },
+          profile: {
+            create: {
+              displayName: dto.displayName?.trim() || (isEmail ? identifier.split('@')[0] : 'Malayali Member'),
+              dateOfBirth: dto.dob ? new Date(dto.dob) : new Date('2000-01-01'),
+              gender: (dto.gender as any) ?? 'OTHER',
+              homeDistrict: dto.district ?? 'KL-EKM',
+              isProfileComplete: Boolean(dto.displayName && dto.dob && dto.gender),
+            },
+          },
+        },
+        select: {
+          id: true,
+          email: true,
+          phone: true,
+          role: true,
+          isVerified: true,
+          status: true,
+          suspendedUntil: true,
+          profile: { select: { isProfileComplete: true } },
+        },
+      });
+
+      this.logger.log(`Auto-registered new account via OTP: ${created.id} (${identifier})`);
+      user = created;
+    } else {
+      this.assertUsable(user);
+
+      const verifiedField =
+        purpose === OtpPurpose.PHONE_VERIFICATION || !identifier.includes('@')
+          ? { phoneVerifiedAt: new Date() }
+          : { emailVerifiedAt: new Date() };
+
+      let profileUpdate = {};
+      if (dto.displayName || dto.district || dto.dob || dto.gender) {
+        profileUpdate = {
+          profile: {
+            upsert: {
+              create: {
+                displayName: dto.displayName?.trim() || (identifier.includes('@') ? identifier.split('@')[0] : 'Malayali Member'),
+                dateOfBirth: dto.dob ? new Date(dto.dob) : new Date('2000-01-01'),
+                gender: (dto.gender as any) ?? 'OTHER',
+                homeDistrict: dto.district ?? 'KL-EKM',
+                isProfileComplete: Boolean(dto.displayName && dto.dob && dto.gender),
+              },
+              update: {
+                ...(dto.displayName ? { displayName: dto.displayName.trim() } : {}),
+                ...(dto.district ? { homeDistrict: dto.district } : {}),
+                ...(dto.dob ? { dateOfBirth: new Date(dto.dob) } : {}),
+                ...(dto.gender ? { gender: dto.gender as any } : {}),
+              },
+            },
+          },
+        };
+      }
+
+      user = await this.prisma.user.update({
+        where: { id: user.id },
+        data: { ...verifiedField, isVerified: true, lastActiveAt: new Date(), ...profileUpdate },
+        select: {
+          id: true,
+          email: true,
+          phone: true,
+          role: true,
+          isVerified: true,
+          status: true,
+          suspendedUntil: true,
+          profile: { select: { isProfileComplete: true } },
+        },
+      });
     }
-    this.assertUsable(user);
 
-    const verifiedField =
-      dto.purpose === OtpPurpose.PHONE_VERIFICATION
-        ? { phoneVerifiedAt: new Date() }
-        : dto.purpose === OtpPurpose.EMAIL_VERIFICATION
-          ? { emailVerifiedAt: new Date() }
-          : {};
-
-    const updated = await this.prisma.user.update({
-      where: { id: user.id },
-      data: { ...verifiedField, isVerified: true, lastActiveAt: new Date() },
-      select: {
-        id: true,
-        email: true,
-        phone: true,
-        role: true,
-        isVerified: true,
-        profile: { select: { isProfileComplete: true } },
-      },
-    });
-
-    const tokens = await this.tokens.issuePair(updated, ctx);
+    const tokens = await this.tokens.issuePair(user, ctx);
     return {
-      user: this.toAuthUser(updated, updated.profile?.isProfileComplete ?? false),
+      user: this.toAuthUser(user, user.profile?.isProfileComplete ?? false),
       tokens,
+      isNewUser,
     };
   }
 

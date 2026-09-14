@@ -73,6 +73,16 @@ export class AuthController {
   @Public()
   @ThrottleOtp()
   @HttpCode(HttpStatus.OK)
+  @Post('otp/send')
+  @ApiOperation({ summary: 'Send a one-time code by WhatsApp, SMS or email (alias for otp/request)' })
+  @ApiResponse({ status: 200, type: OtpChallengeDto })
+  sendOtp(@Body() dto: RequestOtpDto) {
+    return this.auth.requestOtp(dto);
+  }
+
+  @Public()
+  @ThrottleOtp()
+  @HttpCode(HttpStatus.OK)
   @Post('otp/verify')
   @ApiOperation({ summary: 'Verify a one-time code; issues a session for login flows' })
   verifyOtp(@Body() dto: VerifyOtpDto, @Req() req: Request) {

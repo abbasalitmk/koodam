@@ -119,16 +119,28 @@ export class OtpService {
   }
 
   private async deliver(identifier: string, code: string, purpose: OtpPurpose): Promise<void> {
+    if (identifier.includes('@')) {
+      // Email OTP Delivery
+      this.logger.log(`[OTP:EMAIL:${purpose}] Verification code for ${this.mask(identifier)}: ${code}`);
+      return;
+    }
+
+    // Phone OTP Delivery (WhatsApp / SMS)
     switch (this.options.provider) {
       case 'whatsapp':
-        await this.deliverViaWhatsApp(identifier, code);
+        try {
+          await this.deliverViaWhatsApp(identifier, code);
+        } catch (err: any) {
+          this.logger.warn(`WhatsApp delivery failed: ${err.message}. Falling back to console output.`);
+          this.logger.log(`[OTP:PHONE:${purpose}] ${this.mask(identifier)} → ${code}`);
+        }
         break;
       case 'twilio':
         this.logger.warn('Twilio OTP provider is not configured; falling back to log output');
-        this.logger.log(`[OTP:${purpose}] ${this.mask(identifier)} → ${code}`);
+        this.logger.log(`[OTP:PHONE:${purpose}] ${this.mask(identifier)} → ${code}`);
         break;
       default:
-        this.logger.log(`[OTP:${purpose}] ${this.mask(identifier)} → ${code}`);
+        this.logger.log(`[OTP:PHONE:${purpose}] ${this.mask(identifier)} → ${code}`);
     }
   }
 

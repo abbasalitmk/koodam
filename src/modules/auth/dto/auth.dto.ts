@@ -1,6 +1,7 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Transform } from 'class-transformer';
 import {
+  IsDateString,
   IsEmail,
   IsEnum,
   IsNotEmpty,
@@ -69,21 +70,58 @@ export class RefreshTokenDto {
 }
 
 export class RequestOtpDto {
-  @ApiProperty({ description: 'Email or E.164 phone number', example: '+919847012345' })
+  @ApiProperty({ description: 'Email address or E.164 phone number', example: '+919847012345' })
   @IsString()
   @IsNotEmpty()
   identifier!: string;
 
-  @ApiProperty({ enum: OtpPurpose, example: OtpPurpose.PHONE_VERIFICATION })
+  @ApiPropertyOptional({ enum: OtpPurpose, default: OtpPurpose.LOGIN })
+  @IsOptional()
   @IsEnum(OtpPurpose)
-  purpose!: OtpPurpose;
+  purpose?: OtpPurpose;
+
+  @ApiPropertyOptional({ enum: ['whatsapp', 'sms', 'email'], default: 'whatsapp' })
+  @IsOptional()
+  @IsString()
+  channel?: 'whatsapp' | 'sms' | 'email';
 }
 
-export class VerifyOtpDto extends RequestOtpDto {
+export class VerifyOtpDto {
+  @ApiProperty({ description: 'Email address or E.164 phone number', example: '+919847012345' })
+  @IsString()
+  @IsNotEmpty()
+  identifier!: string;
+
+  @ApiPropertyOptional({ enum: OtpPurpose, default: OtpPurpose.LOGIN })
+  @IsOptional()
+  @IsEnum(OtpPurpose)
+  purpose?: OtpPurpose;
+
   @ApiProperty({ example: '482910' })
   @IsString()
   @Matches(/^\d{4,8}$/, { message: 'OTP must be 4–8 digits' })
   code!: string;
+
+  @ApiPropertyOptional({ example: 'Anjali Nair', description: 'Name to use if registering for the first time' })
+  @IsOptional()
+  @IsString()
+  @MaxLength(80)
+  displayName?: string;
+
+  @ApiPropertyOptional({ example: 'KL-EKM', description: 'Kerala district code for registration' })
+  @IsOptional()
+  @IsString()
+  district?: string;
+
+  @ApiPropertyOptional({ example: '1998-05-14', description: 'Date of Birth (YYYY-MM-DD)' })
+  @IsOptional()
+  @IsDateString()
+  dob?: string;
+
+  @ApiPropertyOptional({ enum: ['MALE', 'FEMALE', 'NON_BINARY', 'OTHER'] })
+  @IsOptional()
+  @IsString()
+  gender?: string;
 }
 
 export class ForgotPasswordDto {

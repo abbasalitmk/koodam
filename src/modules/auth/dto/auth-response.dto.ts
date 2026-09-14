@@ -40,6 +40,9 @@ export class AuthSessionDto {
 
   @ApiProperty({ type: TokenPairDto })
   tokens!: TokenPairDto;
+
+  @ApiPropertyOptional({ example: false, description: 'True if the user was just registered via OTP verification' })
+  isNewUser?: boolean;
 }
 
 export class OtpChallengeDto {
@@ -48,6 +51,9 @@ export class OtpChallengeDto {
 
   @ApiProperty({ example: 300 })
   expiresInSeconds!: number;
+
+  @ApiPropertyOptional({ example: true, description: 'Whether the account is already registered' })
+  isRegistered?: boolean;
 
   @ApiPropertyOptional({
     description: 'Only populated when OTP_PROVIDER=console, for local development',

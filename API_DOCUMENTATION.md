@@ -88,17 +88,59 @@ Koodam supports all 14 administrative districts of Kerala and major global diasp
 
 ## 3. Complete Endpoint Reference
 
-### 3.1 Authentication & Onboarding
-- **`POST /api/v1/auth/otp/send`**  
-  Send OTP via SMS or WhatsApp Cloud API.
+### 3.1 Authentication & Onboarding (Phone/Email OTP + Auto-Registration)
+Koodam supports passwordless OTP login via Phone (WhatsApp/SMS) and Email. If the user is not yet registered, verifying the OTP will **automatically register** them and issue active JWT credentials with `isNewUser: true`.
+
+- **`POST /api/v1/auth/otp/send`** (or `/api/v1/auth/otp/request`)
+  Send OTP via WhatsApp, SMS, or Email.
   ```json
-  { "phone": "+919876543210", "channel": "whatsapp" }
+  // Phone OTP
+  { "identifier": "+919876543210", "channel": "whatsapp" }
+
+  // Email OTP
+  { "identifier": "anjali@koodam.app", "channel": "email" }
   ```
+  Response:
+  ```json
+  {
+    "message": "OTP sent successfully to anjali@koodam.app",
+    "expiresInSeconds": 300,
+    "isRegistered": false
+  }
+  ```
+
 - **`POST /api/v1/auth/otp/verify`**  
-  Verify OTP code and retrieve JWT session.
+  Verify OTP code. Returns JWT session tokens (`accessToken` & `refreshToken`). If the user was not previously registered, creates their account automatically and returns `isNewUser: true`.
   ```json
-  { "phone": "+919876543210", "code": "482910" }
+  {
+    "identifier": "+919876543210",
+    "code": "482910",
+    "displayName": "Anjali Nair",     // Optional during first-time OTP verification
+    "district": "KL-EKM",             // Optional: Kerala district code
+    "dob": "1998-05-14",              // Optional: YYYY-MM-DD
+    "gender": "FEMALE"                // Optional: MALE | FEMALE | NON_BINARY | OTHER
+  }
   ```
+  Response:
+  ```json
+  {
+    "user": {
+      "id": "usr_9481ab...",
+      "phone": "+919876543210",
+      "email": null,
+      "role": "USER",
+      "isVerified": true,
+      "isProfileComplete": true
+    },
+    "tokens": {
+      "accessToken": "eyJhbGciOi...",
+      "refreshToken": "koodam_rf_...",
+      "expiresIn": 900
+    },
+    "isNewUser": true
+  }
+  ```
+
 - **`POST /api/v1/auth/refresh`**  
   Rotate refresh token family and get new access token.
   ```json
@@ -134,7 +176,14 @@ Koodam supports all 14 administrative districts of Kerala and major global diasp
 
 ### 3.3 Strict Single-Day Events Engine
 Events in Koodam are strictly limited to single-day gatherings (maximum 8 hours) to ensure intimacy, safety, and focused community interaction.
-- **`POST /api/v1/events`**  
+- **`GET /api/v1/events`** & **`GET /api/v1/events/feed`**  `[PUBLIC - NO LOGIN REQUIRED]`  
+  Hyperlocal event feed with spatial radius filtering:
+  `?latitude=9.9816&longitude=76.2999&radiusKm=25&district=KL-EKM&category=CULTURE_HERITAGE`
+- **`GET /api/v1/events/radar`**  `[PUBLIC - NO LOGIN REQUIRED]`  
+  Map-based spatial discovery for active events.
+- **`GET /api/v1/events/:id`**  `[PUBLIC - NO LOGIN REQUIRED]`  
+  Detailed event view with attendee counts, host profile, vouch trust status, and spot availability.
+- **`POST /api/v1/events`**  `[PROTECTED - LOGIN REQUIRED]`  
   Create single-day event.
   ```json
   {
@@ -152,14 +201,9 @@ Events in Koodam are strictly limited to single-day gatherings (maximum 8 hours)
     "ticketPrice": 0
   }
   ```
-- **`GET /api/v1/events/feed`**  
-  Hyperlocal event feed with spatial radius filtering:
-  `?latitude=9.9816&longitude=76.2999&radiusKm=25&district=KL-EKM&category=CULTURE_HERITAGE`
-- **`GET /api/v1/events/:id`**  
-  Detailed event view with attendee counts, host profile, vouch trust status, and spot availability.
-- **`POST /api/v1/event-attendees/:eventId/join`**  
+- **`POST /api/v1/event-attendees/:eventId/join`**  `[PROTECTED - LOGIN REQUIRED]`  
   Atomic row-level reservation ensuring gender balance equilibrium (50:50). Generates secure QR Pass (`#KD-XXXX`).
-- **`POST /api/v1/event-attendees/:eventId/check-in`**  
+- **`POST /api/v1/event-attendees/:eventId/check-in`**  `[PROTECTED - LOGIN REQUIRED]`  
   Host QR code check-in scanner at the event venue.
 
 ### 3.4 3-Peer Trust Engine (Vouches)
