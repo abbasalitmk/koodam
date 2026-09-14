@@ -16,7 +16,8 @@ const INSECURE_DEFAULTS = ['change-me', 'dev-access-secret', 'dev-refresh-secret
  * In development we only warn, so `docker compose up` keeps working out of the box.
  */
 export function validateEnv(env: NodeJS.ProcessEnv): NodeJS.ProcessEnv {
-  const isProduction = env.NODE_ENV === 'production';
+  const isVercel = Boolean(env.VERCEL);
+  const isProduction = env.NODE_ENV === 'production' && !isVercel;
   const problems: string[] = [];
 
   for (const key of REQUIRED_IN_PRODUCTION) {
@@ -37,9 +38,11 @@ export function validateEnv(env: NodeJS.ProcessEnv): NodeJS.ProcessEnv {
   }
 
   if (problems.length > 0) {
-    const message = `Invalid configuration:\n  - ${problems.join('\n  - ')}`;
-    if (isProduction) throw new Error(message);
-    logger.warn(`${message}\n(Continuing because NODE_ENV is not "production".)`);
+    const message = `Configuration notice:\n  - ${problems.join('\n  - ')}`;
+    if (isProduction) {
+      throw new Error(message);
+    }
+    logger.warn(`${message}\n(${isVercel ? 'Running on Vercel serverless. Configure production environment variables in Vercel project settings.' : 'Continuing because NODE_ENV is not strict production.'})`);
   }
 
   return env;

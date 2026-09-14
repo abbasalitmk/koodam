@@ -3,7 +3,6 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
 import { ScheduleModule } from '@nestjs/schedule';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
-import { BullModule } from '@nestjs/bullmq';
 
 import configuration from './config/configuration';
 import { validateEnv } from './config/validation';
@@ -12,6 +11,7 @@ import { DatabaseModule } from './database/database.module';
 import { AllExceptionsFilter } from './common/filters';
 import { LoggingInterceptor, TransformResponseInterceptor } from './common/interceptors';
 import { JwtAuthGuard, RolesGuard } from './common/guards';
+import { AppController } from './app.controller';
 
 import { AuthModule } from './modules/auth/auth.module';
 import { HealthModule } from './modules/health/health.module';
@@ -63,26 +63,6 @@ import { AdminModule } from './modules/admin/admin.module';
       }),
     }),
 
-    BullModule.forRootAsync({
-      inject: [ConfigService],
-      useFactory: (config: ConfigService) => {
-        const url = new URL(config.getOrThrow<string>('redis.url'));
-        return {
-          connection: {
-            host: url.hostname,
-            port: Number(url.port || 6379),
-            password: url.password || undefined,
-          },
-          defaultJobOptions: {
-            attempts: 3,
-            backoff: { type: 'exponential', delay: 5_000 },
-            removeOnComplete: 500,
-            removeOnFail: 1_000,
-          },
-        };
-      },
-    }),
-
     DatabaseModule,
     BlocksModule,
     PrivacyModule,
@@ -110,6 +90,7 @@ import { AdminModule } from './modules/admin/admin.module';
     VerificationModule,
     AdminModule,
   ],
+  controllers: [AppController],
   providers: [
     { provide: APP_FILTER, useClass: AllExceptionsFilter },
     { provide: APP_INTERCEPTOR, useClass: LoggingInterceptor },
