@@ -1,0 +1,85 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;font-family:'Plus Jakarta Sans',sans-serif;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "background": "#f5fbf7", "on-secondary": "#ffffff", "on-secondary-fixed": "#410007", "error": "#ba1a1a", "inverse-surface": "#2c322f", "primary": "#002118", "on-tertiary-fixed": "#2a1700", "surface-container-low": "#eff5f1", "on-primary-fixed": "#002118", "on-error": "#ffffff", "on-tertiary-fixed-variant": "#653e00", "on-tertiary": "#ffffff", "primary-container": "#0a382c", "secondary-fixed-dim": "#ffb3b0", "inverse-primary": "#a3d0bf", "surface-tint": "#3c6658", "surface-container-lowest": "#ffffff", "outline": "#717975", "surface-variant": "#dee4e0", "surface": "#f5fbf7", "surface-bright": "#f5fbf7", "on-secondary-container": "#60000e", "on-primary-container": "#77a292", "surface-container-high": "#e4eae6", "on-tertiary-container": "#d68800", "inverse-on-surface": "#ecf2ee", "on-surface": "#171d1b", "on-secondary-fixed-variant": "#92001b", "on-primary-fixed-variant": "#244e41", "surface-container-highest": "#dee4e0", "secondary-fixed": "#ffdad8", "surface-dim": "#d5dbd8", "on-surface-variant": "#414845", "on-background": "#171d1b", "on-primary": "#ffffff", "on-error-container": "#93000a", "secondary-container": "#ff5a5f", "secondary": "#b52330", "surface-container": "#e9efeb", "tertiary-fixed-dim": "#ffb95f", "tertiary": "#2c1800", "tertiary-fixed": "#ffddb8", "tertiary-container": "#482b00", "error-container": "#ffdad6", "outline-variant": "#c0c8c3", "primary-fixed-dim": "#a3d0bf", "primary-fixed": "#bfecda" }, borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" }, spacing: { "gutter": "1rem", "margin": "1.25rem", "space-sm": "0.5rem", "space-xs": "0.25rem", "space-xl": "2.25rem", "space-lg": "1.5rem", "space-md": "1rem" }, fontFamily: { "headline-sm": ["Plus Jakarta Sans"], "display-hero": ["Plus Jakarta Sans"], "label-md": ["Plus Jakarta Sans"], "label-lg": ["Plus Jakarta Sans"], "body-md": ["Plus Jakarta Sans"], "headline-md": ["Plus Jakarta Sans"], "body-lg": ["Plus Jakarta Sans"], "headline-lg": ["Plus Jakarta Sans"], "label-sm": ["Plus Jakarta Sans"], "headline-lg-mobile": ["Plus Jakarta Sans"], "body-sm": ["Plus Jakarta Sans"], "display-hero-mobile": ["Plus Jakarta Sans"] }, fontSize: { "headline-sm": ["18px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "600" }], "display-hero": ["44px", { "lineHeight": "52px", "letterSpacing": "-0.03em", "fontWeight": "800" }], "label-md": ["13px", { "lineHeight": "16px", "letterSpacing": "0.015em", "fontWeight": "600" }], "label-lg": ["15px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }], "body-md": ["15px", { "lineHeight": "22px", "letterSpacing": "0em", "fontWeight": "400" }], "headline-md": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" }], "body-lg": ["17px", { "lineHeight": "26px", "letterSpacing": "-0.005em", "fontWeight": "400" }], "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "700" }], "headline-lg-mobile": ["26px", { "lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "700" }], "body-sm": ["13px", { "lineHeight": "18px", "letterSpacing": "0.005em", "fontWeight": "400" }], "display-hero-mobile": ["34px", { "lineHeight": "40px", "letterSpacing": "-0.025em", "fontWeight": "800" }] } } } };</script></head><body class="bg-surface text-on-surface antialiased min-h-screen flex flex-col pt-safe pb-safe"><main class="flex-1 w-full bg-surface flex flex-col"><div class="flex flex-col w-full relative select-none">
+<!-- Soft Radial Ambient Glow in Background -->
+<div class="absolute inset-0 pointer-events-none flex items-center justify-center overflow-hidden">
+<div class="w-80 h-80 bg-primary-fixed/20 rounded-full blur-3xl transform scale-125 opacity-70"></div>
+<div class="w-64 h-64 bg-secondary-fixed/30 rounded-full blur-2xl transform translate-y-16 -translate-x-12 opacity-50"></div>
+</div>
+<!-- Primary Viewport Content Area -->
+<div class="relative z-10 w-full flex flex-col justify-between py-12 px-gutter items-center">
+<!-- Top Pill: Status & Subtle Network Indicator -->
+<div class="w-full flex justify-center items-center">
+<div class="inline-flex items-center gap-space-xs px-space-md py-1.5 rounded-full bg-surface-container-low shadow-sm">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-container opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-primary-container"></span>
+</span>
+<span class="font-label-sm text-label-sm tracking-wider uppercase text-on-surface-variant font-semibold">
+          Malayali Social Circle • 2026 Edition
+        </span>
+</div>
+</div>
+<!-- Central Emblem & Brand Identity -->
+<div class="w-full max-w-sm flex flex-col items-center text-center my-16"><!-- Central Brand Identity Card Artwork -->
+<div class="relative flex flex-col items-center justify-center group cursor-pointer" id="koodamEmblemTouch">
+  <!-- Ambient Warm & Emerald Glow -->
+  <div class="absolute inset-0 rounded-3xl bg-gradient-to-tr from-primary-fixed-dim/40 via-secondary-fixed/20 to-tertiary-fixed/30 blur-2xl scale-110 opacity-70"></div>
+  
+  <!-- Official Koodam Brand Logo Container -->
+  <div class="relative w-64 sm:w-72 p-4 bg-surface-container-lowest/80 backdrop-blur-sm rounded-3xl shadow-xl flex items-center justify-center transition-transform duration-300 transform active:scale-95 border border-white/60">
+    <img alt="Koodam - Meet, Explore, Belong" class="w-full h-auto object-contain rounded-2xl drop-shadow-sm" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBk6N5Wi4h_lgn6VWcHesbpunSOTub61LM_RGaY4azF_Dm8y9cd5J04Bfxg4Qlnmns53ptzCIC2CGseq3gdIovBdP5uHWDPb-cL2V8wKNfASc_BhA9NDNzF7_FSZVZ4woROIYxZYqUWj3hGDpkUrLoVfcVscetWRymKek6Dn31x03P8RBqrOkhXoUir1kXSUNDLR5kqJ9MUvrBq-KmdK4-K65FZ5eAwwWE1pL7tNWSyFCag12k650G5_wk3lbuobXYIbg">
+  </div>
+</div>
+
+<!-- Subtle Tagline & Cold Start Indicator -->
+<div class="flex flex-col items-center mt-6 gap-space-xs">
+  <span class="font-headline-md text-headline-md text-primary-container font-semibold opacity-90">
+    കൂടം
+  </span>
+  <p class="font-body-md text-body-md text-on-surface-variant max-w-xs text-center leading-relaxed">
+    Discover Events. Meet People.<br>Find Your Connection.
+  </p>
+</div>
+
+<!-- Subtle Animated Progress Bar -->
+<div class="w-36 h-1 bg-surface-container-highest rounded-full overflow-hidden mt-6">
+  <div class="h-full bg-primary-container rounded-full animate-[pulse_1.5s_ease-in-out_infinite]" style="width: 72%;"></div>
+</div></div>
+<!-- Bottom Footer Anchor: Security, Verification & Craftsmanship -->
+<div class="w-full flex flex-col items-center text-center gap-space-sm pb-2">
+<!-- Trust Stamp Badge -->
+<div class="inline-flex items-center gap-space-xs px-space-md py-1 rounded-full bg-surface-container shadow-xs">
+<span class="material-symbols-outlined text-primary-container text-[16px]" style="font-variation-settings: 'FILL' 1;">
+          verified_user
+        </span>
+<span class="font-label-sm text-label-sm text-on-surface font-semibold tracking-wide">
+          100% PEER-VERIFIED COMMUNITY
+        </span>
+</div>
+<!-- Editorial Footer Note with Network Dot -->
+<div class="flex items-center justify-center gap-1.5 text-on-surface-variant font-body-sm text-body-sm">
+<span class="">Handcrafted for Malayalis everywhere</span>
+<span class="text-outline text-[10px]">•</span>
+<span class="inline-flex items-center gap-1 text-primary-container font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+          Kochi / Global Sync
+        </span>
+</div>
+</div>
+</div>
+<script>
+    // Micro-interaction: tactile feedback on emblem tap
+    (function initSplashMicro() {
+      const emblem = document.getElementById('koodamEmblemTouch');
+      if (!emblem) return;
+      emblem.addEventListener('click', function() {
+        emblem.classList.add('scale-105');
+        setTimeout(() => {
+          emblem.classList.remove('scale-105');
+        }, 220);
+      });
+    })();
+  </script>
+</div></main>
+
+</body></html>

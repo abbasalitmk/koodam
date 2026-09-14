@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-secondary": "#ffffff", "outline-variant": "#c0c8c3", "secondary": "#b52330", "tertiary-fixed-dim": "#ffb95f", "background": "#f5fbf7", "error-container": "#ffdad6", "on-tertiary-fixed": "#2a1700", "on-error-container": "#93000a", "on-secondary-fixed-variant": "#92001b", "on-surface": "#171d1b", "on-tertiary": "#ffffff", "surface-container-lowest": "#ffffff", "surface-container-highest": "#dee4e0", "surface-container-low": "#eff5f1", "inverse-primary": "#a3d0bf", "on-secondary-fixed": "#410007", "surface-tint": "#3c6658", "primary-fixed-dim": "#a3d0bf", "surface": "#f5fbf7", "on-primary-fixed-variant": "#244e41", "outline": "#717975", "surface-variant": "#dee4e0", "secondary-fixed": "#ffdad8", "on-error": "#ffffff", "tertiary-fixed": "#ffddb8", "inverse-on-surface": "#ecf2ee", "surface-container": "#e9efeb", "on-surface-variant": "#414845", "surface-bright": "#f5fbf7", "on-primary-fixed": "#002118", "primary-fixed": "#bfecda", "error": "#ba1a1a", "tertiary-container": "#482b00", "surface-dim": "#d5dbd8", "on-background": "#171d1b", "inverse-surface": "#2c322f", "tertiary": "#2c1800", "on-tertiary-container": "#d68800", "on-primary-container": "#77a292", "primary-container": "#0a382c", "on-tertiary-fixed-variant": "#653e00", "on-secondary-container": "#60000e", "on-primary": "#ffffff", "secondary-container": "#ff5a5f", "surface-container-high": "#e4eae6", "primary": "#002118", "secondary-fixed-dim": "#ffb3b0" }, "borderRadius": { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" }, "spacing": { "space-xl": "2.25rem", "space-sm": "0.5rem", "gutter": "1rem", "space-lg": "1.5rem", "space-xs": "0.25rem", "space-md": "1rem", "margin": "1.25rem" }, "fontFamily": { "label-md": ["Plus Jakarta Sans"], "label-lg": ["Plus Jakarta Sans"], "body-sm": ["Plus Jakarta Sans"], "body-lg": ["Plus Jakarta Sans"], "headline-lg-mobile": ["Plus Jakarta Sans"], "label-sm": ["Plus Jakarta Sans"], "body-md": ["Plus Jakarta Sans"], "display-hero": ["Plus Jakarta Sans"], "headline-md": ["Plus Jakarta Sans"], "headline-sm": ["Plus Jakarta Sans"], "headline-lg": ["Plus Jakarta Sans"], "display-hero-mobile": ["Plus Jakarta Sans"] }, "fontSize": { "label-md": ["13px", { "lineHeight": "16px", "letterSpacing": "0.015em", "fontWeight": "600" }], "label-lg": ["15px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }], "body-sm": ["13px", { "lineHeight": "18px", "letterSpacing": "0.005em", "fontWeight": "400" }], "body-lg": ["17px", { "lineHeight": "26px", "letterSpacing": "-0.005em", "fontWeight": "400" }], "headline-lg-mobile": ["26px", { "lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "700" }], "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "700" }], "body-md": ["15px", { "lineHeight": "22px", "letterSpacing": "0em", "fontWeight": "400" }], "display-hero": ["44px", { "lineHeight": "52px", "letterSpacing": "-0.03em", "fontWeight": "800" }], "headline-md": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" }], "headline-sm": ["18px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "600" }], "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "display-hero-mobile": ["34px", { "lineHeight": "40px", "letterSpacing": "-0.025em", "fontWeight": "800" }] } } } };</script><style>@layer base{html,body{width:100%;margin:0;padding:0;background-color:#f5fbf7;color:#171d1b;}body{overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}}::-webkit-scrollbar{display:none;}</style></head><body class="bg-surface font-body-md text-body-md text-on-surface flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 pt-safe bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.03)]"><div class="h-16 px-margin flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0 flex-1"><img alt="Koodam Brand Logo Redesign" class="h-8 w-auto object-contain shrink-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAcWreOZOfd1hQ0uFDNnMmI5BY0CxqK1CqeAuL5CAb1nFyJsq7xB0YoEY5BRu-lMgo3eM87xBVPrrVsAiGYP6XmzKMU0zfQM80_E0cZswIKUjt-S_MO8iZNoL1wZbo1ZBqJ80rpdHRlTydXlRZ1HVaOCRe6juugyn0rQhWDzjjeqpwTTNKxW_f0vaQsgXMuMN_jSPwK4e0fX5CrU3rg9DUic1qjPljF516zwa5F8ae7Le5DpIeScWRu"/><div class="flex flex-col min-w-0"><div class="flex items-baseline gap-space-xs"><span class="font-headline-sm text-headline-sm text-primary tracking-tight truncate leading-tight">Koodam</span><span class="font-label-sm text-label-sm text-on-surface-variant font-normal opacity-80 shrink-0">കൂടം</span></div><button class="flex items-center gap-space-xs bg-surface-container-low px-space-sm py-0.5 rounded-full text-left self-start mt-0.5 max-w-[170px]"><span class="material-symbols-outlined text-[13px] text-secondary-container leading-none shrink-0">location_on</span><span class="font-label-sm text-label-sm text-on-surface-variant truncate">Kochi / Calicut</span><span class="material-symbols-outlined text-[14px] text-outline leading-none shrink-0">expand_more</span></button></div></div><div class="flex items-center gap-space-xs shrink-0"><button aria-label="Search" class="w-11 h-11 flex items-center justify-center rounded-full text-on-surface hover:bg-surface-container-high/60 transition-colors"><span class="material-symbols-outlined text-[22px]">search</span></button><button aria-label="Notifications" class="relative w-11 h-11 flex items-center justify-center rounded-full text-on-surface hover:bg-surface-container-high/60 transition-colors"><span class="material-symbols-outlined text-[22px]">notifications</span><span class="absolute top-2.5 right-2.5 w-2 h-2 rounded-full bg-secondary-container ring-2 ring-surface"></span></button><a class="w-11 h-11 flex items-center justify-center rounded-full ml-space-xs shrink-0" data-path="my-profile" href="#"><img alt="Profile" class="w-8 h-8 rounded-full object-cover shadow-[0_2px_8px_rgba(10,56,44,0.12)]" src="https://lh3.googleusercontent.com/aida/AEtjO1WDOXn8IRfshmSo3KGOqHGQCIhs365PW5XvzxeNen0ePllLMTuN-N4KNQBJxuAgz6QOYdcL0Kl6MeQc99jERJwYVFEwkM7BpvV2War3sQ-cbrFoLED1A9FgbHC_l2hmMTr97lG0KZCU8DOeg-eFhiTOGFnU08FWagSX_nPwQxDfBbUziY3wD6nWmSoUzlmyg3MpM54P48LLmkPBDFd_pyUOUoqdYGILnRzSuWsMm6UFw_hDOyg9wDOiGqY"/></a></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 pb-24 bg-surface"><div class="flex flex-col w-full">
+<div class="px-margin pt-space-xs pb-space-sm">
+<div class="flex items-center justify-between">
+<div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary tracking-tight">Dating &amp; Connections</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Connect with verified Malayalis near you</p>
+</div>
+<div class="flex items-center gap-space-xs">
+<button aria-label="Safety status" class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-primary-container shadow-sm active:scale-95 transition-transform" id="safety-shield-btn">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+</button>
+</div>
+</div>
+<!-- Segmented Mode Control -->
+<div class="mt-space-md p-1 bg-surface-container rounded-full flex items-center shadow-inner">
+<button class="mode-tab flex-1 py-2 px-space-xs text-center rounded-full font-label-md text-label-md bg-surface-container-lowest text-primary shadow-sm transition-all" data-mode="discover">
+        Discover Nearby
+      </button>
+<button class="mode-tab flex-1 py-2 px-space-xs text-center rounded-full font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-all flex items-center justify-center gap-1" data-mode="requests">
+<span>Love Requests</span>
+<span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-secondary-container text-on-secondary text-[11px] font-bold">3</span>
+</button>
+<button class="mode-tab flex-1 py-2 px-space-xs text-center rounded-full font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-all" data-mode="shared">
+        Shared Meetups
+      </button>
+</div>
+<!-- Horizontal Distance & Intent Filters -->
+<div class="flex items-center gap-space-xs overflow-x-auto py-space-sm -mx-margin px-margin no-scrollbar">
+<button class="shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary text-on-primary font-label-sm text-label-sm shadow-sm active:scale-95 transition-all">
+<span class="material-symbols-outlined text-[15px]">near_me</span>
+<span>Within 5 km</span>
+</button>
+<button class="shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm hover:bg-surface-container transition-all active:scale-95">
+<span class="material-symbols-outlined text-[15px] text-secondary-container">favorite</span>
+<span>Open to Dating</span>
+</button>
+<button class="shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm hover:bg-surface-container transition-all active:scale-95">
+<span class="material-symbols-outlined text-[15px] text-primary-container">diamond</span>
+<span>Looking for Relationship</span>
+</button>
+<button class="shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm hover:bg-surface-container transition-all active:scale-95">
+<span class="material-symbols-outlined text-[15px] text-on-tertiary-container">sports_tennis</span>
+<span>Activity Buddy</span>
+</button>
+<button class="shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm hover:bg-surface-container transition-all active:scale-95">
+<span class="material-symbols-outlined text-[15px] text-outline">cottage</span>
+<span>Same Hometown</span>
+</button>
+</div>
+</div>
+<!-- Main Card Stack Area -->
+<div class="px-margin pt-space-xs pb-space-md relative">
+<!-- Featured Dating Profile Card -->
+<div class="relative rounded-3xl bg-surface-container-lowest shadow-[0_12px_36px_-6px_rgba(10,56,44,0.12)] overflow-hidden transition-all duration-300" id="active-profile-card">
+<!-- Profile Hero Imagery -->
+<div class="relative w-full aspect-[4/5] overflow-hidden bg-surface-container-high">
+<img class="w-full h-full object-cover transition-transform duration-500 ease-out" data-alt="Editorial portrait of a warm and smiling 27-year-old South Asian Malayali woman with soft natural sunlight, wearing an elegant ivory kasavu-inspired modern linen top, artistic aesthetic, serene courtyard background with tropical greenery and Kerala architecture, high-end warm film tones, gentle ambient lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBRHDW3zmUqwbRLNW3T74Q4hkAzzJBqz-cDBoxDwbnQl8_MeJtVgI8oW4ki84kQOT2nKVVgnFnevBqwH7Me69-Nt49_jF7mH5yJ2x70l8Dw_ymdNDGa5kmYwEgc1CCPdO8q3PHOjlScDrt-e52QxnEdFXcONB-a65yljHwYuwI8iTp6yNFpF_JOTPximD33aE75y-WGVizF6hYqRkGXjuBqzVbUTD-xXqvUZfhilGi4SWppeDPP0dqd"/>
+<!-- Top Scrim & Floating Trust Overlay -->
+<div class="absolute inset-0 bg-gradient-to-b from-primary/60 via-transparent to-primary/95 pointer-events-none"></div>
+<!-- Top Verification Badges & Quick Stats -->
+<div class="absolute top-4 left-4 right-4 flex items-center justify-between z-10">
+<div class="flex items-center gap-1.5 bg-surface-container-lowest/90 backdrop-blur-md px-3 py-1 rounded-full shadow-sm">
+<span class="material-symbols-outlined text-[16px] text-secondary" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span class="font-label-sm text-label-sm text-on-surface font-semibold">100% ID Verified</span>
+</div>
+<div class="flex items-center gap-1.5 bg-tertiary-fixed/95 backdrop-blur-md px-3 py-1 rounded-full shadow-sm">
+<span class="material-symbols-outlined text-[16px] text-on-tertiary-fixed" style="font-variation-settings: 'FILL' 1;">shield</span>
+<span class="font-label-sm text-label-sm text-on-tertiary-fixed font-bold">3-Peer Vouched</span>
+</div>
+</div>
+<!-- Overlaid Identity Header -->
+<div class="absolute bottom-4 left-4 right-4 text-on-primary z-10">
+<div class="flex items-baseline gap-2">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile font-bold tracking-tight text-on-secondary">Dr. Anjali Menon</h2>
+<span class="font-headline-md text-headline-md text-primary-fixed font-semibold">27</span>
+</div>
+<p class="font-label-md text-label-md text-on-secondary opacity-90 mt-0.5 flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-secondary-container">stethoscope</span>
+<span>Pediatrician &amp; Oil Canvas Painter</span>
+</p>
+<div class="flex items-center gap-3 mt-2 font-label-sm text-label-sm text-primary-fixed">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">location_on</span>
+              Fort Kochi (2.4 km away)
+            </span>
+<span class="w-1 h-1 rounded-full bg-primary-fixed opacity-60"></span>
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">houseboat</span>
+              From Alappuzha
+            </span>
+</div>
+</div>
+</div>
+<!-- Card Editorial Content Stack -->
+<div class="p-space-md flex flex-col gap-space-md bg-surface-container-lowest">
+<!-- Shared Events / Koodam Meetup Connection Indicator -->
+<div class="rounded-2xl p-3 bg-surface-container-low flex items-start gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-container text-on-primary flex items-center justify-center shrink-0 shadow-sm mt-0.5">
+<span class="material-symbols-outlined text-[20px]">hub</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-1">
+<span class="font-label-sm text-label-sm text-primary-container font-bold uppercase tracking-wider">2 Shared Meetups</span>
+<span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface mt-0.5 leading-snug">
+              Both RSVP'd to <span class="font-semibold text-primary">Fort Kochi Sunset Acoustic Jam</span> and <span class="font-semibold text-primary">Kozhikode Food Crawl</span>
+</p>
+</div>
+</div>
+<!-- Prompts & Cultural Nuance -->
+<div class="rounded-2xl p-4 bg-surface-container-low flex flex-col gap-1.5">
+<div class="flex items-center gap-1.5 text-on-tertiary-container">
+<span class="material-symbols-outlined text-[16px]">menu_book</span>
+<span class="font-label-sm text-label-sm font-semibold uppercase tracking-wider">Sunday Morning Ritual</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface italic">
+            "Appam with vegetable stew at Paragon, reading Basheer on the balcony while the sea breeze rolls in."
+          </p>
+</div>
+<div class="rounded-2xl p-4 bg-surface-container-low flex flex-col gap-1.5">
+<div class="flex items-center gap-1.5 text-secondary">
+<span class="material-symbols-outlined text-[16px]">travel_explore</span>
+<span class="font-label-sm text-label-sm font-semibold uppercase tracking-wider">Looking For</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface">
+            Meaningful connection, intentional conversations, and shared weekend adventures around the backwaters.
+          </p>
+</div>
+<!-- Hobby & Passion Tags -->
+<div class="flex flex-col gap-2">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Passions &amp; Vibes</span>
+<div class="flex flex-wrap gap-1.5">
+<span class="px-3 py-1 rounded-full bg-surface-container text-on-surface font-label-sm text-label-sm flex items-center gap-1">
+<span>☕</span> Sulaimani Chai
+            </span>
+<span class="px-3 py-1 rounded-full bg-surface-container text-on-surface font-label-sm text-label-sm flex items-center gap-1">
+<span>🎬</span> Malayalam Indie Cinema
+            </span>
+<span class="px-3 py-1 rounded-full bg-surface-container text-on-surface font-label-sm text-label-sm flex items-center gap-1">
+<span>🏸</span> Badminton
+            </span>
+<span class="px-3 py-1 rounded-full bg-surface-container text-on-surface font-label-sm text-label-sm flex items-center gap-1">
+<span>⛰️</span> Western Ghats Trekking
+            </span>
+</div>
+</div>
+<!-- Peer Vouchers Triad -->
+<div class="flex items-center justify-between pt-1">
+<div class="flex items-center gap-2">
+<div class="flex -space-x-2">
+<img class="w-7 h-7 rounded-full object-cover bg-surface-container" data-alt="Close-up headshot of a friendly young Malayali male architect wearing spectacles and laughing" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBb0gH4MkFTmlQYER7IhT_OSrzLy-kb102PJPMQzoYaMTogaAgqOrUzuFu2g2w47S3Ntml5HvYC9jsD9ImmQ8T9L_OuPhXPaq4uq6c-9egspXO2UYtrMlWwUcO5OQI8Ybn_gU2S8TOvM1L7S-v3JrPtZFc2CaVsriGVe6ZYYuPSv-fQ5lP07XKHYdbRYN3OO1e9kLwcSb8T6svidG9aMjD6ubuzGlCdktwanpcnxKG1xZl0KssCn3il"/>
+<img class="w-7 h-7 rounded-full object-cover bg-surface-container" data-alt="Portrait of an Indian woman in her late 20s smiling outdoors with tropical plants" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJXXeEMYUorkFIs03eNfVR2unnN_PPxLkCORn1qS8iHhKhV6rxLY6cyWbhfQHJwFYuNCwOIP86ZMf1m8M9ltX5781pmtTcDJmUDqQIHw5maUZLpUmc-W-hmLZHx5kk8kH_J9Wv-lhRW2KZBI7yc0TkInozgIRBQg9u3CYpqsi-pYegWljaaKsaogUSfdTF3mELjGw0gC9poD-8WQAifdh5kZxQsYYwaZfBbVq0lkttkbcDA5k8pou6"/>
+<img class="w-7 h-7 rounded-full object-cover bg-surface-container" data-alt="Portrait of a South Asian creative designer smiling gently in a bright cafe" src="https://lh3.googleusercontent.com/aida-public/AB6AXuACwefdbwhd8p8HZm37SZIcPfwxEWIox4Y2FPlnonduIFo8W2ytaesXvYlS3j9iEJ6qMZ3TJYFaeuT0_XT-FK7QT_C_XjENrQemX_VT8PLrmjENmjXHgPpAlPEyy5GFilLzBhskofYH8H11zI0XQxY9jN40nKMIbQwokGouAojHbJWp4gBDZYTEVOWufeh2zC8cJCzfTqZKVGgPQxhYelDzxh16uRIhjm_0YevIE3AOmtoJ4kozrhBj"/>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Vouched by Karthik, Sneha &amp; Roshan</span>
+</div>
+<span class="material-symbols-outlined text-[18px] text-tertiary-fixed-dim">verified_user</span>
+</div>
+</div>
+<!-- Bottom Floating Action Dock (Inside Card Boundary) -->
+<div class="p-4 bg-surface-container-lowest shadow-[0_-6px_20px_rgba(10,56,44,0.04)] flex items-center gap-2">
+<!-- Skip Button -->
+<button aria-label="Skip profile" class="w-12 h-12 rounded-full bg-surface-container-high text-on-surface-variant flex items-center justify-center shrink-0 active:scale-90 transition-transform hover:bg-surface-variant" id="action-skip">
+<span class="material-symbols-outlined text-[24px]">close</span>
+</button>
+<!-- Friendship / Meetup Buddy Connect Pill -->
+<button class="flex-1 h-12 px-3 rounded-full bg-primary-container text-on-primary font-label-md text-label-md flex items-center justify-center gap-1.5 shadow-sm active:scale-95 transition-all" id="action-connect">
+<span class="material-symbols-outlined text-[19px]">handshake</span>
+<span class="truncate">Connect</span>
+</button>
+<!-- Send Love Request Pill -->
+<button class="flex-[1.3] h-12 px-3 rounded-full bg-secondary-container text-on-secondary font-label-md text-label-md flex items-center justify-center gap-1.5 shadow-md active:scale-95 transition-all" id="action-love">
+<span class="material-symbols-outlined text-[19px]" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span class="truncate">Send Love Request</span>
+</button>
+<!-- Super Vouch Sparkle Button -->
+<button aria-label="Super Vouch" class="w-12 h-12 rounded-full bg-tertiary-fixed text-on-tertiary-fixed flex items-center justify-center shrink-0 active:scale-90 transition-transform shadow-sm" id="action-supervouch">
+<span class="material-symbols-outlined text-[22px]" style="font-variation-settings: 'FILL' 1;">bolt</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Note Dialog Modal for Love Request (Micro-interaction) -->
+<div class="hidden fixed inset-0 z-50 px-margin flex items-center justify-center bg-primary/40 backdrop-blur-sm transition-opacity" id="love-dialog">
+<div class="bg-surface-container-lowest w-full max-w-sm rounded-3xl p-5 shadow-2xl flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-secondary-container text-on-secondary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-primary">Send Love Request</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant">To Dr. Anjali Menon</p>
+</div>
+</div>
+<button class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant" id="close-love-dialog">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface">
+        Koodam connections flourish with thoughtful intent. Add an optional note responding to Anjali's profile:
+      </p>
+<div class="bg-surface-container-low rounded-2xl p-3">
+<textarea class="w-full bg-transparent border-none outline-none font-body-sm text-body-sm text-on-surface placeholder:text-outline resize-none" id="love-message" placeholder="e.g. Basheer at Paragon is classic! Would love to chat about favorite books and meet at the sunset acoustic jam..." rows="3"></textarea>
+</div>
+<div class="flex items-center gap-2">
+<button class="flex-1 h-12 rounded-full bg-secondary-container text-on-secondary font-label-md text-label-md flex items-center justify-center gap-2 active:scale-95 transition-all shadow-sm" id="confirm-love-send">
+<span>Send with Note</span>
+<span class="material-symbols-outlined text-[18px]">send</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Secondary Rail: People Attending Same Meetups -->
+<div class="pt-space-md pb-space-lg flex flex-col gap-space-sm">
+<div class="px-margin flex items-center justify-between">
+<div>
+<h3 class="font-headline-sm text-headline-sm text-primary">Attending Same Meetups</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Malayalis who share your upcoming Koodams</p>
+</div>
+<a class="font-label-md text-label-md text-primary-container hover:underline" href="#">View all</a>
+</div>
+<!-- Attendees Horizontal Scrollable Rail -->
+<div class="flex items-center gap-space-md overflow-x-auto px-margin py-2 no-scrollbar">
+<!-- Card 1 -->
+<div class="shrink-0 w-44 rounded-3xl bg-surface-container-lowest shadow-md overflow-hidden flex flex-col">
+<div class="relative w-full h-44 bg-surface-container-high">
+<img class="w-full h-full object-cover" data-alt="Candid photograph of a charismatic 29-year-old Malayali man with curly hair and a warm smile at a coastal cafe in Kochi, wearing an olive linen shirt, soft golden hour sunlight" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAeGX97wA2jT5ieuxoTl-9DMicaH32SpOLg5odD6J4D9-6obszqy68Yo_FRTsiJxUenp-a8HqH7bPnTEiMjIneUBIHpj1PLI-CfQX06E5vC3GuWUYs6d43SidC_PWOlqc1w2Dxd3FD0j379mDuuPEbyTLkGbXlwU6YEOwEWK7WbBPBaw0pxC7tgv6ZO_1X3XosIt6QKfOVswIOO2I1K9gJQIKmNNsmHVPzgGsv1efznxPM1TV9lK-T_"/>
+<div class="absolute top-2 right-2 bg-surface-container-lowest/90 backdrop-blur-md px-2 py-0.5 rounded-full flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[12px] text-tertiary-fixed-dim" style="font-variation-settings: 'FILL' 1;">shield</span>
+<span class="font-label-sm text-label-sm text-on-surface font-bold text-[10px]">Vouched</span>
+</div>
+<div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-primary/80 to-transparent p-2">
+<span class="font-label-sm text-label-sm text-on-secondary font-semibold">Fort Kochi Acoustic</span>
+</div>
+</div>
+<div class="p-3 flex flex-col gap-2">
+<div>
+<h4 class="font-headline-sm text-headline-sm text-primary truncate">Rahul Nair, 29</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant truncate">Product Designer • Palakkad</p>
+</div>
+<button class="w-full py-2 rounded-full bg-surface-container-low text-primary-container font-label-sm text-label-sm font-semibold hover:bg-primary hover:text-on-primary transition-colors flex items-center justify-center gap-1">
+<span class="material-symbols-outlined text-[15px]">person_add</span>
+<span>Say Hi</span>
+</button>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="shrink-0 w-44 rounded-3xl bg-surface-container-lowest shadow-md overflow-hidden flex flex-col">
+<div class="relative w-full h-44 bg-surface-container-high">
+<img class="w-full h-full object-cover" data-alt="Close up portrait of a young South Indian Malayali creative woman laughing with coffee cup, casual stylish outfit, lush tropical indoor greenhouse background, bright daylight" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1H-oMro65VVI7UNZCkrMuhGzw1ewcCpx9-UKg6okjjCw0DaknMmsAWyFelm60liYaoTw6Y64Th3QjPnLgk59ablpAiS5maDe19oiw_VXxXLuaEAWPQd5q0N1b66NiDWwtqLzcLACGcXjtirPpNJy_4F9FyrLUcvwClQ2x-LTcF3onK6x9YqYkqbwtEJukIPJlvh363ZeaQ41K0Yq7JQAtHjbxtEptcBGXoQy5ndW5Ss4XFYuzoRcd"/>
+<div class="absolute top-2 right-2 bg-surface-container-lowest/90 backdrop-blur-md px-2 py-0.5 rounded-full flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[12px] text-secondary" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span class="font-label-sm text-label-sm text-on-surface font-bold text-[10px]">Verified</span>
+</div>
+<div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-primary/80 to-transparent p-2">
+<span class="font-label-sm text-label-sm text-on-secondary font-semibold">Kozhikode Food Crawl</span>
+</div>
+</div>
+<div class="p-3 flex flex-col gap-2">
+<div>
+<h4 class="font-headline-sm text-headline-sm text-primary truncate">Meera V., 26</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant truncate">Architect • Kozhikode</p>
+</div>
+<button class="w-full py-2 rounded-full bg-surface-container-low text-primary-container font-label-sm text-label-sm font-semibold hover:bg-primary hover:text-on-primary transition-colors flex items-center justify-center gap-1">
+<span class="material-symbols-outlined text-[15px]">person_add</span>
+<span>Say Hi</span>
+</button>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="shrink-0 w-44 rounded-3xl bg-surface-container-lowest shadow-md overflow-hidden flex flex-col">
+<div class="relative w-full h-44 bg-surface-container-high">
+<img class="w-full h-full object-cover" data-alt="Cinematic portrait of a smiling Malayali man in his early 30s holding an acoustic guitar in natural daylight, wearing a rust-orange casual shirt, authentic Kerala courtyard background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWbARRBlB2u3F9Ke-aV1XYqZF5VlaiASrGk74MeFo88AtYOGjgYLUfqXr_dsjyAujjYXpNEBuFmuYaB4v7VEGCFE5JlXrdqQYQP8PWEiILLlkRWgLl63v3gRGTCIIXk5UclFh2ti3u78b9gOz6JhUTmMvlIwHfM6SLqMUmR7XzYEBWGUrQgbjrepCpq5M7RlY4HdwDYhlMnXANnb-X_EkQ2_UezgEOdio5ntfHVhz50evYjwkYQXW7"/>
+<div class="absolute top-2 right-2 bg-surface-container-lowest/90 backdrop-blur-md px-2 py-0.5 rounded-full flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[12px] text-tertiary-fixed-dim" style="font-variation-settings: 'FILL' 1;">shield</span>
+<span class="font-label-sm text-label-sm text-on-surface font-bold text-[10px]">Vouched</span>
+</div>
+<div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-primary/80 to-transparent p-2">
+<span class="font-label-sm text-label-sm text-on-secondary font-semibold">Fort Kochi Acoustic</span>
+</div>
+</div>
+<div class="p-3 flex flex-col gap-2">
+<div>
+<h4 class="font-headline-sm text-headline-sm text-primary truncate">Aravind S., 30</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant truncate">Musician &amp; Writer • Thrissur</p>
+</div>
+<button class="w-full py-2 rounded-full bg-surface-container-low text-primary-container font-label-sm text-label-sm font-semibold hover:bg-primary hover:text-on-primary transition-colors flex items-center justify-center gap-1">
+<span class="material-symbols-outlined text-[15px]">person_add</span>
+<span>Say Hi</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Privacy & Safety Assurance Banner -->
+<div class="px-margin pb-space-lg">
+<div class="rounded-3xl bg-surface-container-low p-4 flex items-center gap-3.5 shadow-sm">
+<div class="w-11 h-11 rounded-2xl bg-surface-container-highest text-primary-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[24px]">visibility_off</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-label-sm text-label-sm font-bold text-primary">Ghost Mode Active</span>
+<span class="inline-block w-2 h-2 rounded-full bg-primary-container animate-pulse"></span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5 leading-snug">
+          Your exact GPS home location is strictly private. Other members only see an approximate ~800m neighborhood radius.
+        </p>
+</div>
+</div>
+</div>
+<!-- Toast Notification Feedback -->
+<div class="fixed bottom-24 left-1/2 -translate-x-1/2 px-4 py-2 rounded-full bg-primary text-on-primary font-label-md text-label-md shadow-xl transition-all duration-300 opacity-0 pointer-events-none z-50 flex items-center gap-2" id="toast-message">
+<span class="material-symbols-outlined text-[18px] text-secondary-container" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span id="toast-text">Love Request Sent!</span>
+</div>
+</div>
+<script>
+  (function() {
+    const loveBtn = document.getElementById('action-love');
+    const loveDialog = document.getElementById('love-dialog');
+    const closeDialogBtn = document.getElementById('close-love-dialog');
+    const confirmSendBtn = document.getElementById('confirm-love-send');
+    const skipBtn = document.getElementById('action-skip');
+    const connectBtn = document.getElementById('action-connect');
+    const supervouchBtn = document.getElementById('action-supervouch');
+    const toast = document.getElementById('toast-message');
+    const toastText = document.getElementById('toast-text');
+    const card = document.getElementById('active-profile-card');
+
+    function showToast(msg, iconName = 'check_circle') {
+      toastText.textContent = msg;
+      toast.classList.remove('opacity-0', 'pointer-events-none');
+      toast.classList.add('opacity-100');
+      setTimeout(() => {
+        toast.classList.remove('opacity-100');
+        toast.classList.add('opacity-0', 'pointer-events-none');
+      }, 2500);
+    }
+
+    if (loveBtn && loveDialog) {
+      loveBtn.addEventListener('click', () => {
+        loveDialog.classList.remove('hidden');
+      });
+    }
+
+    if (closeDialogBtn && loveDialog) {
+      closeDialogBtn.addEventListener('click', () => {
+        loveDialog.classList.add('hidden');
+      });
+    }
+
+    if (confirmSendBtn && loveDialog) {
+      confirmSendBtn.addEventListener('click', () => {
+        loveDialog.classList.add('hidden');
+        showToast('Love Request sent to Dr. Anjali with your note ❤️');
+      });
+    }
+
+    if (connectBtn) {
+      connectBtn.addEventListener('click', () => {
+        showToast('Meetup Buddy invitation sent to Anjali! 🤝');
+      });
+    }
+
+    if (supervouchBtn) {
+      supervouchBtn.addEventListener('click', () => {
+        showToast('You sent a Super Vouch! ⚡ Anjali notified instantly');
+      });
+    }
+
+    if (skipBtn && card) {
+      skipBtn.addEventListener('click', () => {
+        card.style.transform = 'translateX(-30px) rotate(-4deg)';
+        card.style.opacity = '0.5';
+        setTimeout(() => {
+          card.style.transform = 'translateX(0) rotate(0)';
+          card.style.opacity = '1';
+          showToast('Finding next nearby connection...');
+        }, 300);
+      });
+    }
+
+    // Segmented Mode tabs interaction
+    const modeTabs = document.querySelectorAll('.mode-tab');
+    modeTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        modeTabs.forEach(t => {
+          t.classList.remove('bg-surface-container-lowest', 'text-primary', 'shadow-sm');
+          t.classList.add('text-on-surface-variant');
+        });
+        tab.classList.add('bg-surface-container-lowest', 'text-primary', 'shadow-sm');
+        tab.classList.remove('text-on-surface-variant');
+        const mode = tab.getAttribute('data-mode');
+        if (mode === 'requests') {
+          showToast('Loading 3 pending Love Requests');
+        } else if (mode === 'shared') {
+          showToast('Filtering for shared Koodam attendees');
+        }
+      });
+    });
+  })();
+</script></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface/90 backdrop-blur-xl shadow-[0_-4px_24px_rgba(10,56,44,0.06)]" data-active-classes="text-primary-container font-headline-sm scale-105"><div class="flex justify-around items-center h-20 px-space-xs"><a class="flex flex-col items-center justify-center gap-1 min-w-[56px] h-12 rounded-full text-outline hover:text-on-surface transition-transform duration-200" data-path="explore" href="#"><span class="material-symbols-outlined text-[24px]">explore</span><span class="font-label-sm text-label-sm leading-none">Explore</span></a><a class="flex flex-col items-center justify-center gap-1 min-w-[56px] h-12 rounded-full text-outline hover:text-on-surface transition-transform duration-200" data-path="radar-map" href="#"><span class="material-symbols-outlined text-[24px]">radar</span><span class="font-label-sm text-label-sm leading-none">Map</span></a><a aria-current="page" class="flex flex-col items-center justify-center gap-1 min-w-[56px] h-12 rounded-full transition-transform duration-200 text-primary-container font-headline-sm scale-105" data-path="dating-sparks" href="#"><span class="material-symbols-outlined text-[24px]">favorite</span><span class="font-label-sm text-label-sm leading-none">Dating</span></a><a class="flex flex-col items-center justify-center gap-1 min-w-[56px] h-12 rounded-full text-outline hover:text-on-surface transition-transform duration-200" data-path="events-and-koodams" href="#"><span class="material-symbols-outlined text-[24px]">local_activity</span><span class="font-label-sm text-label-sm leading-none">Events</span></a><a class="flex flex-col items-center justify-center gap-1 min-w-[56px] h-12 rounded-full text-outline hover:text-on-surface transition-transform duration-200" data-path="chats-and-circles" href="#"><span class="material-symbols-outlined text-[24px]">forum</span><span class="font-label-sm text-label-sm leading-none">Chats</span></a></div></nav></body></html>

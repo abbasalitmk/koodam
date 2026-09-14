@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+
+<html class="h-full bg-surface" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><title>Koodam</title><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,600;0,700;0,800;1,400&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "background": "#f5fbf7", "surface-container-lowest": "#ffffff", "on-primary-fixed": "#002118", "surface-container-low": "#eff5f1", "surface-dim": "#d5dbd8", "on-error": "#ffffff", "primary": "#002118", "secondary-fixed-dim": "#ffb3b0", "surface": "#f5fbf7", "surface-container": "#e9efeb", "on-error-container": "#93000a", "on-tertiary": "#ffffff", "outline-variant": "#c0c8c3", "tertiary-container": "#482b00", "tertiary-fixed": "#ffddb8", "secondary-fixed": "#ffdad8", "surface-variant": "#dee4e0", "on-tertiary-container": "#d68800", "on-secondary-container": "#60000e", "on-primary-container": "#77a292", "on-surface": "#171d1b", "inverse-on-surface": "#ecf2ee", "secondary": "#b52330", "on-tertiary-fixed-variant": "#653e00", "surface-tint": "#3c6658", "tertiary": "#2c1800", "tertiary-fixed-dim": "#ffb95f", "on-primary-fixed-variant": "#244e41", "inverse-surface": "#2c322f", "primary-fixed": "#bfecda", "surface-container-high": "#e4eae6", "on-primary": "#ffffff", "on-background": "#171d1b", "on-surface-variant": "#414845", "error-container": "#ffdad6", "on-secondary-fixed-variant": "#92001b", "inverse-primary": "#a3d0bf", "on-tertiary-fixed": "#2a1700", "primary-fixed-dim": "#a3d0bf", "primary-container": "#0a382c", "on-secondary": "#ffffff", "outline": "#717975", "on-secondary-fixed": "#410007", "secondary-container": "#ff5a5f", "error": "#ba1a1a", "surface-container-highest": "#dee4e0", "surface-bright": "#f5fbf7" }, "borderRadius": { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" }, "spacing": { "space-lg": "1.5rem", "gutter": "1rem", "space-xl": "2.25rem", "space-xs": "0.25rem", "space-md": "1rem", "margin": "1.25rem", "space-sm": "0.5rem" }, "fontFamily": { "body-sm": ["Plus Jakarta Sans"], "label-sm": ["Plus Jakarta Sans"], "label-lg": ["Plus Jakarta Sans"], "display-hero-mobile": ["Plus Jakarta Sans"], "label-md": ["Plus Jakarta Sans"], "headline-sm": ["Plus Jakarta Sans"], "body-md": ["Plus Jakarta Sans"], "headline-lg": ["Plus Jakarta Sans"], "display-hero": ["Plus Jakarta Sans"], "body-lg": ["Plus Jakarta Sans"], "headline-lg-mobile": ["Plus Jakarta Sans"], "headline-md": ["Plus Jakarta Sans"] }, "fontSize": { "body-sm": ["13px", { "lineHeight": "18px", "letterSpacing": "0.005em", "fontWeight": "400" }], "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "700" }], "label-lg": ["15px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }], "display-hero-mobile": ["34px", { "lineHeight": "40px", "letterSpacing": "-0.025em", "fontWeight": "800" }], "label-md": ["13px", { "lineHeight": "16px", "letterSpacing": "0.015em", "fontWeight": "600" }], "headline-sm": ["18px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "600" }], "body-md": ["15px", { "lineHeight": "22px", "letterSpacing": "0em", "fontWeight": "400" }], "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "display-hero": ["44px", { "lineHeight": "52px", "letterSpacing": "-0.03em", "fontWeight": "800" }], "body-lg": ["17px", { "lineHeight": "26px", "letterSpacing": "-0.005em", "fontWeight": "400" }], "headline-lg-mobile": ["26px", { "lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "700" }], "headline-md": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" }] } } } }</script><style>@layer base { html, body { width: 100%; margin: 0; padding: 0; } .pb-safe { padding-bottom: env(safe-area-inset-bottom, 0px); } .pt-safe { padding-top: env(safe-area-inset-top, 0px); } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } } ::-webkit-scrollbar { display: none; }</style></head><body class="bg-surface text-on-surface font-body-md text-body-md antialiased min-h-full flex flex-col"><header class="fixed top-0 w-full z-50 pt-safe bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.03)]"><div class="h-20 px-margin flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0"><img alt="Koodam App Icon Mark" class="h-8 w-auto object-contain shrink-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCO8RPsScKqxlCWWGvxjgy8Ch6bg0Fsnr6wFJDkqPdIUf8lqE4iqysM89lPd7oN7CGUuHC63LcJfa1Ik3qEEe3dYyDm0UUtmmuGCb23V_VCAzM_FilDlupTBpmvORkyxa-daj034U-D4sKAVGD7szJjQiWfUD28WDrQUr8aKAUu1XqSSDOZYp56svRFp_7jwwm-BgpXoWTP3almzdhTQRsiR455fUHBexE5th2_-_AJpRT8dAGd3f1u"/><div class="flex flex-col min-w-0"><div class="flex items-baseline gap-1.5 leading-none"><span class="font-headline-sm text-headline-sm text-primary tracking-tight font-extrabold">Koodam</span><span class="font-label-sm text-label-sm text-on-surface-variant font-medium opacity-80">കൂടം</span></div><button class="flex items-center gap-1 mt-1 px-2 py-0.5 rounded-full bg-surface-container-low text-on-surface-variant hover:text-on-surface text-left max-w-[140px] truncate"><span class="material-symbols-outlined text-[14px] text-secondary">location_on</span><span class="font-label-sm text-label-sm truncate">Kozhikode, KL</span><span class="material-symbols-outlined text-[14px] opacity-70">expand_more</span></button></div></div><div class="flex items-center gap-1.5 shrink-0"><button class="w-11 h-11 flex items-center justify-center rounded-full bg-surface-container-lowest text-on-surface-variant hover:text-on-surface shadow-[0_2px_8px_-2px_rgba(10,56,44,0.06)]"><span class="material-symbols-outlined text-[20px]">search</span></button><button class="relative w-11 h-11 flex items-center justify-center rounded-full bg-surface-container-lowest text-on-surface-variant hover:text-on-surface shadow-[0_2px_8px_-2px_rgba(10,56,44,0.06)]"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-2 right-2 w-2 h-2 rounded-full bg-secondary-container ring-2 ring-surface-container-lowest"></span></button><a class="w-11 h-11 flex items-center justify-center rounded-full shrink-0" data-path="profile" href="#"><img alt="Profile" class="w-8 h-8 rounded-full object-cover shadow-[0_2px_6px_rgba(0,0,0,0.08)]" src="https://lh3.googleusercontent.com/aida/AEtjO1WDOXn8IRfshmSo3KGOqHGQCIhs365PW5XvzxeNen0ePllLMTuN-N4KNQBJxuAgz6QOYdcL0Kl6MeQc99jERJwYVFEwkM7BpvV2War3sQ-cbrFoLED1A9FgbHC_l2hmMTr97lG0KZCU8DOeg-eFhiTOGFnU08FWagSX_nPwQxDfBbUziY3wD6nWmSoUzlmyg3MpM54P48LLmkPBDFd_pyUOUoqdYGILnRzSuWsMm6UFw_hDOyg9wDOiGqY"/></a></div></div></header><main class="flex-1 flex flex-col relative w-full pt-20 pb-28 bg-surface"><div class="flex flex-col w-full px-margin space-y-space-lg pb-10">
+<!-- Micro Welcoming Banner & Location Context -->
+<section class="flex flex-col space-y-space-xs pt-2">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container-lowest shadow-sm text-primary">
+<span class="material-symbols-outlined text-[16px] text-secondary">explore_nearby</span>
+<span class="font-label-md text-label-md">Malabar Hub Active</span>
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-container px-2.5 py-1 rounded-full">340+ Active Today</span>
+</div>
+<div class="pt-1">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-primary tracking-tight font-extrabold">
+        Namaskaram, Devika! <span class="text-tertiary-container font-normal">✨</span>
+</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">
+        Discover events, people, and genuine connections around Malabar &amp; beyond.
+      </p>
+</div>
+</section>
+<!-- Interactive District Selector Modal Anchor / Pill Bar -->
+<section class="flex items-center justify-between p-3 rounded-2xl bg-surface-container-lowest shadow-sm">
+<button class="flex items-center gap-2 text-left group" id="districtTrigger">
+<div class="w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">near_me</span>
+</div>
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant block uppercase tracking-wider">Browsing Near</span>
+<span class="font-headline-sm text-headline-sm text-primary flex items-center gap-1">
+          Kozhikode Beach, KL
+          <span class="material-symbols-outlined text-[16px] text-on-surface-variant group-hover:translate-y-0.5 transition-transform">expand_more</span>
+</span>
+</div>
+</button>
+<div class="flex items-center gap-1">
+<button class="px-3 py-1.5 rounded-full bg-surface-container text-on-surface font-label-sm text-label-sm hover:bg-surface-variant transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">tune</span> Filter
+      </button>
+</div>
+</section>
+<!-- Quick Filter Chip Rail -->
+<section class="-mx-margin px-margin overflow-x-auto no-scrollbar flex items-center gap-2 py-1">
+<button class="shrink-0 px-4 py-2.5 rounded-full bg-primary-container text-on-primary font-label-md text-label-md shadow-sm flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">arrow_back_ios_new</span> All Feed
+    </button>
+<button class="shrink-0 px-4 py-2.5 rounded-full bg-surface-container-lowest text-on-surface font-label-md text-label-md shadow-sm hover:bg-surface-container transition-colors flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-secondary">nightlife</span> Tonight
+    </button>
+<button class="shrink-0 px-4 py-2.5 rounded-full bg-surface-container-lowest text-on-surface font-label-md text-label-md shadow-sm hover:bg-surface-container transition-colors flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">calendar_today</span> This Weekend
+    </button>
+<button class="shrink-0 px-4 py-2.5 rounded-full bg-surface-container-lowest text-on-surface font-label-md text-label-md shadow-sm hover:bg-surface-container transition-colors flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-amber-500">verified_user</span> Women-Only Groups
+    </button>
+<button class="shrink-0 px-4 py-2.5 rounded-full bg-surface-container-lowest text-on-surface font-label-md text-label-md shadow-sm hover:bg-surface-container transition-colors">
+      Free Entry
+    </button>
+<button class="shrink-0 px-4 py-2.5 rounded-full bg-surface-container-lowest text-on-surface font-label-md text-label-md shadow-sm hover:bg-surface-container transition-colors flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-amber-700">local_cafe</span> Cafe Hangouts
+    </button>
+</section>
+<!-- Section 1: Sticky Event Radar Carousel -->
+<section class="flex flex-col space-y-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-secondary-container"></span>
+<h3 class="font-headline-md text-headline-md text-primary font-bold">Event Radar</h3>
+</div>
+<a class="font-label-md text-label-md text-secondary hover:underline flex items-center gap-0.5" href="#">
+        Explore 14 more <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</a>
+</div>
+<div class="-mx-margin px-margin flex overflow-x-auto gap-space-md pb-2 no-scrollbar snap-x snap-mandatory">
+<!-- Card 1: Kozhikode Sunset Food Crawl -->
+<article class="shrink-0 w-[86vw] max-w-[340px] rounded-3xl bg-surface-container-lowest shadow-md overflow-hidden flex flex-col snap-start relative">
+<div class="relative h-44 w-full overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A lively evening gathering on Kozhikode Beach at Gujarati Street with warm sunset golden hour light, Malayali youths laughing over hot Sulaimani tea and halwa, intimate documentary photography with film grain and coastal ocean backdrop." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnd85elYeTFtGvR74MILlYAIRAX39w3PYgEQpUqtupud_-0YgRlMfUOPOw0ixBdZHf6RLk4JmJHvDsKIN6tmdQDAYp3iEwzwCGbvDtF0WMM4jUExsCki2H3aUYrsisVjpJF75SidWyaRdrvHOGcUldqs8Azx8E9zfCzGQeMHw2XHM55IUgUS2efriKHvIirsjtFA3ps96KMUsXxqx6K2LVwIpPFDi8apNYY235zh5Hu6EoOkYnhKuP"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/30 to-transparent"></div>
+<!-- Top Tag Pills -->
+<div class="absolute top-3 left-3 right-3 flex items-center justify-between">
+<span class="px-2.5 py-1 rounded-full bg-amber-500/90 backdrop-blur-md text-white font-label-sm text-label-sm flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[13px]">shield</span> 3/3 Community Verified
+            </span>
+<span class="px-2.5 py-1 rounded-full bg-surface-container-lowest/90 backdrop-blur-md text-primary font-label-sm text-label-sm shadow-sm font-bold">
+              Featured
+            </span>
+</div>
+<!-- Bottom Card Imagery Info -->
+<div class="absolute bottom-3 left-3 right-3 flex items-end justify-between text-on-primary">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-primary-fixed uppercase tracking-wider">Gujarati Street / Beach</span>
+<span class="font-label-md text-label-md flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px]">distance</span> 2.8 km away
+              </span>
+</div>
+<span class="px-2.5 py-1 rounded-full bg-emerald-600 text-white font-label-sm text-label-sm font-bold">
+              FREE Entry
+            </span>
+</div>
+</div>
+<div class="p-space-md flex flex-col justify-between flex-1 space-y-space-md">
+<div class="space-y-1.5">
+<div class="flex items-center gap-2 text-on-surface-variant font-label-sm text-label-sm">
+<span class="flex items-center gap-1 text-secondary font-semibold">
+<span class="material-symbols-outlined text-[15px]">schedule</span> Tomorrow · 5:30 PM
+              </span>
+<span>•</span>
+<span>2 hours casual walk</span>
+</div>
+<h4 class="font-headline-sm text-headline-sm text-primary font-bold line-clamp-1">
+              Kozhikode Sunset Food Crawl &amp; Indie Jam
+            </h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">
+              Bite into crispy Kallummakkaya, sip fragrant Sulaimani, and enjoy open-mic unplugged Malayalam melodies by the pier.
+            </p>
+</div>
+<div class="pt-2 flex items-center justify-between">
+<!-- Attendee Avatars -->
+<div class="flex items-center">
+<div class="flex -space-x-2 overflow-hidden">
+<img class="inline-block h-7 w-7 rounded-full object-cover" data-alt="Close-up portrait of a young Malayali man smiling warmly in a linen shirt." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAz0pNh4Fp8m6LmezIjtNrmld-ITLEOjF9-qd4wDzTzIXbTea_wnqSKML_bqLny0h-BPd3C81SrYCUnqZivgMZ7L6pt_GNofh0aIAa8RBTTXP5ksRXcSu2S2U5mnaNTGgxym2FSTO3sGFvXlC-Va8OC0r2skBH0nXEaFf28bpIMTd3lJ5lF4Wy6LwVvMVM7bkoYTSqNLPAv0U91AqowfWkG-gaid494fAVutxgMX0CTauMSfYU6TyQw"/>
+<img class="inline-block h-7 w-7 rounded-full object-cover" data-alt="Portrait of a South Indian young woman with curly hair and earrings smiling candidly." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7wEpeoYuoNnuD0P1XjLRc0yBTeauRIPUNf0dSEMSPqb6DWtUHex6SaVyDI3dyU3Vw4RHgXayqqY_CJtCylVpGRaPT6byD20DgVLPFI8KafeUvRWczC-K9ewiN9ljLIiM6ZpXaco4MhlopovrYcQ-fnmi_7Wmwt4gQzWiwOURROTarmZ4uXjgWgOApZ0chfsEErHvRUuQjN6-40WCTZ0Z4iUn-jPNpeh4j5JpoNcnnPs16Yovlgo4F"/>
+<img class="inline-block h-7 w-7 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1WDOXn8IRfshmSo3KGOqHGQCIhs365PW5XvzxeNen0ePllLMTuN-N4KNQBJxuAgz6QOYdcL0Kl6MeQc99jERJwYVFEwkM7BpvV2War3sQ-cbrFoLED1A9FgbHC_l2hmMTr97lG0KZCU8DOeg-eFhiTOGFnU08FWagSX_nPwQxDfBbUziY3wD6nWmSoUzlmyg3MpM54P48LLmkPBDFd_pyUOUoqdYGILnRzSuWsMm6UFw_hDOyg9wDOiGqY"/>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant ml-2.5 font-bold">+28 going</span>
+</div>
+<button class="px-4 py-2 rounded-full bg-primary-container text-on-primary font-label-md text-label-md hover:bg-primary transition-transform active:scale-95">
+              RSVP Pass
+            </button>
+</div>
+</div>
+</article>
+<!-- Card 2: Wayanad Monsoon Camp & Trek -->
+<article class="shrink-0 w-[86vw] max-w-[340px] rounded-3xl bg-surface-container-lowest shadow-md overflow-hidden flex flex-col snap-start relative">
+<div class="relative h-44 w-full overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Misty tea gardens and green mountain ridges in Wayanad Kerala during early morning fog, warm golden camp lanterns, backpackers gathering together in nature." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_GW8JeTY9-gJKaxnuY62pYjv04Xfs1qc35z2jA6a8oxYxDIFV32FO9bD7ESliCfxx7SbnkoPD0bvlVQa-e-R6soN-Lif3747MM8CllhGhy7O8IpMcSfpnrFw2pGBNG_qD15tc4h1TBKl56ui8y0Dw7P9ZNefx1jZdeUU7b9_J0T5qyYuW6MG-SQSFaoenlYZg5-MYHGacy3_ROPW6BHCJUKfOX65M8j5LL07RrSslHvfSNsPQYOAv"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/30 to-transparent"></div>
+<div class="absolute top-3 left-3 right-3 flex items-center justify-between">
+<span class="px-2.5 py-1 rounded-full bg-emerald-800/90 backdrop-blur-md text-white font-label-sm text-label-sm flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[13px]">verified</span> Verified Group
+            </span>
+<span class="px-2.5 py-1 rounded-full bg-surface-container-lowest/90 backdrop-blur-md text-primary font-label-sm text-label-sm shadow-sm font-bold">
+              Weekend Camp
+            </span>
+</div>
+<div class="absolute bottom-3 left-3 right-3 flex items-end justify-between text-on-primary">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-primary-fixed uppercase tracking-wider">Chembra Foothills</span>
+<span class="font-label-md text-label-md flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px]">terrain</span> 68 km from Calicut
+              </span>
+</div>
+<span class="px-2.5 py-1 rounded-full bg-surface-container-lowest text-primary font-label-sm text-label-sm font-bold">
+              ₹850 / person
+            </span>
+</div>
+</div>
+<div class="p-space-md flex flex-col justify-between flex-1 space-y-space-md">
+<div class="space-y-1.5">
+<div class="flex items-center gap-2 text-on-surface-variant font-label-sm text-label-sm">
+<span class="flex items-center gap-1 text-primary font-semibold">
+<span class="material-symbols-outlined text-[15px]">event</span> Sat, 6:00 AM Departure
+              </span>
+<span>•</span>
+<span>2 Days 1 Night</span>
+</div>
+<h4 class="font-headline-sm text-headline-sm text-primary font-bold line-clamp-1">
+              Wayanad Monsoon Camp &amp; Rainforest Trek
+            </h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">
+              Gentle guided hike, bonfire acoustic sessions, and tent stays amidst the lush western ghats cloudline.
+            </p>
+</div>
+<div class="pt-2 flex items-center justify-between">
+<div class="flex items-center">
+<div class="flex -space-x-2 overflow-hidden">
+<img class="inline-block h-7 w-7 rounded-full object-cover" data-alt="Portrait of a trekker outdoors in Kerala nature smiling warmly." src="https://lh3.googleusercontent.com/aida-public/AB6AXuADA0klOm0-pwiLO8RRr21-NFGtuYPv5I8AWqqvV2b4VumNkuLsQLIhPsQUuGVpPY5F1UMY--9KnN1VzFRD6axPcXiFvnN02QTL811NeUoUIJZeGTgfJ6UCzbVbHseYFkilcpq_2tqi-5sPm6N--c829wsBjrrZRaBZBeyouse4XA-Wzo80dNg6lItB_OOohCu-qr8uhKNXOLt02TNEUQOaksf7Ad3HOX_Ague6UrPAgtckhwwW3zfT"/>
+<img class="inline-block h-7 w-7 rounded-full object-cover" data-alt="Portrait of an enthusiastic hiker with green scenery background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBSWbwcj2o3yOuX1w3OffgmZMGPFZ6XkhEZG3yzRPYIhK2GnJLJYT7_XZAA5JX7x9vBJmKsDBUuO0Z3U-xR_5C9ioxe0uPrhsomdqMJ7H58cFK-i9MXWF0E_lHCDAt1JPpRrW09BWgOzZw1tL04auR4wyFeuM_W7JCdAj503J1lkMu-8cyBTxq-yDyusM8KOQWP7t1cU-j_Pp0229Kcd5rg9VJw11jXKdsMdC6wwy8XdER5pF-og1_p"/>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant ml-2.5 font-bold">14 / 20 booked</span>
+</div>
+<button class="px-4 py-2 rounded-full bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-variant transition-colors">
+              View Itinerary
+            </button>
+</div>
+</div>
+</article>
+</div>
+</section>
+<!-- Section 2: People Near You (Ghost Privacy Guard & Double Intent) -->
+<section class="flex flex-col space-y-space-md">
+<div class="flex items-center justify-between">
+<div>
+<div class="flex items-center gap-1.5">
+<h3 class="font-headline-md text-headline-md text-primary font-bold">People in Your Circle</h3>
+<span class="material-symbols-outlined text-[18px] text-amber-600" title="Vouched Profiles">verified</span>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">
+          Protected with Ghost Privacy Guard • Location randomized by ~500m
+        </p>
+</div>
+<a class="font-label-md text-label-md text-secondary hover:underline" href="#">
+        Discover
+      </a>
+</div>
+<div class="-mx-margin px-margin flex overflow-x-auto gap-space-md pb-2 no-scrollbar snap-x snap-mandatory">
+<!-- Person 1: Devika S. -->
+<div class="shrink-0 w-64 rounded-3xl bg-surface-container-lowest shadow-md overflow-hidden flex flex-col snap-start">
+<div class="relative h-64 w-full">
+<img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1WDOXn8IRfshmSo3KGOqHGQCIhs365PW5XvzxeNen0ePllLMTuN-N4KNQBJxuAgz6QOYdcL0Kl6MeQc99jERJwYVFEwkM7BpvV2War3sQ-cbrFoLED1A9FgbHC_l2hmMTr97lG0KZCU8DOeg-eFhiTOGFnU08FWagSX_nPwQxDfBbUziY3wD6nWmSoUzlmyg3MpM54P48LLmkPBDFd_pyUOUoqdYGILnRzSuWsMm6UFw_hDOyg9wDOiGqY"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent"></div>
+<div class="absolute top-2.5 right-2.5 px-2 py-1 rounded-full bg-surface-container-lowest/80 backdrop-blur-md text-emerald-800 font-label-sm text-label-sm flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[13px]">shield_person</span> 3 Vouched
+          </div>
+<div class="absolute bottom-3 left-3 right-3 text-white">
+<div class="flex items-center gap-1">
+<span class="font-headline-sm text-headline-sm font-bold">Devika S., 26</span>
+<span class="material-symbols-outlined text-[16px] text-emerald-400">check_circle</span>
+</div>
+<p class="font-body-sm text-body-sm text-white/90">Architect · Thrissur roots</p>
+<span class="font-label-sm text-label-sm text-white/75 flex items-center gap-0.5 mt-0.5">
+<span class="material-symbols-outlined text-[13px]">near_me</span> 3.2 km away
+            </span>
+</div>
+</div>
+<div class="p-3.5 flex flex-col space-y-3">
+<div class="flex flex-wrap gap-1.5">
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm">
+              Heritage &amp; Chai
+            </span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm">
+              Sketching
+            </span>
+</div>
+<div class="grid grid-cols-2 gap-2 pt-1">
+<button class="flex items-center justify-center gap-1 py-2 px-2.5 rounded-full bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-variant transition-transform active:scale-95">
+<span class="material-symbols-outlined text-[16px] text-primary">handshake</span> Connect
+            </button>
+<button class="flex items-center justify-center gap-1 py-2 px-2.5 rounded-full bg-secondary-container text-on-secondary font-label-md text-label-md hover:opacity-90 shadow-sm transition-transform active:scale-95">
+<span class="material-symbols-outlined text-[16px]">favorite</span> Love
+            </button>
+</div>
+</div>
+</div>
+<!-- Person 2: Rahul M. -->
+<div class="shrink-0 w-64 rounded-3xl bg-surface-container-lowest shadow-md overflow-hidden flex flex-col snap-start">
+<div class="relative h-64 w-full">
+<img class="w-full h-full object-cover" data-alt="Portrait of a handsome 27-year-old Malayali man with styled beard wearing a dark olive casual shirt, warm candid golden hour sunlight in Kozhikode cafe, relaxed smile." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBSTGDIgpdxYquYl0I3OGiFFFWsMsRcQ0arJCa_8htJSqPhWGmJbL1pMBm5qTri_hQhLogsAYRzMqGIZYCPnzdECkj_tH921Zm9pmKUWA03TjR-nEG7sHiUIcpLZDV3jPAjdTaOWH-MGhUVI5Xgs63aE1UEhvVv7aO8eS9hnHnCNsTAF7zoMZ4QD2UlVpK6I75DkC7SE1XrvPnONbzEpnPCBUBJLjvuOyYrCMKHbBPwIZzyr0aWH4JB"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent"></div>
+<div class="absolute top-2.5 right-2.5 px-2 py-1 rounded-full bg-surface-container-lowest/80 backdrop-blur-md text-emerald-800 font-label-sm text-label-sm flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[13px]">shield_person</span> 4 Vouched
+          </div>
+<div class="absolute bottom-3 left-3 right-3 text-white">
+<div class="flex items-center gap-1">
+<span class="font-headline-sm text-headline-sm font-bold">Rahul M., 27</span>
+<span class="material-symbols-outlined text-[16px] text-emerald-400">check_circle</span>
+</div>
+<p class="font-body-sm text-body-sm text-white/90">Software Dev · Calicut native</p>
+<span class="font-label-sm text-label-sm text-white/75 flex items-center gap-0.5 mt-0.5">
+<span class="material-symbols-outlined text-[13px]">near_me</span> 1.8 km away
+            </span>
+</div>
+</div>
+<div class="p-3.5 flex flex-col space-y-3">
+<div class="flex flex-wrap gap-1.5">
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm">
+              Football &amp; Turf
+            </span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm">
+              Indie Cinema
+            </span>
+</div>
+<div class="grid grid-cols-2 gap-2 pt-1">
+<button class="flex items-center justify-center gap-1 py-2 px-2.5 rounded-full bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-variant transition-transform active:scale-95">
+<span class="material-symbols-outlined text-[16px] text-primary">handshake</span> Connect
+            </button>
+<button class="flex items-center justify-center gap-1 py-2 px-2.5 rounded-full bg-secondary-container text-on-secondary font-label-md text-label-md hover:opacity-90 shadow-sm transition-transform active:scale-95">
+<span class="material-symbols-outlined text-[16px]">favorite</span> Love
+            </button>
+</div>
+</div>
+</div>
+<!-- Person 3: Anjali Menon -->
+<div class="shrink-0 w-64 rounded-3xl bg-surface-container-lowest shadow-md overflow-hidden flex flex-col snap-start">
+<div class="relative h-64 w-full">
+<img class="w-full h-full object-cover" data-alt="Portrait of a graceful smiling Malayali doctor woman in casual linen blazer with natural soft sunlight, aesthetic warm Kerala urban cafe setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPTvaEC-k5lZLvUuz1cHq5eDUn83ql1TxKQUu70EwIZ4edk22yefblZtbtLnqN8xxHasNh42wQGmMelz_Vm0iTSe4CQIQq_-gF-UFr8c-RYsJHrewZoLcv5tTrkoriUJoAa_o-O6_6uoZamshDMe21OWP8HKA_pVWsJ9yJpkOb4aFtmlHfSP8lmcyEuFFPDgxEtHB_-X1anzcV9bRLY2Y9cEiV0M8fiVvQyq3MQ2jJw895gfVUjPD6"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent"></div>
+<div class="absolute top-2.5 right-2.5 px-2 py-1 rounded-full bg-surface-container-lowest/80 backdrop-blur-md text-emerald-800 font-label-sm text-label-sm flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[13px]">shield_person</span> 5 Vouched
+          </div>
+<div class="absolute bottom-3 left-3 right-3 text-white">
+<div class="flex items-center gap-1">
+<span class="font-headline-sm text-headline-sm font-bold">Anjali Menon, 27</span>
+<span class="material-symbols-outlined text-[16px] text-emerald-400">check_circle</span>
+</div>
+<p class="font-body-sm text-body-sm text-white/90">Pediatrician · Fort Kochi</p>
+<span class="font-label-sm text-label-sm text-white/75 flex items-center gap-0.5 mt-0.5">
+<span class="material-symbols-outlined text-[13px]">near_me</span> Visiting Calicut
+            </span>
+</div>
+</div>
+<div class="p-3.5 flex flex-col space-y-3">
+<div class="flex flex-wrap gap-1.5">
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm">
+              Acoustic Guitar
+            </span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm">
+              Munnar drives
+            </span>
+</div>
+<div class="grid grid-cols-2 gap-2 pt-1">
+<button class="flex items-center justify-center gap-1 py-2 px-2.5 rounded-full bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-variant transition-transform active:scale-95">
+<span class="material-symbols-outlined text-[16px] text-primary">handshake</span> Connect
+            </button>
+<button class="flex items-center justify-center gap-1 py-2 px-2.5 rounded-full bg-secondary-container text-on-secondary font-label-md text-label-md hover:opacity-90 shadow-sm transition-transform active:scale-95">
+<span class="material-symbols-outlined text-[16px]">favorite</span> Love
+            </button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 3: Active Meetup Groups & Turf Games -->
+<section class="flex flex-col space-y-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">groups</span>
+<h3 class="font-headline-md text-headline-md text-primary font-bold">Active Community Circles</h3>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Live RSVP Open</span>
+</div>
+<!-- Group 1: Padel & Badminton Turf -->
+<div class="p-space-md rounded-3xl bg-surface-container-lowest shadow-sm flex flex-col space-y-3">
+<div class="flex items-start justify-between gap-3">
+<div class="flex gap-3">
+<div class="w-12 h-12 rounded-2xl bg-emerald-100 flex items-center justify-center text-primary-container shrink-0">
+<span class="material-symbols-outlined text-[24px]">sports_tennis</span>
+</div>
+<div>
+<div class="flex items-center gap-1.5">
+<h4 class="font-headline-sm text-headline-sm text-primary font-bold">
+                Kozhikode Padel &amp; Badminton Turf
+              </h4>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              Every Tue &amp; Thu 7:30 PM • Decathlon Play Arena
+            </p>
+</div>
+</div>
+<span class="px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-800 font-label-sm text-label-sm font-bold shrink-0">
+          8 spots left
+        </span>
+</div>
+<!-- Micro Progress / Balance Bar -->
+<div class="space-y-1.5 bg-surface-container-low p-2.5 rounded-2xl">
+<div class="flex items-center justify-between font-label-sm text-label-sm">
+<span class="text-primary font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-emerald-600">balance</span> 50:50 Gender Balanced Group
+          </span>
+<span class="text-on-surface-variant">12/20 Registered</span>
+</div>
+<div class="w-full h-2 rounded-full bg-surface-container overflow-hidden flex">
+<div class="h-full bg-secondary-container w-[50%]"></div>
+<div class="h-full bg-primary-container w-[50%]"></div>
+</div>
+<div class="flex justify-between text-[10px] text-on-surface-variant pt-0.5">
+<span>6 Women</span>
+<span>6 Men</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-1">
+<div class="flex items-center gap-2">
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-amber-500">verified</span> Hosted by Ashwin K. (Koodam Steward)
+          </span>
+</div>
+<button class="px-4 py-2 rounded-full bg-primary text-on-primary font-label-md text-label-md hover:bg-primary/90 transition-transform active:scale-95">
+          Join Match
+        </button>
+</div>
+</div>
+<!-- Group 2: Malabar Malayalam Indie Cinema Club -->
+<div class="p-space-md rounded-3xl bg-surface-container-lowest shadow-sm flex flex-col space-y-3">
+<div class="flex items-start justify-between gap-3">
+<div class="flex gap-3">
+<div class="w-12 h-12 rounded-2xl bg-amber-100 flex items-center justify-center text-amber-900 shrink-0">
+<span class="material-symbols-outlined text-[24px]">theaters</span>
+</div>
+<div>
+<h4 class="font-headline-sm text-headline-sm text-primary font-bold">
+              Malabar Malayalam Indie Cinema Club
+            </h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              Classic Retrospective &amp; Discussion • Crown Theatre Studio 2
+            </p>
+</div>
+</div>
+<span class="px-2.5 py-1 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm font-bold shrink-0">
+          This Friday
+        </span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+        Screening John Abraham’s 'Amma Ariyan' followed by a moderated porch discussion &amp; dinner at Paragon.
+      </p>
+<div class="flex items-center justify-between pt-1">
+<div class="flex items-center gap-1.5">
+<div class="flex -space-x-1.5">
+<div class="w-6 h-6 rounded-full bg-surface-dim flex items-center justify-center text-[10px] font-bold text-on-surface">AK</div>
+<div class="w-6 h-6 rounded-full bg-primary-fixed flex items-center justify-center text-[10px] font-bold text-on-primary-fixed">SN</div>
+<div class="w-6 h-6 rounded-full bg-secondary-fixed flex items-center justify-center text-[10px] font-bold text-on-secondary-fixed">MR</div>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">42 cinephiles attending</span>
+</div>
+<button class="px-4 py-2 rounded-full bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-variant transition-colors">
+          View Details
+        </button>
+</div>
+</div>
+</section>
+<!-- Community Trust & Safety Assurance Banner -->
+<section class="p-space-md rounded-3xl bg-surface-container-low flex items-center gap-3">
+<div class="w-10 h-10 rounded-2xl bg-surface-container-lowest flex items-center justify-center text-primary shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-[20px] text-amber-600">security</span>
+</div>
+<div class="flex-1 min-w-0">
+<h5 class="font-label-lg text-label-lg text-primary font-bold">Koodam High-Trust Guarantee</h5>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Every profile and meetup host is 3-peer verified by Malayalam community members.</p>
+</div>
+</section>
+<!-- Floating Action Button for Hosting (Docked cleanly above nav clearance) -->
+<div class="sticky bottom-24 z-30 self-center">
+<button class="flex items-center gap-2 px-5 py-3.5 rounded-full bg-primary text-on-primary shadow-xl hover:bg-primary-container transition-all active:scale-95 group">
+<span class="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined text-[16px]">add</span>
+</span>
+<div class="flex flex-col text-left leading-none">
+<span class="font-label-lg text-label-lg font-bold">Host an Event</span>
+<span class="text-[10px] text-primary-fixed-dim">Free &amp; Community Verified</span>
+</div>
+</button>
+</div>
+<!-- Interactive District Drawer / Dropdown Simulation -->
+<div class="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm hidden flex items-end justify-center" id="districtDrawer">
+<div class="w-full max-w-lg bg-surface-container-lowest rounded-t-3xl p-margin space-y-space-md shadow-2xl">
+<div class="flex items-center justify-between pb-2">
+<div>
+<h4 class="font-headline-sm text-headline-sm text-primary font-bold">Select Your District Hub</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Connecting local hubs across Kerala &amp; Diaspora</p>
+</div>
+<button class="w-9 h-9 rounded-full bg-surface-container flex items-center justify-center text-on-surface" id="closeDistrict">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+<div class="grid grid-cols-2 gap-2 max-h-60 overflow-y-auto no-scrollbar">
+<button class="p-3 rounded-2xl bg-primary-container text-on-primary font-label-md text-label-md text-left flex items-center justify-between">
+<span>📍 Kozhikode</span>
+<span class="material-symbols-outlined text-[16px]">check</span>
+</button>
+<button class="p-3 rounded-2xl bg-surface-container-low text-on-surface font-label-md text-label-md text-left hover:bg-surface-container">
+<span>🌴 Kochi / Ernakulam</span>
+</button>
+<button class="p-3 rounded-2xl bg-surface-container-low text-on-surface font-label-md text-label-md text-left hover:bg-surface-container">
+<span>🥁 Thrissur</span>
+</button>
+<button class="p-3 rounded-2xl bg-surface-container-low text-on-surface font-label-md text-label-md text-left hover:bg-surface-container">
+<span>🏛️ Thiruvananthapuram</span>
+</button>
+<button class="p-3 rounded-2xl bg-surface-container-low text-on-surface font-label-md text-label-md text-left hover:bg-surface-container">
+<span>⛰️ Wayanad</span>
+</button>
+<button class="p-3 rounded-2xl bg-surface-container-low text-on-surface font-label-md text-label-md text-left hover:bg-surface-container">
+<span>🌊 Kannur</span>
+</button>
+<button class="p-3 rounded-2xl bg-surface-container-low text-on-surface font-label-md text-label-md text-left hover:bg-surface-container">
+<span>🌆 Bengaluru (Diaspora)</span>
+</button>
+<button class="p-3 rounded-2xl bg-surface-container-low text-on-surface font-label-md text-label-md text-left hover:bg-surface-container">
+<span>🏙️ Dubai (Gulf Circle)</span>
+</button>
+</div>
+<button class="w-full py-3 rounded-full bg-primary text-on-primary font-label-lg text-label-lg" id="confirmDistrict">
+        Update Location
+      </button>
+</div>
+</div>
+</div>
+<script>
+  (function() {
+    const trigger = document.getElementById('districtTrigger');
+    const drawer = document.getElementById('districtDrawer');
+    const closeBtn = document.getElementById('closeDistrict');
+    const confirmBtn = document.getElementById('confirmDistrict');
+
+    if (trigger && drawer && closeBtn) {
+      trigger.addEventListener('click', () => {
+        drawer.classList.remove('hidden');
+      });
+      closeBtn.addEventListener('click', () => {
+        drawer.classList.add('hidden');
+      });
+      if (confirmBtn) {
+        confirmBtn.addEventListener('click', () => {
+          drawer.classList.add('hidden');
+        });
+      }
+      drawer.addEventListener('click', (e) => {
+        if (e.target === drawer) drawer.classList.add('hidden');
+      });
+    }
+  })();
+</script></main><nav class="fixed bottom-0 w-full z-50 pb-safe pointer-events-none" data-active-classes="text-on-primary bg-primary-container font-semibold shadow-[0_4px_16px_-2px_rgba(10,56,44,0.3)]"><div class="px-margin pb-3 pt-1 pointer-events-auto"><div class="flex items-center justify-around h-16 rounded-full bg-surface-container-lowest/90 backdrop-blur-xl px-2 shadow-[0_12px_32px_-6px_rgba(10,56,44,0.12)]"><a aria-current="page" class="flex flex-col items-center justify-center gap-0.5 px-3 py-1.5 rounded-full transition-all duration-200 min-w-[56px] h-11 text-on-primary bg-primary-container font-semibold shadow-[0_4px_16px_-2px_rgba(10,56,44,0.3)]" data-path="explore" href="#"><span class="material-symbols-outlined text-[20px]">explore</span><span class="font-label-sm text-label-sm">Explore</span></a><a class="flex flex-col items-center justify-center gap-0.5 px-3 py-1.5 rounded-full text-on-surface-variant hover:text-on-surface transition-all duration-200 min-w-[56px] h-11" data-path="radar-map" href="#"><span class="material-symbols-outlined text-[20px]">radar</span><span class="font-label-sm text-label-sm">Radar</span></a><a class="relative flex flex-col items-center justify-center gap-0.5 px-3 py-1.5 rounded-full text-on-surface-variant hover:text-on-surface transition-all duration-200 min-w-[56px] h-11" data-path="discover-singles" href="#"><span class="material-symbols-outlined text-[20px]">style</span><span class="font-label-sm text-label-sm">Discover</span><span class="absolute -top-1 right-2 flex items-center justify-center w-4 h-4 rounded-full bg-secondary-container text-[9px] text-on-secondary font-bold material-symbols-outlined">favorite</span></a><a class="flex flex-col items-center justify-center gap-0.5 px-3 py-1.5 rounded-full text-on-surface-variant hover:text-on-surface transition-all duration-200 min-w-[56px] h-11" data-path="meetups" href="#"><span class="material-symbols-outlined text-[20px]">confirmation_number</span><span class="font-label-sm text-label-sm">Events</span></a><a class="relative flex flex-col items-center justify-center gap-0.5 px-3 py-1.5 rounded-full text-on-surface-variant hover:text-on-surface transition-all duration-200 min-w-[56px] h-11" data-path="chats" href="#"><span class="material-symbols-outlined text-[20px]">forum</span><span class="font-label-sm text-label-sm">Chats</span><span class="absolute -top-1 right-2.5 flex items-center justify-center min-w-[16px] h-4 px-1 rounded-full bg-secondary-container text-[10px] text-on-secondary font-bold leading-none">3</span></a></div></div></nav></body></html>

@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-secondary": "#ffffff", "outline-variant": "#c0c8c3", "secondary": "#b52330", "tertiary-fixed-dim": "#ffb95f", "background": "#f5fbf7", "error-container": "#ffdad6", "on-tertiary-fixed": "#2a1700", "on-error-container": "#93000a", "on-secondary-fixed-variant": "#92001b", "on-surface": "#171d1b", "on-tertiary": "#ffffff", "surface-container-lowest": "#ffffff", "surface-container-highest": "#dee4e0", "surface-container-low": "#eff5f1", "inverse-primary": "#a3d0bf", "on-secondary-fixed": "#410007", "surface-tint": "#3c6658", "primary-fixed-dim": "#a3d0bf", "surface": "#f5fbf7", "on-primary-fixed-variant": "#244e41", "outline": "#717975", "surface-variant": "#dee4e0", "secondary-fixed": "#ffdad8", "on-error": "#ffffff", "tertiary-fixed": "#ffddb8", "inverse-on-surface": "#ecf2ee", "surface-container": "#e9efeb", "on-surface-variant": "#414845", "surface-bright": "#f5fbf7", "on-primary-fixed": "#002118", "primary-fixed": "#bfecda", "error": "#ba1a1a", "tertiary-container": "#482b00", "surface-dim": "#d5dbd8", "on-background": "#171d1b", "inverse-surface": "#2c322f", "tertiary": "#2c1800", "on-tertiary-container": "#d68800", "on-primary-container": "#77a292", "primary-container": "#0a382c", "on-tertiary-fixed-variant": "#653e00", "on-secondary-container": "#60000e", "on-primary": "#ffffff", "secondary-container": "#ff5a5f", "surface-container-high": "#e4eae6", "primary": "#002118", "secondary-fixed-dim": "#ffb3b0" }, "borderRadius": { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" }, "spacing": { "space-xl": "2.25rem", "space-sm": "0.5rem", "gutter": "1rem", "space-lg": "1.5rem", "space-xs": "0.25rem", "space-md": "1rem", "margin": "1.25rem" }, "fontFamily": { "label-md": ["Plus Jakarta Sans"], "label-lg": ["Plus Jakarta Sans"], "body-sm": ["Plus Jakarta Sans"], "body-lg": ["Plus Jakarta Sans"], "headline-lg-mobile": ["Plus Jakarta Sans"], "label-sm": ["Plus Jakarta Sans"], "body-md": ["Plus Jakarta Sans"], "display-hero": ["Plus Jakarta Sans"], "headline-md": ["Plus Jakarta Sans"], "headline-sm": ["Plus Jakarta Sans"], "headline-lg": ["Plus Jakarta Sans"], "display-hero-mobile": ["Plus Jakarta Sans"] }, "fontSize": { "label-md": ["13px", { "lineHeight": "16px", "letterSpacing": "0.015em", "fontWeight": "600" }], "label-lg": ["15px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }], "body-sm": ["13px", { "lineHeight": "18px", "letterSpacing": "0.005em", "fontWeight": "400" }], "body-lg": ["17px", { "lineHeight": "26px", "letterSpacing": "-0.005em", "fontWeight": "400" }], "headline-lg-mobile": ["26px", { "lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "700" }], "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "700" }], "body-md": ["15px", { "lineHeight": "22px", "letterSpacing": "0em", "fontWeight": "400" }], "display-hero": ["44px", { "lineHeight": "52px", "letterSpacing": "-0.03em", "fontWeight": "800" }], "headline-md": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" }], "headline-sm": ["18px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "600" }], "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "display-hero-mobile": ["34px", { "lineHeight": "40px", "letterSpacing": "-0.025em", "fontWeight": "800" }] } } } };</script><style>@layer base{html,body{width:100%;margin:0;padding:0;background-color:#f5fbf7;color:#171d1b;}body{overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}}::-webkit-scrollbar{display:none;}</style></head><body class="bg-surface font-body-md text-body-md text-on-surface flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 pt-safe bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.03)]"><div class="h-16 px-margin flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0 flex-1"><img alt="Koodam Brand Logo Redesign" class="h-8 w-auto object-contain shrink-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAcWreOZOfd1hQ0uFDNnMmI5BY0CxqK1CqeAuL5CAb1nFyJsq7xB0YoEY5BRu-lMgo3eM87xBVPrrVsAiGYP6XmzKMU0zfQM80_E0cZswIKUjt-S_MO8iZNoL1wZbo1ZBqJ80rpdHRlTydXlRZ1HVaOCRe6juugyn0rQhWDzjjeqpwTTNKxW_f0vaQsgXMuMN_jSPwK4e0fX5CrU3rg9DUic1qjPljF516zwa5F8ae7Le5DpIeScWRu"/><div class="flex flex-col min-w-0"><div class="flex items-baseline gap-space-xs"><span class="font-headline-sm text-headline-sm text-primary tracking-tight truncate leading-tight">Koodam</span><span class="font-label-sm text-label-sm text-on-surface-variant font-normal opacity-80 shrink-0">കൂടം</span></div><button class="flex items-center gap-space-xs bg-surface-container-low px-space-sm py-0.5 rounded-full text-left self-start mt-0.5 max-w-[170px]"><span class="material-symbols-outlined text-[13px] text-secondary-container leading-none shrink-0">location_on</span><span class="font-label-sm text-label-sm text-on-surface-variant truncate">Kochi / Calicut</span><span class="material-symbols-outlined text-[14px] text-outline leading-none shrink-0">expand_more</span></button></div></div><div class="flex items-center gap-space-xs shrink-0"><button aria-label="Search" class="w-11 h-11 flex items-center justify-center rounded-full text-on-surface hover:bg-surface-container-high/60 transition-colors"><span class="material-symbols-outlined text-[22px]">search</span></button><button aria-label="Notifications" class="relative w-11 h-11 flex items-center justify-center rounded-full text-on-surface hover:bg-surface-container-high/60 transition-colors"><span class="material-symbols-outlined text-[22px]">notifications</span><span class="absolute top-2.5 right-2.5 w-2 h-2 rounded-full bg-secondary-container ring-2 ring-surface"></span></button><a class="w-11 h-11 flex items-center justify-center rounded-full ml-space-xs shrink-0" data-path="my-profile" href="#"><img alt="Profile" class="w-8 h-8 rounded-full object-cover shadow-[0_2px_8px_rgba(10,56,44,0.12)]" src="https://lh3.googleusercontent.com/aida/AEtjO1WDOXn8IRfshmSo3KGOqHGQCIhs365PW5XvzxeNen0ePllLMTuN-N4KNQBJxuAgz6QOYdcL0Kl6MeQc99jERJwYVFEwkM7BpvV2War3sQ-cbrFoLED1A9FgbHC_l2hmMTr97lG0KZCU8DOeg-eFhiTOGFnU08FWagSX_nPwQxDfBbUziY3wD6nWmSoUzlmyg3MpM54P48LLmkPBDFd_pyUOUoqdYGILnRzSuWsMm6UFw_hDOyg9wDOiGqY"/></a></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 pb-24 bg-surface"><div class="flex flex-col w-full pb-10">
+<!-- Search & Filter Cluster -->
+<section class="px-margin pt-space-xs pb-space-sm flex flex-col gap-space-sm">
+<div class="flex items-center gap-space-xs">
+<div class="flex-1 flex items-center bg-surface-container-low rounded-full px-space-md py-2.5 shadow-sm">
+<span class="material-symbols-outlined text-outline text-[20px] shrink-0 mr-space-xs">search</span>
+<input class="w-full bg-transparent border-none outline-none font-body-sm text-body-sm text-on-surface placeholder:text-outline" placeholder="Search meetups, weekend events, turfs..." type="text"/>
+</div>
+<button aria-label="Filter events" class="w-11 h-11 flex items-center justify-center rounded-full bg-surface-container-high text-primary hover:bg-surface-container-highest transition-colors shrink-0 shadow-sm" id="filter-trigger">
+<span class="material-symbols-outlined text-[20px]">tune</span>
+</button>
+</div>
+<!-- Segmented Main Tabs -->
+<div class="flex bg-surface-container p-1 rounded-full text-center">
+<button class="tab-pill flex-1 py-1.5 px-space-xs rounded-full font-label-md text-label-md bg-primary-container text-on-primary shadow-sm transition-all" data-category="all">
+        All (58)
+      </button>
+<button class="tab-pill flex-1 py-1.5 px-space-xs rounded-full font-label-md text-label-md text-on-surface-variant hover:text-primary transition-all" data-category="casual">
+        Casual (34)
+      </button>
+<button class="tab-pill flex-1 py-1.5 px-space-xs rounded-full font-label-md text-label-md text-on-surface-variant hover:text-primary transition-all" data-category="curated">
+        Curated (24)
+      </button>
+</div>
+<!-- Quick Horizontal Pill Chips -->
+<div class="flex gap-space-xs overflow-x-auto no-scrollbar py-0.5 -mx-margin px-margin">
+<button class="chip-item shrink-0 px-3 py-1.5 rounded-full font-label-sm text-label-sm bg-primary-container text-on-primary shadow-sm flex items-center gap-1">
+<span>📍 Within 5 km</span>
+</button>
+<button class="chip-item shrink-0 px-3 py-1.5 rounded-full font-label-sm text-label-sm bg-surface-container-low text-on-surface-variant hover:bg-surface-container shadow-sm flex items-center gap-1">
+<span>⚡ Happening Today</span>
+</button>
+<button class="chip-item shrink-0 px-3 py-1.5 rounded-full font-label-sm text-label-sm bg-surface-container-low text-on-surface-variant hover:bg-surface-container shadow-sm flex items-center gap-1">
+<span>🌅 This Weekend</span>
+</button>
+<button class="chip-item shrink-0 px-3 py-1.5 rounded-full font-label-sm text-label-sm bg-surface-container-low text-on-surface-variant hover:bg-surface-container shadow-sm flex items-center gap-1">
+<span>🎟️ Free Entry</span>
+</button>
+<button class="chip-item shrink-0 px-3 py-1.5 rounded-full font-label-sm text-label-sm bg-surface-container-low text-on-surface-variant hover:bg-surface-container shadow-sm flex items-center gap-1">
+<span>🛡️ 3-Peer Verified</span>
+</button>
+<button class="chip-item shrink-0 px-3 py-1.5 rounded-full font-label-sm text-label-sm bg-surface-container-low text-on-surface-variant hover:bg-surface-container shadow-sm flex items-center gap-1">
+<span>☕ Chai &amp; Hangout</span>
+</button>
+</div>
+</section>
+<!-- Live Pulse Status Strip -->
+<section class="px-margin my-space-xs">
+<div class="bg-primary-fixed/40 rounded-xl px-space-md py-space-xs flex items-center justify-between shadow-sm">
+<div class="flex items-center gap-space-xs min-w-0">
+<span class="relative flex h-2.5 w-2.5 shrink-0">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary-container opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-secondary-container"></span>
+</span>
+<span class="font-label-sm text-label-sm text-primary truncate">14 gatherings active right now around Fort Kochi</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-primary-fixed-variant font-bold shrink-0">Explore Live</span>
+</div>
+</section>
+<!-- SECTION 1: Happening Near You Today -->
+<section class="mt-space-md flex flex-col gap-space-md">
+<div class="px-margin flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<div class="w-2.5 h-2.5 rounded-full bg-secondary-container shrink-0"></div>
+<h2 class="font-headline-sm text-headline-sm text-primary tracking-tight">Happening Today</h2>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Single-Day &amp; Live</span>
+</div>
+<!-- Card 1: Fort Kochi Acoustic Jam (Casual Meetup) -->
+<div class="px-margin">
+<article class="bg-surface-container-lowest rounded-3xl p-space-md shadow-md flex flex-col gap-space-sm relative overflow-hidden">
+<!-- Hero Header Image -->
+<div class="relative h-44 w-full rounded-2xl overflow-hidden shadow-inner">
+<img class="w-full h-full object-cover" data-alt="Young South Asian group sitting with acoustic guitars and steel cups on granite steps of Vasco da Gama square in Fort Kochi at sunset. Golden amber light filtering through huge raintrees, calm Arabian sea waters in backdrop, joyful candid smiles, filmic warm Kerala aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDN_HbMt6AcwAEKE2NUHINjGOb0VRT1dhbB9J3FZDxxzXbm65iMZhbOJmhPVRqO4d5dX_G7VzttX5JHmr6-pfB0PxMf5elu0gsV4HeS20Ns5TTGcUqQVQkuSE964KHAIxzWpopv4q1qcMKV8RNK1InBGfY1Rg7Zc7kWOKux7dVc6unvBczGTvkicwPBEUicWWAFuJSVBqhnOKHj-6ZCjYJVyvHvSMZ4RBIdn8A7FiR01bgjPBxK93Gu"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent"></div>
+<!-- Badges Floating on Image -->
+<div class="absolute top-space-xs left-space-xs flex flex-wrap gap-1">
+<span class="px-2.5 py-1 rounded-full bg-surface/90 backdrop-blur-md text-primary font-label-sm text-label-sm shadow-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px] text-secondary-container">groups</span>
+              Casual Meetup
+            </span>
+<span class="px-2.5 py-1 rounded-full bg-primary-fixed text-primary font-label-sm text-label-sm shadow-sm">
+              Free Entry
+            </span>
+</div>
+<div class="absolute top-space-xs right-space-xs">
+<button aria-label="Bookmark event" class="w-8 h-8 rounded-full bg-surface/80 backdrop-blur-md text-on-surface flex items-center justify-center hover:bg-surface transition-colors">
+<span class="material-symbols-outlined text-[16px]">bookmark_border</span>
+</button>
+</div>
+<!-- Bottom Time & Distance Overlay -->
+<div class="absolute bottom-space-xs left-space-xs right-space-xs flex items-center justify-between text-on-primary">
+<div class="flex items-center gap-1 font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[15px] text-tertiary-fixed-dim">schedule</span>
+<span>Today, 5:30 PM – 7:30 PM</span>
+</div>
+<div class="flex items-center gap-1 font-label-sm text-label-sm bg-surface-container-lowest/20 backdrop-blur-md px-2 py-0.5 rounded-full">
+<span class="material-symbols-outlined text-[14px]">near_me</span>
+<span>2.1 km away</span>
+</div>
+</div>
+</div>
+<!-- Title & Location Context -->
+<div class="flex flex-col gap-0.5">
+<h3 class="font-headline-sm text-headline-sm text-primary tracking-tight leading-snug">
+            Fort Kochi Beach Sunset Acoustic Jam &amp; Chai
+          </h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-secondary-container shrink-0">location_on</span>
+<span class="truncate">Vasco da Gama Square, Fort Kochi</span>
+</p>
+</div>
+<!-- Attendance Stats & Gender Ratio Bar -->
+<div class="bg-surface-container-low rounded-2xl p-space-sm flex flex-col gap-space-xs">
+<div class="flex items-center justify-between font-label-sm text-label-sm">
+<div class="flex items-center gap-1.5 text-primary">
+<span class="w-2 h-2 rounded-full bg-secondary-container"></span>
+<span class="font-bold">18/20 spots filled</span>
+<span class="text-on-surface-variant font-normal">• 2 spots left</span>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[13px] text-primary-fixed-dim">balance</span>
+<span>50:50 Balanced</span>
+</div>
+</div>
+<!-- Visual Balance Progress Bar -->
+<div class="w-full h-1.5 bg-surface-container-highest rounded-full overflow-hidden flex">
+<div class="h-full bg-primary-container w-[50%]"></div>
+<div class="h-full bg-secondary-container w-[40%]"></div>
+<div class="h-full bg-outline-variant w-[10%]"></div>
+</div>
+</div>
+<!-- Host Card & Facepile Strip -->
+<div class="flex items-center justify-between pt-0.5">
+<div class="flex items-center gap-space-xs min-w-0">
+<img class="w-8 h-8 rounded-full object-cover shrink-0 shadow-sm" data-alt="Headshot of a friendly smiling South Indian Malayali woman with curly hair, natural sunlit golden hour background, wearing subtle terracotta linen and silver earrings." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZErJ7edy1Jz1AQH40VYK4ZQ4ZJCy6GkEyLJo4aHrChaE45mavfx6dDR-uWD5RgnXDb6K_pkMqAm4nR8vgC2GYR5Qva1tiQFWSsQtrunwoX6xu_qteXInLZo6nrDWNEdl9chlj0BRQqBiLIOg7b-NntJsEMAGVe8CvGqGxyRjkkW7Aq7gw1QCYPA0xZhmWmH281Gwlx6bB_SQ88aFi3iuJ7K25ZYGsWA5UvbrrEOnyzQeK8gVpqrWE"/>
+<div class="flex flex-col min-w-0">
+<span class="font-label-sm text-label-sm text-primary font-bold truncate">Anjali M.</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant text-[10px] leading-tight">Host • 14 jams hosted</span>
+</div>
+</div>
+<!-- Attendee Avatar Overlap Stack -->
+<div class="flex items-center shrink-0">
+<div class="flex -space-x-2 mr-2">
+<img class="w-7 h-7 rounded-full object-cover shadow-sm" data-alt="Warm portrait avatar of a young man wearing glasses smiling in natural light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD84mnU9h7aswG1diyjzCpByLuRe5gV4fDIF06WMwshGt1XhQOtv8HEMe2kloHm6Aysm-CpxDO9jh7zT77J3lxiVgSU0AHLzpSw3Qx5b_L3-GuSksk8KT4m0mdyW_N864PSBT6mAipv4AR8_yOCHgePXSaNnKeN5vs-NQ_UbgBsL9eDsPmwwhJMKA3bSxbCfyVfhsyxWey8eQ75g85AeNBwXYHyP4x7Jh1y7B5D9O_rQPuPwpeXNwku"/>
+<img class="w-7 h-7 rounded-full object-cover shadow-sm" data-alt="Portrait avatar of an artistic young woman smiling in cafe lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVFZhRdCas7XKa2MPBAouhicadrh-ZGz7AQQeiZoYJt8LUEVhV67XqN4fjlvT4cXnuawcBB3R54ILfqsVZ0FSLicHF-X-2u-aCk1oUx6bQS35eCyitdmMjoGevaAvq1LN_TEvW2-1QHDADJdppoEC7SU3nKarEiVb7j-QtaZVSrzMlBweR9LUNWRaY5qmOZYMtvt61kK4IY7TR1mMz90rc5TiwYGtRk_4lVEQumWvCFV6c4p6JOZ89"/>
+<img class="w-7 h-7 rounded-full object-cover shadow-sm" data-alt="Portrait avatar of a friendly guy with a beard outdoors" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJQzaVW66w3bdHJafhCvY4VwcjSqkUrNcxXtjd77_XFbwinlaV-6qzGgedHA6NqjJ5IpFlIAChUaiBqg0cb5QpoJDb8xJ9-FRvjS842Eu_C0Z4hSiElhw6wjqfqTtxEzi6i1WccDGcQFvHy_gPx6Q2IICdSYNAGtDYp3yKn49z2CkbKdlqpyok2i9Iti9rq9eJR2r6JtztYP03UVlDe3ft-QnBWFJU6V8rRJzn1hbmSfT1HjnO72W7"/>
+</div>
+<span class="font-label-sm text-label-sm text-primary font-bold bg-surface-container px-2 py-0.5 rounded-full">+18</span>
+</div>
+</div>
+<!-- Action Row -->
+<div class="flex items-center gap-space-xs pt-space-xs">
+<button class="flex-1 h-12 rounded-full bg-primary-container text-on-primary font-label-lg text-label-lg flex items-center justify-center gap-space-xs shadow-md active:scale-95 transition-all">
+<span class="material-symbols-outlined text-[18px]">how_to_reg</span>
+<span>Join Meetup</span>
+</button>
+<button aria-label="View on map" class="w-12 h-12 rounded-full bg-surface-container-low text-primary flex items-center justify-center hover:bg-surface-container transition-colors shadow-sm shrink-0">
+<span class="material-symbols-outlined text-[20px]">map</span>
+</button>
+</div>
+</article>
+</div>
+<!-- Card 2: Tech Founders Circle (Curated Event) -->
+<div class="px-margin">
+<article class="bg-surface-container-lowest rounded-3xl p-space-md shadow-md flex flex-col gap-space-sm relative">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex flex-col gap-1 min-w-0">
+<div class="flex items-center gap-1.5 flex-wrap">
+<span class="px-2.5 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm shadow-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px] text-tertiary">star</span>
+                Curated Circle
+              </span>
+<span class="px-2.5 py-0.5 rounded-full bg-primary-fixed text-primary font-label-sm text-label-sm shadow-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">verified_user</span>
+                3-Peer Verified
+              </span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-primary tracking-tight mt-1 leading-snug">
+              Panampilly Nagar Filter Coffee &amp; Tech Founders
+            </h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-secondary-container shrink-0">storefront</span>
+<span class="truncate">French Toast Bakery Cafe, Panampilly Nagar</span>
+</p>
+</div>
+<!-- Emerald Calendar Stamp -->
+<div class="bg-primary-container text-on-primary rounded-2xl px-2.5 py-2 flex flex-col items-center justify-center shrink-0 w-14 shadow-sm text-center">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-primary-container text-[10px]">TODAY</span>
+<span class="font-headline-md text-headline-md leading-none font-bold">06</span>
+<span class="font-label-sm text-label-sm text-[10px] text-on-primary-container">PM</span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">
+          Intimate roundtable discussing bootstrapped SaaS growth &amp; diaspora cross-border hiring over authentic single-origin Malabar brew. Limited to 12 participants.
+        </p>
+<!-- Distance & Host Details -->
+<div class="flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm pt-1">
+<div class="flex items-center gap-1.5">
+<img class="w-6 h-6 rounded-full object-cover" data-alt="Portrait of a young confident Kerala entrepreneur sitting in a cozy warm cafe with natural greenery" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7qpCqhqYg9pW4gizCacnP7hLLbWfmM90QtPCx0H-VFcQIms_j4X3WHm-VTD70zgumBIUAkDbauMlPnd8NizejJQd6HpdqQV7Avbt4c5qZdlDu-PelO3CgFlZ_e8DtQr1U8QcwepleH0FRecFYfDe4SHLIHjr9w5bWeyjj3SqGXzbWsFw1_kZzC5bO_8Mc9U7DPVVuoWO-jVSiNpO4ddERlR59rIkpXLvFGQnoeegbXG8-mglra8jr"/>
+<span>Hosted by <strong>Rahul K.</strong></span>
+</div>
+<div class="flex items-center gap-1 bg-surface-container-low px-2 py-0.5 rounded-full">
+<span class="material-symbols-outlined text-[14px]">navigation</span>
+<span>3.4 km away</span>
+</div>
+</div>
+<!-- Action Row -->
+<div class="flex items-center justify-between pt-space-xs">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Access</span>
+<span class="font-headline-sm text-headline-sm text-primary font-bold">Free RSVP</span>
+</div>
+<button class="h-11 px-space-lg rounded-full bg-primary text-on-primary font-label-md text-label-md shadow-md active:scale-95 transition-all flex items-center gap-1.5">
+<span>Request Seat</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</article>
+</div>
+</section>
+<!-- SECTION 2: Interactive Map Radar Quick-Peek -->
+<section class="mt-space-xl px-margin">
+<div class="bg-surface-container-lowest rounded-3xl p-space-md shadow-md flex flex-col gap-space-sm relative overflow-hidden">
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary-container font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">radar</span>
+            Radar Discovery
+          </span>
+<h3 class="font-headline-sm text-headline-sm text-primary tracking-tight">24 Meetups Around You</h3>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-container px-2.5 py-1 rounded-full">Radius 5 km</span>
+</div>
+<!-- Static Map Visual Preview Container -->
+<div class="relative w-full h-44 rounded-2xl overflow-hidden shadow-inner">
+<div class="w-full h-full bg-cover bg-center" data-location="Fort Kochi, Kochi, Kerala, India" style=""></div>
+<div class="absolute inset-0 bg-primary-container/20 backdrop-brightness-90 pointer-events-none"></div>
+<!-- Simulated Radar Pulse Center -->
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none flex items-center justify-center">
+<div class="w-28 h-28 rounded-full border-2 border-primary-fixed-dim/40 animate-ping"></div>
+<div class="absolute w-16 h-16 rounded-full bg-primary-container/30 backdrop-blur-sm"></div>
+<div class="absolute w-5 h-5 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-lg">
+<span class="w-2 h-2 rounded-full bg-tertiary-fixed-dim"></span>
+</div>
+</div>
+<!-- Floating Meetup Location Pins -->
+<div class="absolute top-4 left-8 bg-surface-container-lowest/90 backdrop-blur-md px-2 py-1 rounded-full shadow-md flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px] text-secondary-container">music_note</span>
+<span class="font-label-sm text-label-sm text-primary text-[10px]">Acoustic Jam</span>
+</div>
+<div class="absolute bottom-6 right-6 bg-surface-container-lowest/90 backdrop-blur-md px-2 py-1 rounded-full shadow-md flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px] text-primary">sports_tennis</span>
+<span class="font-label-sm text-label-sm text-primary text-[10px]">Badminton Turf</span>
+</div>
+<div class="absolute top-10 right-10 bg-surface-container-lowest/90 backdrop-blur-md px-2 py-1 rounded-full shadow-md flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px] text-tertiary">coffee</span>
+<span class="font-label-sm text-label-sm text-primary text-[10px]">Founders Coffee</span>
+</div>
+</div>
+<!-- Map CTA Button -->
+<button class="w-full h-12 rounded-full bg-surface-container-high hover:bg-surface-container-highest text-primary font-label-md text-label-md flex items-center justify-center gap-space-xs transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[18px] text-primary-container">explore</span>
+<span>Open Full Live Radar Map</span>
+</button>
+</div>
+</section>
+<!-- SECTION 3: Weekend Meetups & Community Gatherings -->
+<section class="mt-space-xl flex flex-col gap-space-md">
+<div class="px-margin flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[20px] text-secondary-container">wb_sunny</span>
+<h2 class="font-headline-sm text-headline-sm text-primary tracking-tight">This Weekend Gatherings</h2>
+</div>
+<a class="font-label-sm text-label-sm text-secondary-container font-bold flex items-center" href="#">
+        View all (38)
+      </a>
+</div>
+<!-- Card 3: Padel & Badminton Turf (Weekend Meetup) -->
+<div class="px-margin">
+<article class="bg-surface-container-lowest rounded-3xl p-space-md shadow-md flex flex-col gap-space-sm relative">
+<div class="flex items-start justify-between gap-space-xs">
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5 mb-1">
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-primary font-label-sm text-label-sm">
+                Casual Sports
+              </span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm">
+                Intermediate &amp; Fun
+              </span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-primary tracking-tight leading-snug">
+              Kadavanthra Sunday Evening Padel &amp; Badminton Turf
+            </h3>
+<span class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1 mt-0.5">
+<span class="material-symbols-outlined text-[14px] text-secondary-container">location_on</span>
+              Smash City Indoor Sports Turf • 4.2 km
+            </span>
+</div>
+<!-- Date Pill -->
+<div class="bg-surface-container-low text-primary rounded-2xl px-2.5 py-1.5 flex flex-col items-center justify-center shrink-0 text-center">
+<span class="font-label-sm text-label-sm text-secondary font-bold">SUN</span>
+<span class="font-headline-sm text-headline-sm leading-none font-bold">18</span>
+</div>
+</div>
+<!-- Thumbnail Photo Bar -->
+<div class="h-32 w-full rounded-2xl overflow-hidden shadow-inner relative">
+<img class="w-full h-full object-cover" data-alt="Indoor vibrant sports turf arena in Kerala with neon green floor, young active adults high-fiving after a friendly badminton doubles match, warm overhead ambient sports lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAjsgz2TX1ikgcOc0QXzv59cRbJS1VIDMwGxAM0JbZTzbGOXCRFrhnm5UgjGxjo795mNSJWvuxQX1L7hJnlrL2QAtO6ahoxQF6Qabslth1KkLI1H93G3NzAY7B8qXvwSJLidY4_Kx4cyW1YQpp_7__Ru2xzdhR0MJ3-ZbZcOQ6DaJUEk3DuNe2HJqJ755RhO9FTqF2JHXhHMEzGvVp0FKWi_cG-Ba7kSOfyi4gpQOKIwCzoRab1LqAG"/>
+<div class="absolute bottom-2 left-2 bg-primary/80 backdrop-blur-md px-2.5 py-1 rounded-full text-on-primary font-label-sm text-label-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">schedule</span>
+<span>Sunday 6:00 PM – 8:00 PM</span>
+</div>
+</div>
+<!-- Turf Stats & Attendance -->
+<div class="flex items-center justify-between bg-surface-container-low rounded-2xl p-space-sm">
+<div class="flex items-center gap-space-xs">
+<div class="flex -space-x-2">
+<img class="w-6 h-6 rounded-full object-cover shadow-sm" data-alt="Avatar portrait of young male badminton player in sportswear smiling" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvS0l29zqhw1e61qQ4B55dSui7uy6skHJ_RieRcnKYxpBMOnaVsJFuZ9FKXfRV9ns44ejqUZHo9JpREhTWavlVHcQN_noBhZ4zj2eNskD5ovF27joH8hNTR85zBxe_0rWy6JhjU05MPRvuROoxHMRezXSRQshmIK5Y3goaJ2Z1VsBb2mJwvOkTuW0BtNFBybE_SJojNQdxuEbn25_vlYJt07aznaIUsTIjLKtor5u7oB2xzu_GdI5M"/>
+<img class="w-6 h-6 rounded-full object-cover shadow-sm" data-alt="Avatar portrait of young woman sports enthusiast smiling" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPQ5Fr5MX2w66Ym9CsKx8DrKMF8AocjPpTKNxktSm_bN6LLmPIScmxgd6xgf-LkEsxhSIGXNN6QNdmOSc-OZnAs8RKfZ0KVh1rnFtG3db7nrTXWfeCRlBIOrFYCZv4ODXdQWBXrCyHviGLyKmt2p74KOd-hgzxVJlLyxBJt3uax0fG9p7zoKRAd4u55Gkk2U8x7SdVxV6FZf0whXCfMYcL646UJzAivVh7e6vgyKgeowaBexFwhErO"/>
+</div>
+<span class="font-label-sm text-label-sm text-primary font-semibold">12 players booked</span>
+</div>
+<div class="flex items-center gap-1 font-label-sm text-label-sm text-on-surface-variant">
+<span class="w-2 h-2 rounded-full bg-primary-fixed-dim"></span>
+<span>6 M / 6 F • 50:50 Balanced</span>
+</div>
+</div>
+<!-- Host and RSVP -->
+<div class="flex items-center justify-between pt-1">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-tertiary-fixed-dim">shield</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Hosted by <strong>Vishnu Das</strong> (Vouched)</span>
+</div>
+<button class="h-10 px-space-md rounded-full bg-primary-container text-on-primary font-label-md text-label-md shadow-sm active:scale-95 transition-all">
+            Join (₹250)
+          </button>
+</div>
+</article>
+</div>
+<!-- Card 4: Kozhikode Beach Sulaimani & Indie Cinema Discussion -->
+<div class="px-margin">
+<article class="bg-surface-container-lowest rounded-3xl p-space-md shadow-md flex flex-col gap-space-sm relative">
+<div class="flex items-start justify-between gap-space-xs">
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5 mb-1">
+<span class="px-2 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm">
+                Cultural Circle
+              </span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm">
+                Single-Day
+              </span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-primary tracking-tight leading-snug">
+              Kozhikode Beach Sulaimani &amp; Indie Cinema Discussion
+            </h3>
+<span class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1 mt-0.5">
+<span class="material-symbols-outlined text-[14px] text-secondary-container">location_on</span>
+              Near Old Pier, Kozhikode Beach • Weekend Special
+            </span>
+</div>
+<div class="bg-surface-container-low text-primary rounded-2xl px-2.5 py-1.5 flex flex-col items-center justify-center shrink-0 text-center">
+<span class="font-label-sm text-label-sm text-secondary font-bold">SAT</span>
+<span class="font-headline-sm text-headline-sm leading-none font-bold">17</span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">
+          Deconstructing Malayalam New-Wave cinema with local screenwriters over steaming glass cups of mint Sulaimani and warm Pazham Pori by the waves.
+        </p>
+<!-- Attendees & Host Status -->
+<div class="flex items-center justify-between pt-1">
+<div class="flex items-center gap-space-xs">
+<img class="w-6 h-6 rounded-full object-cover" data-alt="Portrait of an artsy Malayali film lover wearing glasses at Kozhikode beach pier" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBI_vWE_1cw0OJb4wsxsOBKuBqaldVoaHHBWveoPAf1YcgqnQHaBqyIAgIGxXwRfLR81wxP3POH3G1nLND-O0xZ4hnsM-OcLZ_cX5ERb4dqPHtL7jyGyBtMQdZDJLqGnqzdqdjOEeQk3ud4GAuyL3On1AjY0WOt2OBDXVpaxDcS7u3RVIKcPDmMzJ2lyvehZhFByPy6tVrRJ7c49HQqWJZGj70YAvI8SuOmiQIaaap7UYNvIL8ZdUzK"/>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Faizal B. • <strong>22 cinephiles going</strong></span>
+</div>
+<button class="h-10 px-space-md rounded-full bg-surface-container-high hover:bg-surface-container-highest text-primary font-label-md text-label-md shadow-sm active:scale-95 transition-all">
+            RSVP Free
+          </button>
+</div>
+</article>
+</div>
+</section>
+<!-- SECTION 4: Host Your Own Event Banner -->
+<section class="mt-space-xl px-margin">
+<div class="bg-gradient-to-br from-primary-container to-primary text-on-primary rounded-3xl p-space-lg shadow-lg flex flex-col gap-space-md relative overflow-hidden">
+<!-- Ambient Decorative Rings -->
+<div class="absolute -right-8 -bottom-8 w-40 h-40 rounded-full bg-primary-fixed-dim/10 pointer-events-none"></div>
+<div class="absolute right-12 top-4 w-16 h-16 rounded-full bg-tertiary-fixed-dim/10 pointer-events-none"></div>
+<div class="flex items-start gap-space-sm relative z-10">
+<div class="w-12 h-12 rounded-2xl bg-primary-fixed text-primary flex items-center justify-center shrink-0 shadow-md">
+<span class="material-symbols-outlined text-[26px]">add_circle</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-primary-fixed-dim font-bold">Have an idea?</span>
+<h3 class="font-headline-sm text-headline-sm text-on-primary tracking-tight">Host Your Own Gathering</h3>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-primary-container relative z-10">
+        Organizing an acoustic jam, turf game, indie book club, or casual tea meetup? Create an event in 2 minutes. Community publishing is <strong>100% Free</strong>.
+      </p>
+<div class="flex flex-wrap items-center gap-space-xs pt-1 relative z-10">
+<div class="flex items-center gap-1 font-label-sm text-label-sm text-primary-fixed-dim">
+<span class="material-symbols-outlined text-[15px]">verified</span>
+<span>Verified safety guardrails</span>
+</div>
+<div class="flex items-center gap-1 font-label-sm text-label-sm text-primary-fixed-dim ml-2">
+<span class="material-symbols-outlined text-[15px]">balance</span>
+<span>Auto gender ratio control</span>
+</div>
+</div>
+<button class="w-full h-12 rounded-full bg-secondary-container hover:bg-secondary-container/90 text-on-secondary font-label-lg text-label-lg flex items-center justify-center gap-space-xs shadow-md active:scale-95 transition-all relative z-10">
+<span class="material-symbols-outlined text-[20px]">add</span>
+<span>Create Meetup / Event</span>
+</button>
+</div>
+</section>
+<!-- Community Safety Vouching Footer Notice -->
+<section class="mt-space-lg px-margin mb-space-sm">
+<div class="bg-surface-container-low rounded-2xl p-space-sm flex items-center gap-space-xs text-on-surface-variant font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-secondary-container text-[20px] shrink-0">security</span>
+<p class="text-[12px] leading-relaxed">
+        All Koodam public meetups require minimum <strong>1 vouched host</strong> &amp; verified phone identities to protect real-world safety.
+      </p>
+</div>
+</section>
+</div>
+<!-- Interactive Client-side Script for Tabs and Chips micro-interactions -->
+<script>
+  (function() {
+    // Segmented Tab Controls
+    const tabButtons = document.querySelectorAll('.tab-pill');
+    tabButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tabButtons.forEach(b => {
+          b.classList.remove('bg-primary-container', 'text-on-primary', 'shadow-sm');
+          b.classList.add('text-on-surface-variant');
+        });
+        btn.classList.add('bg-primary-container', 'text-on-primary', 'shadow-sm');
+        btn.classList.remove('text-on-surface-variant');
+      });
+    });
+
+    // Horizontal Chips Filter Toggle
+    const chipItems = document.querySelectorAll('.chip-item');
+    chipItems.forEach(chip => {
+      chip.addEventListener('click', () => {
+        const isSelected = chip.classList.contains('bg-primary-container');
+        if (isSelected) {
+          chip.classList.remove('bg-primary-container', 'text-on-primary');
+          chip.classList.add('bg-surface-container-low', 'text-on-surface-variant');
+        } else {
+          chip.classList.add('bg-primary-container', 'text-on-primary');
+          chip.classList.remove('bg-surface-container-low', 'text-on-surface-variant');
+        }
+      });
+    });
+
+    // Filter trigger micro-bounce
+    const filterBtn = document.getElementById('filter-trigger');
+    if (filterBtn) {
+      filterBtn.addEventListener('click', () => {
+        filterBtn.classList.add('scale-90');
+        setTimeout(() => filterBtn.classList.remove('scale-90'), 150);
+      });
+    }
+  })();
+</script></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface/90 backdrop-blur-xl shadow-[0_-4px_24px_rgba(10,56,44,0.06)]" data-active-classes="text-primary-container font-headline-sm scale-105"><div class="flex justify-around items-center h-20 px-space-xs"><a class="flex flex-col items-center justify-center gap-1 min-w-[56px] h-12 rounded-full text-outline hover:text-on-surface transition-transform duration-200" data-path="explore" href="#"><span class="material-symbols-outlined text-[24px]">explore</span><span class="font-label-sm text-label-sm leading-none">Explore</span></a><a class="flex flex-col items-center justify-center gap-1 min-w-[56px] h-12 rounded-full text-outline hover:text-on-surface transition-transform duration-200" data-path="radar-map" href="#"><span class="material-symbols-outlined text-[24px]">radar</span><span class="font-label-sm text-label-sm leading-none">Map</span></a><a class="flex flex-col items-center justify-center gap-1 min-w-[56px] h-12 rounded-full text-outline hover:text-on-surface transition-transform duration-200" data-path="dating-sparks" href="#"><span class="material-symbols-outlined text-[24px]">favorite</span><span class="font-label-sm text-label-sm leading-none">Dating</span></a><a aria-current="page" class="flex flex-col items-center justify-center gap-1 min-w-[56px] h-12 rounded-full transition-transform duration-200 text-primary-container font-headline-sm scale-105" data-path="events-and-koodams" href="#"><span class="material-symbols-outlined text-[24px]">local_activity</span><span class="font-label-sm text-label-sm leading-none">Events</span></a><a class="flex flex-col items-center justify-center gap-1 min-w-[56px] h-12 rounded-full text-outline hover:text-on-surface transition-transform duration-200" data-path="chats-and-circles" href="#"><span class="material-symbols-outlined text-[24px]">forum</span><span class="font-label-sm text-label-sm leading-none">Chats</span></a></div></nav></body></html>

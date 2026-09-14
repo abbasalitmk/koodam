@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;font-family:'Plus Jakarta Sans',sans-serif;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "background": "#f5fbf7", "on-secondary": "#ffffff", "on-secondary-fixed": "#410007", "error": "#ba1a1a", "inverse-surface": "#2c322f", "primary": "#002118", "on-tertiary-fixed": "#2a1700", "surface-container-low": "#eff5f1", "on-primary-fixed": "#002118", "on-error": "#ffffff", "on-tertiary-fixed-variant": "#653e00", "on-tertiary": "#ffffff", "primary-container": "#0a382c", "secondary-fixed-dim": "#ffb3b0", "inverse-primary": "#a3d0bf", "surface-tint": "#3c6658", "surface-container-lowest": "#ffffff", "outline": "#717975", "surface-variant": "#dee4e0", "surface": "#f5fbf7", "surface-bright": "#f5fbf7", "on-secondary-container": "#60000e", "on-primary-container": "#77a292", "surface-container-high": "#e4eae6", "on-tertiary-container": "#d68800", "inverse-on-surface": "#ecf2ee", "on-surface": "#171d1b", "on-secondary-fixed-variant": "#92001b", "on-primary-fixed-variant": "#244e41", "surface-container-highest": "#dee4e0", "secondary-fixed": "#ffdad8", "surface-dim": "#d5dbd8", "on-surface-variant": "#414845", "on-background": "#171d1b", "on-primary": "#ffffff", "on-error-container": "#93000a", "secondary-container": "#ff5a5f", "secondary": "#b52330", "surface-container": "#e9efeb", "tertiary-fixed-dim": "#ffb95f", "tertiary": "#2c1800", "tertiary-fixed": "#ffddb8", "tertiary-container": "#482b00", "error-container": "#ffdad6", "outline-variant": "#c0c8c3", "primary-fixed-dim": "#a3d0bf", "primary-fixed": "#bfecda" }, borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" }, spacing: { "gutter": "1rem", "margin": "1.25rem", "space-sm": "0.5rem", "space-xs": "0.25rem", "space-xl": "2.25rem", "space-lg": "1.5rem", "space-md": "1rem" }, fontFamily: { "headline-sm": ["Plus Jakarta Sans"], "display-hero": ["Plus Jakarta Sans"], "label-md": ["Plus Jakarta Sans"], "label-lg": ["Plus Jakarta Sans"], "body-md": ["Plus Jakarta Sans"], "headline-md": ["Plus Jakarta Sans"], "body-lg": ["Plus Jakarta Sans"], "headline-lg": ["Plus Jakarta Sans"], "label-sm": ["Plus Jakarta Sans"], "headline-lg-mobile": ["Plus Jakarta Sans"], "body-sm": ["Plus Jakarta Sans"], "display-hero-mobile": ["Plus Jakarta Sans"] }, fontSize: { "headline-sm": ["18px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "600" }], "display-hero": ["44px", { "lineHeight": "52px", "letterSpacing": "-0.03em", "fontWeight": "800" }], "label-md": ["13px", { "lineHeight": "16px", "letterSpacing": "0.015em", "fontWeight": "600" }], "label-lg": ["15px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }], "body-md": ["15px", { "lineHeight": "22px", "letterSpacing": "0em", "fontWeight": "400" }], "headline-md": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" }], "body-lg": ["17px", { "lineHeight": "26px", "letterSpacing": "-0.005em", "fontWeight": "400" }], "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "700" }], "headline-lg-mobile": ["26px", { "lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "700" }], "body-sm": ["13px", { "lineHeight": "18px", "letterSpacing": "0.005em", "fontWeight": "400" }], "display-hero-mobile": ["34px", { "lineHeight": "40px", "letterSpacing": "-0.025em", "fontWeight": "800" }] } } } };</script></head><body class="bg-surface text-on-surface antialiased min-h-screen flex flex-col pt-safe pb-safe"><main class="flex-1 w-full bg-surface flex flex-col"><div class="flex flex-col w-full pb-8">
+<!-- Top Progress Bar & Back Navigation -->
+<div class="px-margin pt-4 pb-2">
+<div class="flex items-center justify-between">
+<button aria-label="Go Back" class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-on-surface hover:bg-surface-container-high transition-colors" type="button">
+<span class="material-symbols-outlined text-headline-sm">arrow_back</span>
+</button>
+<div class="flex flex-col items-center">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-surface-tint">Step 1 of 3</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold">Verification &amp; City</span>
+</div>
+<div class="w-10 h-10 rounded-full bg-surface-container-low flex items-center justify-center text-surface-tint">
+<span class="material-symbols-outlined text-headline-sm" style="font-variation-settings: 'FILL' 1;">shield</span>
+</div>
+</div>
+<!-- Segmented 3-Step Line Indicator -->
+<div class="grid grid-cols-3 gap-2 mt-4">
+<div class="h-1.5 rounded-full bg-primary-container"></div>
+<div class="h-1.5 rounded-full bg-surface-container-highest"></div>
+<div class="h-1.5 rounded-full bg-surface-container-highest"></div>
+</div>
+</div>
+<!-- Editorial Headline Section -->
+<div class="px-margin mt-4">
+<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm mb-2.5">
+<span class="text-tertiary-fixed-variant">കൂടം</span>
+<span class="w-1 h-1 rounded-full bg-outline"></span>
+<span>High-Trust Diaspora Circle</span>
+</div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface tracking-tight">
+      Join Your Local Koodam Circle
+    </h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2 leading-relaxed">
+      Connect with verified events, meetups, and like-minded Malayalis in your city with complete physical-world privacy.
+    </p>
+</div>
+<!-- Section 1: Phone / WhatsApp Quick Sign-In -->
+<div class="px-margin mt-6 space-y-4">
+<div class="p-space-lg rounded-2xl bg-surface-container-lowest shadow-sm space-y-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+<span class="font-label-lg text-label-lg text-on-surface">Identity &amp; Peer Trust</span>
+</div>
+<span class="font-label-sm text-label-sm text-surface-tint font-bold tracking-wider uppercase bg-surface-container-low px-2.5 py-1 rounded-full">Encrypted</span>
+</div>
+<!-- WhatsApp 1-Tap Auto-Verify Action -->
+<button class="w-full flex items-center justify-center gap-3 h-13 py-3.5 px-5 rounded-full bg-primary-container text-on-primary font-label-lg text-label-lg shadow-md hover:opacity-95 active:scale-[0.98] transition-all" id="whatsappBtn" type="button">
+<svg aria-hidden="true" class="w-5 h-5 fill-current" viewbox="0 0 24 24">
+<path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm5.79 14.12c-.24.68-1.2 1.25-1.68 1.33-.45.08-.99.12-2.99-.71-2.48-1.03-4.07-3.56-4.2-3.73-.12-.17-.99-1.32-.99-2.52 0-1.2.63-1.79.85-2.03.22-.24.48-.3.64-.3.17 0 .33 0 .47.01.15.01.35-.06.55.42.2.49.68 1.66.74 1.78.06.12.1.27.02.43-.08.16-.12.26-.24.4-.12.14-.26.31-.37.42-.12.12-.25.26-.11.5.14.24.63 1.04 1.36 1.69.93.83 1.72 1.09 1.96 1.21.24.12.38.1.52-.06.14-.17.6-.7.76-.94.16-.24.32-.2.53-.12.21.08 1.36.64 1.59.76.24.12.39.18.45.28.06.1.06.59-.18 1.27z"></path>
+</svg>
+<span>Instant WhatsApp 1-Tap Verify</span>
+</button>
+<!-- Editorial Divider -->
+<div class="relative flex items-center justify-center my-2">
+<div class="w-full h-px bg-surface-variant"></div>
+<span class="absolute px-3 bg-surface-container-lowest font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">or verify via sms</span>
+</div>
+<!-- Phone Number Input with India Selector -->
+<div class="space-y-2">
+<div class="flex items-center gap-2 p-1.5 rounded-2xl bg-surface-container-low focus-within:bg-surface-container-lowest focus-within:shadow-md transition-all">
+<button class="flex items-center gap-1.5 pl-3 pr-2 py-2 rounded-xl bg-surface-container-lowest text-on-surface font-label-md text-label-md" type="button">
+<span class="text-base leading-none">🇮🇳</span>
+<span>+91</span>
+<span class="material-symbols-outlined text-body-sm text-outline">expand_more</span>
+</button>
+<input class="w-full bg-transparent px-2 py-2 text-on-surface placeholder:text-outline font-body-md text-body-md focus:outline-none" id="phoneNumber" placeholder="98470 12345" type="tel"/>
+<button class="whitespace-nowrap px-4 py-2 rounded-xl bg-surface-container-high text-primary-container font-label-md text-label-md hover:bg-primary-fixed hover:text-on-primary-fixed transition-colors" id="otpBtn" type="button">
+            Send OTP
+          </button>
+</div>
+<div class="hidden pt-2" id="otpInputRow">
+<div class="p-3 rounded-xl bg-surface-container-low flex items-center justify-between">
+<input class="bg-transparent text-on-surface font-headline-sm text-headline-sm tracking-widest w-44 focus:outline-none placeholder:font-body-md placeholder:tracking-normal placeholder:text-outline" maxlength="6" placeholder="Enter 6-digit code" type="text"/>
+<span class="font-label-sm text-label-sm text-surface-tint font-bold">Resend in 0:42</span>
+</div>
+</div>
+</div>
+<!-- Trust Pledge Footnote -->
+<div class="flex items-start gap-2 pt-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-label-lg text-surface-tint mt-0.5">lock</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-snug">
+          We never broadcast your phone number. It is exclusively kept for identity safety, trusted emergency beacon, and 3-peer vouches.
+        </p>
+</div>
+</div>
+</div>
+<!-- Section 2: Interactive Location Access Permission Card -->
+<div class="px-margin mt-6">
+<div class="p-space-lg rounded-3xl bg-surface-container-lowest shadow-sm space-y-5">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-2xl bg-primary-container/10 flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-headline-md" style="font-variation-settings: 'FILL' 1;">near_me</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Neighborhood Circle</h2>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Active District &amp; Gathering Radius</span>
+</div>
+</div>
+<span class="px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm">High Trust</span>
+</div>
+<!-- Visual Ghost Radius Map Preview with data-location -->
+<div class="relative w-full h-36 rounded-2xl overflow-hidden bg-surface-container-high shadow-inner">
+<div class="w-full h-full bg-cover bg-center" data-location="Panampilly Nagar, Kochi, Kerala" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAe4XWCLh-UNcFnWrWD5ajVSAwl-4pQsReDIsecFAlwyISq63lLD3KyygJRzVzr8kWK7j1Ndf3PdLxBFJ5lwS1_tby_2hQE8YUyBz8kGmgMDm7ygpV5JcxC9E0eNasIiSr-vAgPywQWyeAlLOje4l6mdKIVMrSnFNmr8FVQ93gc3KBSweMLZT35J1Hpg27rwzmOpQn11cpv-tmzoSOjSGa60w0CLR1qs7W6RBtA6AhTiy7SYysUA_k_')"></div>
+<div class="absolute inset-0 bg-primary-container/20 backdrop-blur-[2px]"></div>
+<!-- Center Ghost Radius Radar Ring -->
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="relative flex items-center justify-center">
+<div class="w-24 h-24 rounded-full bg-primary-container/20 animate-ping absolute"></div>
+<div class="w-20 h-20 rounded-full bg-primary-fixed/40 backdrop-blur-md flex items-center justify-center">
+<div class="w-10 h-10 rounded-full bg-primary-container text-on-primary flex items-center justify-center shadow-lg">
+<span class="material-symbols-outlined text-headline-sm">fmd_good</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Float Tag -->
+<div class="absolute bottom-2.5 left-3 right-3 flex items-center justify-between px-3 py-1.5 rounded-xl bg-surface-container-lowest/90 backdrop-blur-md text-on-surface text-label-sm font-label-sm shadow-sm">
+<span class="flex items-center gap-1.5 font-medium">
+<span class="w-2 h-2 rounded-full bg-secondary-container"></span>
+            Ghost Radius Active (~800m blur)
+          </span>
+<span class="text-surface-tint font-bold">Encrypted</span>
+</div>
+</div>
+<!-- GPS Detection Trigger -->
+<button class="w-full p-3.5 rounded-2xl bg-surface-container-low hover:bg-surface-container transition-all flex items-center justify-between text-left" id="gpsDetectBtn" type="button">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-xl bg-primary-fixed flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-headline-sm">my_location</span>
+</div>
+<div>
+<div class="font-label-lg text-label-lg text-on-surface">Detect My Current Location (GPS)</div>
+<div class="font-body-sm text-body-sm text-surface-tint font-medium" id="detectedLabel">Tap to refresh accurate zone</div>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline">chevron_right</span>
+</button>
+<!-- Auto-Detected Location Chip -->
+<div class="p-3 rounded-2xl bg-surface-container flex items-center justify-between" id="detectedBadge">
+<div class="flex items-center gap-2 min-w-0">
+<span class="text-lg">📍</span>
+<div class="truncate">
+<span class="font-label-md text-label-md text-on-surface">Panampilly Nagar, Kochi</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant block truncate">Ernakulam District • KL-07</span>
+</div>
+</div>
+<span class="px-2.5 py-1 rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm font-bold shrink-0">
+          Auto-Detected
+        </span>
+</div>
+<!-- Manual District Dropdown Selector -->
+<div class="space-y-2">
+<label class="block font-label-md text-label-md text-on-surface-variant" for="districtSelect">
+          Or Choose District / Pravasi Hub Manually
+        </label>
+<div class="relative">
+<select class="w-full appearance-none px-4 py-3.5 pr-10 rounded-2xl bg-surface-container-low text-on-surface font-body-md text-body-md focus:outline-none focus:bg-surface-container-lowest focus:shadow-md transition-all" id="districtSelect">
+<optgroup label="Kerala Districts (കേരളം)">
+<option selected="" value="ernakulam">Ernakulam (Kochi, Aluva, Kakkanad)</option>
+<option value="trivandrum">Thiruvananthapuram (Technopark, Kowdiar)</option>
+<option value="kozhikode">Kozhikode (Beach Road, Mavoor)</option>
+<option value="thrissur">Thrissur (Swaraj Round, Chembukkavu)</option>
+<option value="kottayam">Kottayam (Kumarakom, Collectorate)</option>
+<option value="kollam">Kollam (Asramam, Tangasseri)</option>
+<option value="palakkad">Palakkad (Fort Maidan, Malampuzha)</option>
+<option value="alappuzha">Alappuzha (Punnamada, Town)</option>
+<option value="malappuram">Malappuram (Manjeri, Perinthalmanna)</option>
+<option value="kannur">Kannur (Payyambalam, Thavakkara)</option>
+<option value="idukki">Idukki (Munnar, Thodupuzha)</option>
+<option value="pathanamthitta">Pathanamthitta (Adoor, Thiruvalla)</option>
+<option value="wayanad">Wayanad (Kalpetta, Sultan Bathery)</option>
+<option value="kasaragod">Kasaragod (Bekal, Kanhangad)</option>
+</optgroup>
+<optgroup label="Pravasi Malayali Hubs (പ്രവാസി കൂടം)">
+<option value="dubai">Dubai, UAE (Al Karama, Deira, Marina)</option>
+<option value="abudhabi">Abu Dhabi, UAE (Mussafah, Corniche)</option>
+<option value="doha">Doha, Qatar (Mansoura, Matar Qadeem)</option>
+<option value="sharjah">Sharjah, UAE (Al Nahda, Muwailih)</option>
+<option value="london">London, UK (East Ham, Croydon, Wembley)</option>
+<option value="bangalore">Bengaluru, IN (Madiwala, Indiranagar, HSR)</option>
+<option value="chennai">Chennai, IN (Egmore, Anna Nagar)</option>
+<option value="singapore">Singapore (Little India, Jurong)</option>
+<option value="toronto">Toronto, CA (Scarborough, Mississauga)</option>
+</optgroup>
+</select>
+<div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-on-surface-variant">
+<span class="material-symbols-outlined text-headline-sm">expand_more</span>
+</div>
+</div>
+</div>
+<!-- Privacy Guard Active Notice -->
+<div class="p-3.5 rounded-2xl bg-surface-container-high/60 flex items-start gap-3 text-on-surface">
+<span class="material-symbols-outlined text-secondary-container mt-0.5" style="font-variation-settings: 'FILL' 1;">visibility_off</span>
+<div class="text-left space-y-0.5">
+<span class="font-label-md text-label-md block font-bold text-on-surface">Ghost Radius Active</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+            Your exact house or GPS coordinates are never revealed to members. Meetup groups only see your general neighborhood (~800m zone) until you confirm attendance at an approved public venue.
+          </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Peer Trust Preview Card -->
+<div class="px-margin mt-4">
+<div class="p-4 rounded-2xl bg-surface-container-low flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="flex -space-x-2 overflow-hidden">
+<div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container-highest">
+<img class="w-full h-full object-cover" data-alt="Portrait photo of a smiling Malayali woman wearing traditional silver earrings with soft natural lighting and warm undertones" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAiuYI4S9qeSGninqCHjMNDi2uaFqOQNvpCbzr9sElFmoE1ol_nJ1vEJujXKLNDIcAGxlDIxPe3ONqB702gKTYyTIvLFa8EI-AK-9Slh8QMpzyy7IavDHTZ57eU8T6OMRRsnSa-c0R0nN8hxEhjtiJL8fSJWayZXbNrdmAJEat34WqsFhmrYnPRXFyymR3CmmoxB1nMy04tvHVQo1gvqMg_-GNm7Xpdef4LOD_VHz_i7kuz4ytNTq4u"/>
+</div>
+<div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container-highest">
+<img class="w-full h-full object-cover" data-alt="Portrait of a young Malayali man in Kerala cotton shirt outdoors in Kochi with golden evening light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXxIHpoizeqBgepEeKIJkTJ4qqlSNNeV40qWs7UPLqc7ptpZ13QZXa6dnCUD2R91SxRYrjLyd5S3RIoblJEQKlXTKIu5SRvRt2jTBcR_iXnOsGVQiN0V82Wk8UnWXB3nhdiB2npozJEQi9Jp2bmBisVpPAZWNnLF-Z2DopBeYkVUg23ZIA7sl6jKVFRvRK5rk8KcAiW0OMaX3N98oVsBbPG_LDeYBr-LyydyXwop4epwlGztmCXmxC"/>
+</div>
+<div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container-highest">
+<img class="w-full h-full object-cover" data-alt="Close up photo of an Indian creative professional wearing spectacles with warm green Nilgiri studio backdrop" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-IfBcHBDuTvWQsBFaXWq97pe-ZpNpZrg-kmwqaT1GY4gGAqi_mO8pnNz-cRwRHRPyBWhPR9g7Gzm31wDbRC0qxYBZAe_TDAonegbvhVnW6T1MXpXZPsH2-d1gA8rNW9_-i1hy764jEyN0N-0xumAFxsyEYHYEmOYzrls4SgF9DOghuG25Xe3Qppc1_p-Yu65ZmxmMpq9_Uq-MiAIvfDlJFc3E5dayZq6FrfbIGh0ImspIoIAl764i"/>
+</div>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface">1,420+ Vouched Members in Kochi Circle</span>
+</div>
+<span class="font-label-sm text-label-sm text-surface-tint font-bold bg-surface-container-lowest px-2.5 py-1 rounded-full shadow-sm">
+        Level 1 Trust
+      </span>
+</div>
+</div>
+<!-- Bottom Fixed-style Action Hub -->
+<div class="px-margin mt-6 space-y-3">
+<!-- Community Safety Agreement Pill -->
+<label class="flex items-start gap-3 p-1 cursor-pointer select-none">
+<input checked="" class="mt-1 w-4 h-4 rounded text-primary-container accent-primary-container focus:ring-0" id="termsCheck" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-surface-variant leading-tight">
+        I pledge to uphold the <strong class="text-on-surface font-semibold">Koodam Code of Respect</strong> and agree to public, peer-vouched gatherings only.
+      </span>
+</label>
+<!-- Main Navigation CTA Button -->
+<button class="w-full h-13 py-3.5 px-6 rounded-full bg-primary-container text-on-primary font-label-lg text-label-lg shadow-md hover:bg-primary transition-all flex items-center justify-center gap-2 active:scale-[0.98]" id="submitBtn" type="button">
+<span>Continue &amp; Set Profile</span>
+<span class="material-symbols-outlined text-label-lg">arrow_forward</span>
+</button>
+<!-- Secondary Safe Haven Help Link -->
+<div class="flex items-center justify-center gap-4 pt-1">
+<button class="font-label-sm text-label-sm text-surface-tint hover:underline flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-sm">health_and_safety</span>
+        Safety Guidelines
+      </button>
+<span class="text-outline-variant">•</span>
+<button class="font-label-sm text-label-sm text-surface-tint hover:underline flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-sm">support_agent</span>
+        Malayali Diaspora Helpdesk
+      </button>
+</div>
+</div>
+</div>
+<script>
+  // Micro-interactions for Screen 02 & 03
+  const otpBtn = document.getElementById('otpBtn');
+  const otpInputRow = document.getElementById('otpInputRow');
+  const whatsappBtn = document.getElementById('whatsappBtn');
+  const gpsDetectBtn = document.getElementById('gpsDetectBtn');
+  const detectedLabel = document.getElementById('detectedLabel');
+  const detectedBadge = document.getElementById('detectedBadge');
+  const districtSelect = document.getElementById('districtSelect');
+  const submitBtn = document.getElementById('submitBtn');
+
+  if (otpBtn && otpInputRow) {
+    otpBtn.addEventListener('click', () => {
+      otpInputRow.classList.remove('hidden');
+      otpBtn.textContent = 'Code Sent';
+      otpBtn.classList.add('bg-primary-fixed', 'text-on-primary-fixed');
+    });
+  }
+
+  if (whatsappBtn) {
+    whatsappBtn.addEventListener('click', () => {
+      whatsappBtn.classList.add('opacity-80');
+      whatsappBtn.innerHTML = `
+        <span class="material-symbols-outlined animate-spin text-headline-sm">sync</span>
+        <span>Connecting WhatsApp Intent...</span>
+      `;
+      setTimeout(() => {
+        whatsappBtn.classList.remove('opacity-80');
+        whatsappBtn.innerHTML = `
+          <span class="material-symbols-outlined text-headline-sm">check_circle</span>
+          <span>WhatsApp Verified (+91 9847•••821)</span>
+        `;
+        whatsappBtn.classList.replace('bg-primary-container', 'bg-surface-container-high');
+        whatsappBtn.classList.replace('text-on-primary', 'text-primary-container');
+      }, 900);
+    });
+  }
+
+  if (gpsDetectBtn && detectedLabel && detectedBadge) {
+    gpsDetectBtn.addEventListener('click', () => {
+      detectedLabel.textContent = 'Locating via Nilgiri Cell Tower...';
+      gpsDetectBtn.classList.add('opacity-75');
+      setTimeout(() => {
+        gpsDetectBtn.classList.remove('opacity-75');
+        detectedLabel.textContent = 'Accurate to ~800m neighborhood';
+        detectedBadge.classList.add('bg-primary-fixed-dim/20');
+      }, 700);
+    });
+  }
+
+  if (districtSelect && detectedBadge) {
+    districtSelect.addEventListener('change', (e) => {
+      const selectedName = e.target.options[e.target.selectedIndex].text;
+      const titleSpan = detectedBadge.querySelector('.font-label-md');
+      if (titleSpan) {
+        titleSpan.textContent = selectedName;
+      }
+      const subSpan = detectedBadge.querySelector('.font-body-sm');
+      if (subSpan) {
+        subSpan.textContent = 'Manual Selection • Radius Blur Active';
+      }
+    });
+  }
+
+  if (submitBtn) {
+    submitBtn.addEventListener('click', () => {
+      submitBtn.classList.add('scale-95');
+      setTimeout(() => submitBtn.classList.remove('scale-95'), 150);
+    });
+  }
+</script></main></body></html>

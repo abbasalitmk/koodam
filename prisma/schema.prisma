@@ -1,0 +1,1021 @@
+// Koodam (കൂടം) — Prisma schema
+// PostgreSQL 16 + PostGIS. Geography columns are declared as `Unsupported` because the
+// Prisma client cannot serialise PostGIS types; every spatial read/write goes through
+// PrismaService raw SQL helpers (see src/database/spatial.service.ts).
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["postgresqlExtensions"]
+}
+
+datasource db {
+  provider   = "postgresql"
+  url        = env("DATABASE_URL")
+  extensions = [postgis, uuidOssp(map: "uuid-ossp")]
+}
+
+// ---------------------------------------------------------------------------
+// ENUMS
+// ---------------------------------------------------------------------------
+
+enum UserStatus {
+  ACTIVE
+  SUSPENDED
+  DEACTIVATED
+  DELETED
+}
+
+enum UserRole {
+  USER
+  MODERATOR
+  ADMIN
+}
+
+enum Gender {
+  FEMALE
+  MALE
+  NON_BINARY
+  OTHER
+  PREFER_NOT_TO_SAY
+}
+
+enum RelationshipIntention {
+  DATING
+  SERIOUS_RELATIONSHIP
+  LONG_TERM
+  MARRIAGE
+  FRIENDSHIP
+  SOCIAL
+  OPEN_TO_CONNECTIONS
+}
+
+enum VerificationStatus {
+  UNVERIFIED
+  PENDING
+  VERIFIED
+  REJECTED
+}
+
+enum VerificationKind {
+  PHONE
+  EMAIL
+  IDENTITY
+  SELFIE
+}
+
+enum PhotoStatus {
+  PENDING
+  ACTIVE
+  REJECTED
+  DELETED
+}
+
+enum LocationKind {
+  COUNTRY
+  STATE
+  DISTRICT
+  CITY
+  TOWN
+  LOCALITY
+}
+
+enum LocationMode {
+  NEAR_ME
+  CHOOSE_LOCATION
+  KERALA
+}
+
+enum EventPrivacy {
+  PUBLIC
+  PRIVATE
+  INVITE_ONLY
+}
+
+enum EventStatus {
+  DRAFT
+  PENDING_REVIEW
+  PENDING_VOUCH
+  PUBLISHED
+  REJECTED
+  CANCELLED
+  COMPLETED
+}
+
+enum EventFormat {
+  CASUAL_MEETUP
+  CURATED_EVENT
+}
+
+enum PricingType {
+  FREE
+  SPLIT_BILL
+  PAID_TICKET
+}
+
+enum AttendeeStatus {
+  REQUESTED
+  CONFIRMED
+  WAITLISTED
+  CANCELLED
+  REJECTED
+  CHECKED_IN
+}
+
+enum InviteStatus {
+  PENDING
+  ACCEPTED
+  DECLINED
+  CANCELLED
+}
+
+enum LoveRequestStatus {
+  PENDING
+  ACCEPTED
+  DECLINED
+  EXPIRED
+  CANCELLED
+}
+
+enum ConnectionOrigin {
+  CONNECT_FRIEND
+  LOVE
+  EVENT
+}
+
+enum ConnectionStatus {
+  ACTIVE
+  BLOCKED
+  REMOVED
+}
+
+enum ConversationType {
+  DIRECT
+  EVENT_GROUP
+}
+
+enum MessageType {
+  TEXT
+  IMAGE
+  SYSTEM
+  ANNOUNCEMENT
+}
+
+enum MessagePermission {
+  EVERYONE
+  CONNECTIONS_ONLY
+  NOBODY
+}
+
+enum NotificationType {
+  LOVE_REQUEST
+  LOVE_ACCEPTED
+  NEW_MESSAGE
+  EVENT_JOINED
+  EVENT_REMINDER
+  EVENT_UPDATED
+  EVENT_CANCELLED
+  EVENT_INVITE
+  EVENT_ANNOUNCEMENT
+  EVENT_VOUCHED
+  EVENT_PUBLISHED
+  NEW_CONNECTION
+  PROFILE_INTERACTION
+  FEATURED_EVENT
+  VERIFICATION
+  SYSTEM
+}
+
+enum ReportTargetType {
+  PROFILE
+  EVENT
+  MESSAGE
+  PHOTO
+}
+
+enum ReportReason {
+  SPAM
+  HARASSMENT
+  FAKE_PROFILE
+  SCAM
+  INAPPROPRIATE_CONTENT
+  UNSAFE_BEHAVIOR
+  OTHER
+}
+
+enum ReportStatus {
+  PENDING
+  UNDER_REVIEW
+  RESOLVED
+  DISMISSED
+}
+
+enum CampaignPlan {
+  ONE_DAY
+  SEVEN_DAYS
+  THIRTY_DAYS
+}
+
+enum CampaignStatus {
+  DRAFT
+  PENDING_PAYMENT
+  ACTIVE
+  EXPIRED
+  CANCELLED
+}
+
+enum PaymentStatus {
+  PENDING
+  SUCCESS
+  FAILED
+  REFUNDED
+}
+
+enum DevicePlatform {
+  IOS
+  ANDROID
+  WEB
+}
+
+enum OtpPurpose {
+  PHONE_VERIFICATION
+  EMAIL_VERIFICATION
+  PASSWORD_RESET
+  LOGIN
+}
+
+enum ReactionType {
+  INTERESTED
+  LIKE
+  GOING
+}
+
+// ---------------------------------------------------------------------------
+// IDENTITY
+// ---------------------------------------------------------------------------
+
+model User {
+  id           String     @id @default(uuid()) @db.Uuid
+  email        String?    @unique
+  phone        String?    @unique
+  passwordHash String?    @map("password_hash")
+  role         UserRole   @default(USER)
+  status       UserStatus @default(ACTIVE)
+
+  isVerified      Boolean   @default(false) @map("is_verified")
+  emailVerifiedAt DateTime? @map("email_verified_at") @db.Timestamptz(6)
+  phoneVerifiedAt DateTime? @map("phone_verified_at") @db.Timestamptz(6)
+
+  abuseScore     Int       @default(0) @map("abuse_score")
+  suspendedUntil DateTime? @map("suspended_until") @db.Timestamptz(6)
+  suspendReason  String?   @map("suspend_reason")
+
+  lastActiveAt DateTime  @default(now()) @map("last_active_at") @db.Timestamptz(6)
+  createdAt    DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt    DateTime  @updatedAt @map("updated_at") @db.Timestamptz(6)
+  deletedAt    DateTime? @map("deleted_at") @db.Timestamptz(6)
+
+  profile         Profile?
+  privacySettings UserPrivacySettings?
+  preferences     UserPreferences?
+
+  photos              ProfilePhoto[]
+  interests           UserInterest[]
+  refreshTokens       RefreshToken[]
+  otpCodes            OtpCode[]
+  deviceTokens        DeviceToken[]
+  organizedEvents     Event[]               @relation("EventOrganizer")
+  attendances         EventAttendee[]
+  eventVouches        EventVouch[]
+  invitesSent         EventInvite[]         @relation("InviteInviter")
+  invitesReceived     EventInvite[]         @relation("InviteInvitee")
+  savedEvents         SavedEvent[]
+  savedProfiles       SavedProfile[]        @relation("SaverUser")
+  savedByProfiles     SavedProfile[]        @relation("SavedUser")
+  eventReactions      EventReaction[]
+  loveRequestsSent    LoveRequest[]         @relation("LoveSender")
+  loveRequestsGot     LoveRequest[]         @relation("LoveReceiver")
+  connectionsA        Connection[]          @relation("ConnectionUserA")
+  connectionsB        Connection[]          @relation("ConnectionUserB")
+  conversationMembers ConversationMember[]
+  messages            Message[]
+  notifications       Notification[]
+  reportsFiled        Report[]              @relation("Reporter")
+  reportsAgainst      Report[]              @relation("ReportedUser")
+  blocksMade          Block[]               @relation("Blocker")
+  blocksReceived      Block[]               @relation("Blocked")
+  verifications       VerificationRequest[]
+  payments            Payment[]
+  campaigns           FeaturedEventCampaign[]
+  auditLogs           AuditLog[]
+
+  @@index([status])
+  @@index([lastActiveAt])
+  @@map("users")
+}
+
+model RefreshToken {
+  id        String    @id @default(uuid()) @db.Uuid
+  userId    String    @map("user_id") @db.Uuid
+  tokenHash String    @unique @map("token_hash")
+  familyId  String    @map("family_id") @db.Uuid
+  userAgent String?   @map("user_agent")
+  ipAddress String?   @map("ip_address")
+  expiresAt DateTime  @map("expires_at") @db.Timestamptz(6)
+  revokedAt DateTime? @map("revoked_at") @db.Timestamptz(6)
+  createdAt DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([familyId])
+  @@map("refresh_tokens")
+}
+
+model OtpCode {
+  id         String     @id @default(uuid()) @db.Uuid
+  userId     String?    @map("user_id") @db.Uuid
+  identifier String
+  purpose    OtpPurpose
+  codeHash   String     @map("code_hash")
+  attempts   Int        @default(0)
+  consumedAt DateTime?  @map("consumed_at") @db.Timestamptz(6)
+  expiresAt  DateTime   @map("expires_at") @db.Timestamptz(6)
+  createdAt  DateTime   @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  user User? @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([identifier, purpose])
+  @@map("otp_codes")
+}
+
+// ---------------------------------------------------------------------------
+// PROFILE
+// ---------------------------------------------------------------------------
+
+model Profile {
+  id     String @id @default(uuid()) @db.Uuid
+  userId String @unique @map("user_id") @db.Uuid
+
+  displayName String    @map("display_name") @db.VarChar(80)
+  dateOfBirth DateTime  @map("date_of_birth") @db.Date
+  gender      Gender
+  bio         String?   @db.VarChar(600)
+  profession  String?   @db.VarChar(120)
+
+  // Roots + presence
+  homeDistrict String? @map("home_district") @db.VarChar(60)
+  city         String? @db.VarChar(120)
+  district     String? @db.VarChar(60)
+  state        String? @db.VarChar(60)
+  country      String? @db.VarChar(60)
+
+  relationshipIntention RelationshipIntention @default(OPEN_TO_CONNECTIONS) @map("relationship_intention")
+
+  culturalPrompts Json     @default("[]") @map("cultural_prompts")
+  languages       String[] @default([])
+
+  // Actual GPS (internal only, never serialised to clients)
+  currentLocationId  String? @map("current_location_id") @db.Uuid
+  // Location the user chose to explore; never overwrites currentLocation
+  exploringLocationId String? @map("exploring_location_id") @db.Uuid
+  locationMode       LocationMode @default(NEAR_ME) @map("location_mode")
+
+  currentLat Float? @map("current_lat")
+  currentLng Float? @map("current_lng")
+  // ~400-900m randomised offset used for every public spatial read
+  ghostLat   Float? @map("ghost_lat")
+  ghostLng   Float? @map("ghost_lng")
+
+  exploringLat Float? @map("exploring_lat")
+  exploringLng Float? @map("exploring_lng")
+
+  locationUpdatedAt DateTime? @map("location_updated_at") @db.Timestamptz(6)
+
+  isProfileComplete Boolean            @default(false) @map("is_profile_complete")
+  verification      VerificationStatus @default(UNVERIFIED)
+  peerVouchScore    Int                @default(0) @map("peer_vouch_score")
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  user               User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  currentLocation    Location? @relation("ProfileCurrentLocation", fields: [currentLocationId], references: [id], onDelete: SetNull)
+  exploringLocation  Location? @relation("ProfileExploringLocation", fields: [exploringLocationId], references: [id], onDelete: SetNull)
+
+  // geography(Point,4326) columns added by migration:
+  //   current_point  — internal precise position
+  //   ghost_point    — obfuscated position used by public discovery
+  //   exploring_point
+
+  @@index([district])
+  @@index([homeDistrict])
+  @@index([gender])
+  @@map("profiles")
+}
+
+model ProfilePhoto {
+  id         String      @id @default(uuid()) @db.Uuid
+  userId     String      @map("user_id") @db.Uuid
+  url        String
+  storageKey String      @map("storage_key")
+  position   Int         @default(0)
+  isPrimary  Boolean     @default(false) @map("is_primary")
+  status     PhotoStatus @default(ACTIVE)
+  width      Int?
+  height     Int?
+  createdAt  DateTime    @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, position])
+  @@map("profile_photos")
+}
+
+model Interest {
+  id        String   @id @default(uuid()) @db.Uuid
+  slug      String   @unique
+  name      String
+  emoji     String?
+  category  String?
+  isActive  Boolean  @default(true) @map("is_active")
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  users UserInterest[]
+
+  @@map("interests")
+}
+
+model UserInterest {
+  userId     String   @map("user_id") @db.Uuid
+  interestId String   @map("interest_id") @db.Uuid
+  createdAt  DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  interest Interest @relation(fields: [interestId], references: [id], onDelete: Cascade)
+
+  @@id([userId, interestId])
+  @@index([interestId])
+  @@map("user_interests")
+}
+
+model UserPrivacySettings {
+  userId String @id @map("user_id") @db.Uuid
+
+  privateMode       Boolean           @default(false) @map("private_mode")
+  showInDiscover    Boolean           @default(true) @map("show_in_discover")
+  showOnPeopleMap   Boolean           @default(true) @map("show_on_people_map")
+  showDistance      Boolean           @default(true) @map("show_distance")
+  showOnlineStatus  Boolean           @default(true) @map("show_online_status")
+  showLocation      Boolean           @default(true) @map("show_location")
+  allowLoveRequests Boolean           @default(true) @map("allow_love_requests")
+  allowMessages     MessagePermission @default(CONNECTIONS_ONLY) @map("allow_messages")
+  readReceipts      Boolean           @default(true) @map("read_receipts")
+  datingVisible     Boolean           @default(true) @map("dating_visible")
+
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("user_privacy_settings")
+}
+
+model UserPreferences {
+  userId String @id @map("user_id") @db.Uuid
+
+  minAge                 Int                     @default(18) @map("min_age")
+  maxAge                 Int                     @default(60) @map("max_age")
+  preferredGenders       Gender[]                @default([]) @map("preferred_genders")
+  maxDistanceKm          Int                     @default(50) @map("max_distance_km")
+  relationshipIntentions RelationshipIntention[] @default([]) @map("relationship_intentions")
+  preferredLocationIds   String[]                @default([]) @map("preferred_location_ids") @db.Uuid
+  eventCategoryIds       String[]                @default([]) @map("event_category_ids") @db.Uuid
+
+  pushEnabled  Boolean @default(true) @map("push_enabled")
+  emailEnabled Boolean @default(true) @map("email_enabled")
+
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("user_preferences")
+}
+
+model DeviceToken {
+  id        String         @id @default(uuid()) @db.Uuid
+  userId    String         @map("user_id") @db.Uuid
+  token     String         @unique
+  platform  DevicePlatform
+  isActive  Boolean        @default(true) @map("is_active")
+  createdAt DateTime       @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt DateTime       @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("device_tokens")
+}
+
+// ---------------------------------------------------------------------------
+// LOCATION
+// ---------------------------------------------------------------------------
+
+model Location {
+  id       String       @id @default(uuid()) @db.Uuid
+  kind     LocationKind
+  name     String
+  slug     String       @unique
+  parentId String?      @map("parent_id") @db.Uuid
+
+  countryCode String? @map("country_code") @db.VarChar(2)
+  timezone    String? @db.VarChar(64)
+
+  latitude  Float
+  longitude Float
+
+  isKerala    Boolean @default(false) @map("is_kerala")
+  isDiaspora  Boolean @default(false) @map("is_diaspora")
+  population  Int?
+  searchTerms String? @map("search_terms")
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  parent   Location?  @relation("LocationHierarchy", fields: [parentId], references: [id], onDelete: SetNull)
+  children Location[] @relation("LocationHierarchy")
+
+  profilesCurrent   Profile[] @relation("ProfileCurrentLocation")
+  profilesExploring Profile[] @relation("ProfileExploringLocation")
+  events            Event[]
+
+  // geography(Point,4326) column `point` added by migration
+
+  @@index([kind])
+  @@index([parentId])
+  @@index([isKerala])
+  @@map("locations")
+}
+
+// ---------------------------------------------------------------------------
+// EVENTS
+// ---------------------------------------------------------------------------
+
+model EventCategory {
+  id        String   @id @default(uuid()) @db.Uuid
+  slug      String   @unique
+  name      String
+  emoji     String?
+  colorHex  String?  @map("color_hex") @db.VarChar(9)
+  position  Int      @default(0)
+  isActive  Boolean  @default(true) @map("is_active")
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  events Event[]
+
+  @@map("event_categories")
+}
+
+model Event {
+  id          String @id @default(uuid()) @db.Uuid
+  organizerId String @map("organizer_id") @db.Uuid
+  categoryId  String @map("category_id") @db.Uuid
+
+  title       String  @db.VarChar(140)
+  description String  @db.Text
+  coverImage  String? @map("cover_image")
+
+  format   EventFormat  @default(CASUAL_MEETUP)
+  privacy  EventPrivacy @default(PUBLIC)
+  status   EventStatus  @default(DRAFT)
+
+  // Strict single-day policy: startTime and endTime share one calendar date
+  eventDate DateTime @map("event_date") @db.Date
+  startTime DateTime @map("start_time") @db.Timestamptz(6)
+  endTime   DateTime @map("end_time") @db.Timestamptz(6)
+  timezone  String   @default("Asia/Kolkata") @db.VarChar(64)
+
+  locationName String  @map("location_name") @db.VarChar(160)
+  address      String  @db.Text
+  city         String? @db.VarChar(120)
+  district     String? @db.VarChar(60)
+  state        String? @db.VarChar(60)
+  country      String  @default("India") @db.VarChar(60)
+  latitude     Float
+  longitude    Float
+  locationId   String? @map("location_id") @db.Uuid
+
+  maxAttendees Int?        @map("max_attendees")
+  attendeeCount Int        @default(0) @map("attendee_count")
+  pricingType  PricingType @default(FREE) @map("pricing_type")
+  price        Decimal     @default(0) @db.Decimal(10, 2)
+  currency     String      @default("INR") @db.VarChar(3)
+  upiId        String?     @map("upi_id") @db.VarChar(64)
+
+  genderBalanceEnforced Boolean @default(false) @map("gender_balance_enforced")
+  femaleCount           Int     @default(0) @map("female_count")
+  maleCount             Int     @default(0) @map("male_count")
+
+  requiresApproval Boolean @default(false) @map("requires_approval")
+  allowChat        Boolean @default(true) @map("allow_chat")
+  allowAttendeeDiscovery Boolean @default(true) @map("allow_attendee_discovery")
+
+  // 3-peer trust engine
+  vouchesCount    Int    @default(0) @map("vouches_count")
+  requiredVouches Int    @default(3) @map("required_vouches")
+  vouchToken      String? @unique @map("vouch_token")
+
+  isFeatured    Boolean   @default(false) @map("is_featured")
+  featuredUntil DateTime? @map("featured_until") @db.Timestamptz(6)
+
+  viewCount Int @default(0) @map("view_count")
+  saveCount Int @default(0) @map("save_count")
+
+  moderationNote String?   @map("moderation_note")
+  publishedAt    DateTime? @map("published_at") @db.Timestamptz(6)
+  cancelledAt    DateTime? @map("cancelled_at") @db.Timestamptz(6)
+  reminder24SentAt DateTime? @map("reminder_24_sent_at") @db.Timestamptz(6)
+  reminder1SentAt  DateTime? @map("reminder_1_sent_at") @db.Timestamptz(6)
+
+  createdAt DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt DateTime  @updatedAt @map("updated_at") @db.Timestamptz(6)
+  deletedAt DateTime? @map("deleted_at") @db.Timestamptz(6)
+
+  organizer     User            @relation("EventOrganizer", fields: [organizerId], references: [id], onDelete: Cascade)
+  category      EventCategory   @relation(fields: [categoryId], references: [id])
+  location      Location?       @relation(fields: [locationId], references: [id], onDelete: SetNull)
+  attendees     EventAttendee[]
+  invites       EventInvite[]
+  vouches       EventVouch[]
+  savedBy       SavedEvent[]
+  reactions     EventReaction[]
+  conversation  Conversation?
+  campaigns     FeaturedEventCampaign[]
+  payments      Payment[]
+  reports       Report[]
+
+  // geography(Point,4326) column `point` added by migration
+
+  @@index([status, startTime])
+  @@index([district])
+  @@index([categoryId])
+  @@index([organizerId])
+  @@index([isFeatured])
+  @@map("events")
+}
+
+model EventAttendee {
+  id      String @id @default(uuid()) @db.Uuid
+  eventId String @map("event_id") @db.Uuid
+  userId  String @map("user_id") @db.Uuid
+
+  status      AttendeeStatus @default(CONFIRMED)
+  qrPassCode  String         @unique @map("qr_pass_code") @db.VarChar(32)
+  isOrganizer Boolean        @default(false) @map("is_organizer")
+  openToConnect Boolean      @default(true) @map("open_to_connect")
+  checkedInAt DateTime?      @map("checked_in_at") @db.Timestamptz(6)
+  joinedAt    DateTime       @default(now()) @map("joined_at") @db.Timestamptz(6)
+  updatedAt   DateTime       @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  event Event @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([eventId, userId])
+  @@index([userId, status])
+  @@map("event_attendees")
+}
+
+model EventVouch {
+  id        String   @id @default(uuid()) @db.Uuid
+  eventId   String   @map("event_id") @db.Uuid
+  voucherId String   @map("voucher_id") @db.Uuid
+  note      String?  @db.VarChar(255)
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  event   Event @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  voucher User  @relation(fields: [voucherId], references: [id], onDelete: Cascade)
+
+  @@unique([eventId, voucherId])
+  @@map("event_vouches")
+}
+
+model EventInvite {
+  id        String       @id @default(uuid()) @db.Uuid
+  eventId   String       @map("event_id") @db.Uuid
+  inviterId String       @map("inviter_id") @db.Uuid
+  inviteeId String       @map("invitee_id") @db.Uuid
+  status    InviteStatus @default(PENDING)
+  message   String?      @db.VarChar(255)
+  createdAt DateTime     @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt DateTime     @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  event   Event @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  inviter User  @relation("InviteInviter", fields: [inviterId], references: [id], onDelete: Cascade)
+  invitee User  @relation("InviteInvitee", fields: [inviteeId], references: [id], onDelete: Cascade)
+
+  @@unique([eventId, inviteeId])
+  @@index([inviteeId, status])
+  @@map("event_invites")
+}
+
+model SavedEvent {
+  userId    String   @map("user_id") @db.Uuid
+  eventId   String   @map("event_id") @db.Uuid
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  event Event @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  @@id([userId, eventId])
+  @@index([eventId])
+  @@map("saved_events")
+}
+
+model SavedProfile {
+  userId       String   @map("user_id") @db.Uuid
+  savedUserId  String   @map("saved_user_id") @db.Uuid
+  createdAt    DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  user      User @relation("SaverUser", fields: [userId], references: [id], onDelete: Cascade)
+  savedUser User @relation("SavedUser", fields: [savedUserId], references: [id], onDelete: Cascade)
+
+  @@id([userId, savedUserId])
+  @@map("saved_profiles")
+}
+
+model EventReaction {
+  id        String       @id @default(uuid()) @db.Uuid
+  eventId   String       @map("event_id") @db.Uuid
+  userId    String       @map("user_id") @db.Uuid
+  type      ReactionType
+  createdAt DateTime     @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  event Event @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([eventId, userId, type])
+  @@map("event_reactions")
+}
+
+// ---------------------------------------------------------------------------
+// SOCIAL GRAPH
+// ---------------------------------------------------------------------------
+
+model LoveRequest {
+  id         String            @id @default(uuid()) @db.Uuid
+  senderId   String            @map("sender_id") @db.Uuid
+  receiverId String            @map("receiver_id") @db.Uuid
+  note       String?           @db.VarChar(140)
+  sharedEventId String?        @map("shared_event_id") @db.Uuid
+  status     LoveRequestStatus @default(PENDING)
+  expiresAt  DateTime          @map("expires_at") @db.Timestamptz(6)
+  respondedAt DateTime?        @map("responded_at") @db.Timestamptz(6)
+  createdAt  DateTime          @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt  DateTime          @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  sender   User @relation("LoveSender", fields: [senderId], references: [id], onDelete: Cascade)
+  receiver User @relation("LoveReceiver", fields: [receiverId], references: [id], onDelete: Cascade)
+
+  @@unique([senderId, receiverId])
+  @@index([receiverId, status])
+  @@index([status, expiresAt])
+  @@map("love_requests")
+}
+
+model Connection {
+  id      String @id @default(uuid()) @db.Uuid
+  // userAId < userBId is enforced by the service so a pair has exactly one row
+  userAId String @map("user_a_id") @db.Uuid
+  userBId String @map("user_b_id") @db.Uuid
+
+  origin        ConnectionOrigin @default(LOVE)
+  status        ConnectionStatus @default(ACTIVE)
+  sharedEventId String?          @map("shared_event_id") @db.Uuid
+  createdAt     DateTime         @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt     DateTime         @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  userA User @relation("ConnectionUserA", fields: [userAId], references: [id], onDelete: Cascade)
+  userB User @relation("ConnectionUserB", fields: [userBId], references: [id], onDelete: Cascade)
+
+  @@unique([userAId, userBId])
+  @@index([userBId])
+  @@map("connections")
+}
+
+model Block {
+  id        String   @id @default(uuid()) @db.Uuid
+  blockerId String   @map("blocker_id") @db.Uuid
+  blockedId String   @map("blocked_id") @db.Uuid
+  reason    String?  @db.VarChar(255)
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  blocker User @relation("Blocker", fields: [blockerId], references: [id], onDelete: Cascade)
+  blocked User @relation("Blocked", fields: [blockedId], references: [id], onDelete: Cascade)
+
+  @@unique([blockerId, blockedId])
+  @@index([blockedId])
+  @@map("blocks")
+}
+
+// ---------------------------------------------------------------------------
+// MESSAGING
+// ---------------------------------------------------------------------------
+
+model Conversation {
+  id        String           @id @default(uuid()) @db.Uuid
+  type      ConversationType @default(DIRECT)
+  eventId   String?          @unique @map("event_id") @db.Uuid
+  title     String?          @db.VarChar(140)
+  // Deterministic key for DIRECT conversations: "<smallerUuid>:<largerUuid>"
+  directKey String?          @unique @map("direct_key")
+
+  lastMessageAt DateTime? @map("last_message_at") @db.Timestamptz(6)
+  createdAt     DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt     DateTime  @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  event    Event?               @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  members  ConversationMember[]
+  messages Message[]
+
+  @@index([lastMessageAt])
+  @@map("conversations")
+}
+
+model ConversationMember {
+  id             String    @id @default(uuid()) @db.Uuid
+  conversationId String    @map("conversation_id") @db.Uuid
+  userId         String    @map("user_id") @db.Uuid
+  isAdmin        Boolean   @default(false) @map("is_admin")
+  isMuted        Boolean   @default(false) @map("is_muted")
+  lastReadAt     DateTime? @map("last_read_at") @db.Timestamptz(6)
+  leftAt         DateTime? @map("left_at") @db.Timestamptz(6)
+  joinedAt       DateTime  @default(now()) @map("joined_at") @db.Timestamptz(6)
+
+  conversation Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([conversationId, userId])
+  @@index([userId])
+  @@map("conversation_members")
+}
+
+model Message {
+  id             String      @id @default(uuid()) @db.Uuid
+  conversationId String      @map("conversation_id") @db.Uuid
+  senderId       String?     @map("sender_id") @db.Uuid
+  content        String      @db.Text
+  type           MessageType @default(TEXT)
+  mediaUrl       String?     @map("media_url")
+  isIcebreaker   Boolean     @default(false) @map("is_icebreaker")
+  metadata       Json?
+
+  readAt    DateTime? @map("read_at") @db.Timestamptz(6)
+  editedAt  DateTime? @map("edited_at") @db.Timestamptz(6)
+  deletedAt DateTime? @map("deleted_at") @db.Timestamptz(6)
+  createdAt DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  conversation Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  sender       User?        @relation(fields: [senderId], references: [id], onDelete: SetNull)
+  reports      Report[]
+
+  @@index([conversationId, createdAt])
+  @@map("messages")
+}
+
+// ---------------------------------------------------------------------------
+// NOTIFICATIONS
+// ---------------------------------------------------------------------------
+
+model Notification {
+  id     String           @id @default(uuid()) @db.Uuid
+  userId String           @map("user_id") @db.Uuid
+  type   NotificationType
+  title  String           @db.VarChar(140)
+  body   String           @db.VarChar(400)
+  data   Json?
+  imageUrl String?        @map("image_url")
+
+  readAt    DateTime? @map("read_at") @db.Timestamptz(6)
+  createdAt DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+  @@index([userId, readAt])
+  @@map("notifications")
+}
+
+// ---------------------------------------------------------------------------
+// MODERATION
+// ---------------------------------------------------------------------------
+
+model Report {
+  id             String           @id @default(uuid()) @db.Uuid
+  reporterId     String           @map("reporter_id") @db.Uuid
+  targetType     ReportTargetType @map("target_type")
+  reportedUserId String?          @map("reported_user_id") @db.Uuid
+  eventId        String?          @map("event_id") @db.Uuid
+  messageId      String?          @map("message_id") @db.Uuid
+  photoId        String?          @map("photo_id") @db.Uuid
+
+  reason      ReportReason
+  description String?      @db.VarChar(1000)
+  status      ReportStatus @default(PENDING)
+
+  reviewedById String?   @map("reviewed_by_id") @db.Uuid
+  reviewNote   String?   @map("review_note") @db.VarChar(1000)
+  reviewedAt   DateTime? @map("reviewed_at") @db.Timestamptz(6)
+  createdAt    DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  reporter     User     @relation("Reporter", fields: [reporterId], references: [id], onDelete: Cascade)
+  reportedUser User?    @relation("ReportedUser", fields: [reportedUserId], references: [id], onDelete: Cascade)
+  event        Event?   @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  message      Message? @relation(fields: [messageId], references: [id], onDelete: Cascade)
+
+  @@index([status, createdAt])
+  @@index([reportedUserId])
+  @@map("reports")
+}
+
+model VerificationRequest {
+  id       String             @id @default(uuid()) @db.Uuid
+  userId   String             @map("user_id") @db.Uuid
+  kind     VerificationKind
+  status   VerificationStatus @default(PENDING)
+  evidenceKey String?         @map("evidence_key")
+  provider String?            @db.VarChar(60)
+  providerRef String?         @map("provider_ref")
+  reviewNote String?          @map("review_note") @db.VarChar(500)
+  reviewedById String?        @map("reviewed_by_id") @db.Uuid
+  reviewedAt DateTime?        @map("reviewed_at") @db.Timestamptz(6)
+  createdAt DateTime          @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, kind])
+  @@map("verification_requests")
+}
+
+model AuditLog {
+  id        String   @id @default(uuid()) @db.Uuid
+  actorId   String?  @map("actor_id") @db.Uuid
+  action    String   @db.VarChar(80)
+  entity    String   @db.VarChar(60)
+  entityId  String?  @map("entity_id")
+  metadata  Json?
+  ipAddress String?  @map("ip_address")
+  requestId String?  @map("request_id")
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  actor User? @relation(fields: [actorId], references: [id], onDelete: SetNull)
+
+  @@index([entity, entityId])
+  @@index([actorId, createdAt])
+  @@map("audit_logs")
+}
+
+// ---------------------------------------------------------------------------
+// MONETISATION
+// ---------------------------------------------------------------------------
+
+model FeaturedEventCampaign {
+  id          String         @id @default(uuid()) @db.Uuid
+  eventId     String         @map("event_id") @db.Uuid
+  organizerId String         @map("organizer_id") @db.Uuid
+  plan        CampaignPlan
+  status      CampaignStatus @default(PENDING_PAYMENT)
+  amount      Decimal        @db.Decimal(10, 2)
+  currency    String         @default("INR") @db.VarChar(3)
+  startAt     DateTime?      @map("start_at") @db.Timestamptz(6)
+  endAt       DateTime?      @map("end_at") @db.Timestamptz(6)
+  createdAt   DateTime       @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt   DateTime       @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  event     Event     @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  organizer User      @relation(fields: [organizerId], references: [id], onDelete: Cascade)
+  payments  Payment[]
+
+  @@index([status, endAt])
+  @@map("featured_event_campaigns")
+}
+
+model Payment {
+  id                String        @id @default(uuid()) @db.Uuid
+  userId            String        @map("user_id") @db.Uuid
+  eventId           String?       @map("event_id") @db.Uuid
+  campaignId        String?       @map("campaign_id") @db.Uuid
+  provider          String        @db.VarChar(40)
+  providerPaymentId String?       @map("provider_payment_id")
+  providerOrderId   String?       @unique @map("provider_order_id")
+  amount            Decimal       @db.Decimal(10, 2)
+  currency          String        @default("INR") @db.VarChar(3)
+  status            PaymentStatus @default(PENDING)
+  metadata          Json?
+  verifiedAt        DateTime?     @map("verified_at") @db.Timestamptz(6)
+  createdAt         DateTime      @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt         DateTime      @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  user     User                   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  event    Event?                 @relation(fields: [eventId], references: [id], onDelete: SetNull)
+  campaign FeaturedEventCampaign? @relation(fields: [campaignId], references: [id], onDelete: SetNull)
+
+  @@index([userId, status])
+  @@map("payments")
+}

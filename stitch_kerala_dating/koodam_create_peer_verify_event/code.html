@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+
+<html class="h-full bg-surface" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><title>Koodam</title><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,600;0,700;0,800;1,400&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "background": "#f5fbf7", "surface-container-lowest": "#ffffff", "on-primary-fixed": "#002118", "surface-container-low": "#eff5f1", "surface-dim": "#d5dbd8", "on-error": "#ffffff", "primary": "#002118", "secondary-fixed-dim": "#ffb3b0", "surface": "#f5fbf7", "surface-container": "#e9efeb", "on-error-container": "#93000a", "on-tertiary": "#ffffff", "outline-variant": "#c0c8c3", "tertiary-container": "#482b00", "tertiary-fixed": "#ffddb8", "secondary-fixed": "#ffdad8", "surface-variant": "#dee4e0", "on-tertiary-container": "#d68800", "on-secondary-container": "#60000e", "on-primary-container": "#77a292", "on-surface": "#171d1b", "inverse-on-surface": "#ecf2ee", "secondary": "#b52330", "on-tertiary-fixed-variant": "#653e00", "surface-tint": "#3c6658", "tertiary": "#2c1800", "tertiary-fixed-dim": "#ffb95f", "on-primary-fixed-variant": "#244e41", "inverse-surface": "#2c322f", "primary-fixed": "#bfecda", "surface-container-high": "#e4eae6", "on-primary": "#ffffff", "on-background": "#171d1b", "on-surface-variant": "#414845", "error-container": "#ffdad6", "on-secondary-fixed-variant": "#92001b", "inverse-primary": "#a3d0bf", "on-tertiary-fixed": "#2a1700", "primary-fixed-dim": "#a3d0bf", "primary-container": "#0a382c", "on-secondary": "#ffffff", "outline": "#717975", "on-secondary-fixed": "#410007", "secondary-container": "#ff5a5f", "error": "#ba1a1a", "surface-container-highest": "#dee4e0", "surface-bright": "#f5fbf7" }, "borderRadius": { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" }, "spacing": { "space-lg": "1.5rem", "gutter": "1rem", "space-xl": "2.25rem", "space-xs": "0.25rem", "space-md": "1rem", "margin": "1.25rem", "space-sm": "0.5rem" }, "fontFamily": { "body-sm": ["Plus Jakarta Sans"], "label-sm": ["Plus Jakarta Sans"], "label-lg": ["Plus Jakarta Sans"], "display-hero-mobile": ["Plus Jakarta Sans"], "label-md": ["Plus Jakarta Sans"], "headline-sm": ["Plus Jakarta Sans"], "body-md": ["Plus Jakarta Sans"], "headline-lg": ["Plus Jakarta Sans"], "display-hero": ["Plus Jakarta Sans"], "body-lg": ["Plus Jakarta Sans"], "headline-lg-mobile": ["Plus Jakarta Sans"], "headline-md": ["Plus Jakarta Sans"] }, "fontSize": { "body-sm": ["13px", { "lineHeight": "18px", "letterSpacing": "0.005em", "fontWeight": "400" }], "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "700" }], "label-lg": ["15px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }], "display-hero-mobile": ["34px", { "lineHeight": "40px", "letterSpacing": "-0.025em", "fontWeight": "800" }], "label-md": ["13px", { "lineHeight": "16px", "letterSpacing": "0.015em", "fontWeight": "600" }], "headline-sm": ["18px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "600" }], "body-md": ["15px", { "lineHeight": "22px", "letterSpacing": "0em", "fontWeight": "400" }], "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "display-hero": ["44px", { "lineHeight": "52px", "letterSpacing": "-0.03em", "fontWeight": "800" }], "body-lg": ["17px", { "lineHeight": "26px", "letterSpacing": "-0.005em", "fontWeight": "400" }], "headline-lg-mobile": ["26px", { "lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "700" }], "headline-md": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" }] } } } }</script><style>@layer base { html, body { width: 100%; margin: 0; padding: 0; } .pb-safe { padding-bottom: env(safe-area-inset-bottom, 0px); } .pt-safe { padding-top: env(safe-area-inset-top, 0px); } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } } ::-webkit-scrollbar { display: none; }</style><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface text-on-surface font-body-md text-body-md antialiased min-h-full flex flex-col"><header class="fixed top-0 w-full z-50 pt-safe bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.03)]"><div class="h-16 px-margin flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0"><button class="w-11 h-11 flex items-center justify-center rounded-full bg-surface-container-lowest text-on-surface hover:text-primary transition-colors shadow-[0_2px_8px_-2px_rgba(10,56,44,0.06)]" onclick="history.back()"><span class="material-symbols-outlined text-[20px]">arrow_back_ios_new</span></button><div class="flex items-center gap-2 min-w-0"><img alt="Koodam App Icon Mark" class="h-6 w-auto object-contain shrink-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCO8RPsScKqxlCWWGvxjgy8Ch6bg0Fsnr6wFJDkqPdIUf8lqE4iqysM89lPd7oN7CGUuHC63LcJfa1Ik3qEEe3dYyDm0UUtmmuGCb23V_VCAzM_FilDlupTBpmvORkyxa-daj034U-D4sKAVGD7szJjQiWfUD28WDrQUr8aKAUu1XqSSDOZYp56svRFp_7jwwm-BgpXoWTP3almzdhTQRsiR455fUHBexE5th2_-_AJpRT8dAGd3f1u"/><h1 class="font-headline-sm text-headline-sm text-on-surface font-bold truncate leading-tight">Peer Vouch Verification</h1></div></div><div class="flex items-center gap-space-xs shrink-0"><button class="w-11 h-11 flex items-center justify-center rounded-full bg-surface-container-lowest text-on-surface-variant hover:text-on-surface shadow-[0_2px_8px_-2px_rgba(10,56,44,0.06)]"><span class="material-symbols-outlined text-[20px]">share</span></button><a class="w-11 h-11 flex items-center justify-center rounded-full shrink-0" data-path="profile" href="#"><img alt="Profile" class="w-8 h-8 rounded-full object-cover shadow-[0_2px_6px_rgba(0,0,0,0.08)]" src="https://lh3.googleusercontent.com/aida/AEtjO1WDOXn8IRfshmSo3KGOqHGQCIhs365PW5XvzxeNen0ePllLMTuN-N4KNQBJxuAgz6QOYdcL0Kl6MeQc99jERJwYVFEwkM7BpvV2War3sQ-cbrFoLED1A9FgbHC_l2hmMTr97lG0KZCU8DOeg-eFhiTOGFnU08FWagSX_nPwQxDfBbUziY3wD6nWmSoUzlmyg3MpM54P48LLmkPBDFd_pyUOUoqdYGILnRzSuWsMm6UFw_hDOyg9wDOiGqY"/></a></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 bg-surface pb-safe"><div class="flex flex-col w-full px-margin pb-28 pt-2 space-y-space-lg">
+<!-- Step & Progress Header -->
+<div class="flex flex-col space-y-2">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm tracking-wider uppercase text-on-surface-variant">Step 2 of 3</span>
+<span class="font-label-md text-label-md text-primary-container font-bold">Safety &amp; Peer Trust</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container-high rounded-full overflow-hidden flex">
+<div class="w-2/3 h-full bg-primary-container rounded-full transition-all duration-500"></div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Review event parameters and secure your three trusted community vouches to go live.</p>
+</div>
+<!-- SECTION 1: Event Basics Summary Card -->
+<div class="bg-surface-container-lowest rounded-lg shadow-sm overflow-hidden flex flex-col">
+<!-- Visual Header Thumbnail Frame -->
+<div class="relative w-full h-44 bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="A warm sunset golden hour gathering at an outdoor leafy cafe patio in Panampilly Nagar, Kochi, young Malayali friends sitting around acoustic guitars and specialty coffee mugs, candid editorial photograph, deep greens and warm ambient light." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCkchhIMXQo9NzEqxZy9sVb_0FY58MjneMd-7F2NW0mN4eG3XgUREomJOhchfa9GdxrcAzvfBJiQ4D9BLh0GROl0bilZm9T8Ta10Y2AUMVsNOxCIMrwoesqkPfP74kDLbLvINDl1OMyxM98xtIwBj9L-xcVqVghcJ81rOIxZ-qlML0DQVQX3fOB-eIsZazFeLFwfGk__uQOCouvlojniFM6IY62TwdbNV4_iiXeyA2gAjTfFIJ-R2Gt"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent"></div>
+<div class="absolute top-3 right-3">
+<button class="px-3 py-1.5 rounded-full bg-surface-container-lowest/90 backdrop-blur-md text-primary font-label-sm text-label-sm shadow-sm flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-[16px]">edit</span>
+          Change Cover
+        </button>
+</div>
+<div class="absolute bottom-3 left-4 right-4">
+<span class="px-2.5 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm uppercase tracking-wider font-bold inline-block mb-1">Acoustic Jam</span>
+<h2 class="font-headline-sm text-headline-sm text-on-primary font-bold leading-snug drop-shadow-sm">Panampilly Sunset Acoustic &amp; Coffee Circle</h2>
+</div>
+</div>
+<!-- Category Chips Carousel / Row -->
+<div class="p-space-md flex flex-col space-y-space-md">
+<div>
+<label class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant block mb-2 font-bold">Meetup Category</label>
+<div class="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
+<span class="px-3.5 py-1.5 rounded-full bg-primary-container text-on-primary font-label-md text-label-md shrink-0 flex items-center gap-1.5 shadow-sm">
+<span>☕</span> Cafe Meetup
+          </span>
+<span class="px-3.5 py-1.5 rounded-full bg-surface-container text-on-surface-variant font-label-md text-label-md shrink-0 flex items-center gap-1.5">
+<span>🎸</span> Indie Music
+          </span>
+<span class="px-3.5 py-1.5 rounded-full bg-surface-container text-on-surface-variant font-label-md text-label-md shrink-0 flex items-center gap-1.5">
+<span>🏸</span> Sports Turf
+          </span>
+<span class="px-3.5 py-1.5 rounded-full bg-surface-container text-on-surface-variant font-label-md text-label-md shrink-0 flex items-center gap-1.5">
+<span>📚</span> Book Club
+          </span>
+<span class="px-3.5 py-1.5 rounded-full bg-surface-container text-on-surface-variant font-label-md text-label-md shrink-0 flex items-center gap-1.5">
+<span>🌄</span> Trekking
+          </span>
+</div>
+</div>
+<!-- Schedule & Venue Meta Grid -->
+<div class="bg-surface-container-low rounded-DEFAULT p-3.5 space-y-3">
+<div class="flex items-start gap-3">
+<div class="w-9 h-9 rounded-full bg-surface-container-lowest text-primary-container flex items-center justify-center shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-[20px]">calendar_month</span>
+</div>
+<div class="min-w-0 flex-1">
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase font-semibold">Date &amp; Time</p>
+<p class="font-body-md text-body-md font-bold text-on-surface">Saturday, 25 Oct · 4:30 PM - 7:00 PM</p>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<div class="w-9 h-9 rounded-full bg-surface-container-lowest text-primary-container flex items-center justify-center shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-[20px]">storefront</span>
+</div>
+<div class="min-w-0 flex-1">
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase font-semibold">Public Verified Venue</p>
+<p class="font-body-md text-body-md font-bold text-on-surface truncate">French Toast Bakery &amp; Cafe</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Panampilly Nagar, Kochi, Kerala</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- SECTION 2: Audience & Safe Gathering Controls -->
+<div class="bg-surface-container-lowest rounded-lg p-space-md shadow-sm space-y-space-md">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container text-[22px]">health_and_safety</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">Community Safety Norms</h3>
+</div>
+<!-- Capacity Control -->
+<div class="flex items-center justify-between p-3.5 rounded-DEFAULT bg-surface-container-low">
+<div class="space-y-0.5">
+<p class="font-label-lg text-label-lg text-on-surface font-semibold">Gathering Capacity</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Intimate groups foster authentic bonds</p>
+</div>
+<div class="flex items-center gap-2.5">
+<span class="px-3 py-1.5 bg-surface-container-lowest text-primary font-bold font-label-lg text-label-lg rounded-full shadow-sm">16 Max</span>
+</div>
+</div>
+<!-- 50:50 Gender Balance Toggle -->
+<div class="p-3.5 rounded-DEFAULT bg-surface-container-low flex items-start justify-between gap-3">
+<div class="space-y-1 pr-2">
+<div class="flex items-center gap-1.5">
+<span class="font-label-lg text-label-lg text-on-surface font-bold">50:50 Gender Ratio Equilibrium</span>
+<span class="material-symbols-outlined text-primary-container text-[18px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-snug">Auto-balances reserved slots equally between women &amp; men to guarantee relaxed, safe comfort for all participants.</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer shrink-0 mt-0.5">
+<input checked="" class="sr-only peer" id="ratioToggle" type="checkbox"/>
+<div class="w-12 h-7 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-surface-container-lowest after:content-[''] after:absolute after:top-[2px] after:left-[3px] after:bg-surface-container-lowest after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-primary-container shadow-inner"></div>
+</label>
+</div>
+<!-- Pricing Policy Toggle Segment -->
+<div class="space-y-2">
+<label class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant block font-bold">Entry Contribution</label>
+<div class="grid grid-cols-2 gap-2 bg-surface-container-low p-1 rounded-full">
+<button class="py-2 rounded-full font-label-md text-label-md font-bold bg-surface-container-lowest text-primary shadow-sm transition-all text-center" type="button">
+          Free Entry
+        </button>
+<button class="py-2 rounded-full font-label-md text-label-md text-on-surface-variant transition-all text-center" type="button">
+          Cover Split (₹ Cafe)
+        </button>
+</div>
+</div>
+</div>
+<!-- SECTION 3: The Signature 3-Peer Community Verification Engine -->
+<div class="bg-surface-container-low rounded-lg p-space-md shadow-md space-y-space-md">
+<!-- Header with Shield -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-10 h-10 rounded-full bg-tertiary-fixed flex items-center justify-center text-on-tertiary-fixed shadow-sm">
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">gshield</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">3-Peer Verification</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant font-medium">Koodam Anti-Spam Gate</p>
+</div>
+</div>
+<span class="px-3 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-bold shadow-sm">
+        1 of 3 Verified
+      </span>
+</div>
+<!-- Explainer Callout -->
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed bg-surface-container-lowest p-3 rounded-DEFAULT shadow-xs">
+      To protect the Malayali diaspora community from commercial events, ghost gatherings, and safety violations, your meetup requires vouching from <strong class="text-on-surface">3 verified members</strong> who endorse you as a trustworthy host before it goes live on the public map.
+    </p>
+<!-- Live Stepper Tracker -->
+<div class="space-y-3 pt-1">
+<!-- Peer 1: Vouched -->
+<div class="flex items-center gap-3 p-3 bg-surface-container-lowest rounded-DEFAULT shadow-sm">
+<div class="relative shrink-0">
+<img class="w-11 h-11 rounded-full object-cover" data-alt="Portrait of Rahul M., an energetic Malayali software engineer smiling outdoors in Kochi with neat beard, soft sunny daylight portrait." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDr9j1Ge5WKZG_DfWrNyugHA-azwOvHeY--AM0dh8EJOBS5tALP6GpqJ4P3Hn_D6H7Sq90tcZCRCMNWSOpykLi-OZz28VUYhEEixulg1bLLL7Vh8JWkov4ywPiQVbKV_2F5_O0-9oQ1nUOwIiQm7xx19IPqeM5Zr5KT87iDDzOV7Cl9alQCEvoFP0jKvInGG_UnaxPxuN5Rm6WfwDp-dgphHlyycjSiTJtwd6QpPXcZoH-imNqghvL4"/>
+<div class="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-primary-container text-surface-container-lowest flex items-center justify-center">
+<span class="material-symbols-outlined text-[13px]">check</span>
+</div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-1.5">
+<p class="font-label-lg text-label-lg font-bold text-on-surface truncate">Rahul M.</p>
+<span class="font-label-sm text-label-sm text-primary-container bg-primary-fixed px-1.5 py-0.2 rounded-full font-bold">Aluva Circle</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Vouched Oct 21 · <span class="text-primary font-medium">"Known Rahul 4+ yrs"</span></p>
+</div>
+<span class="material-symbols-outlined text-primary-container text-[20px]" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+</div>
+<!-- Peer 2: Pending -->
+<div class="flex items-center gap-3 p-3 bg-surface-container-lowest rounded-DEFAULT shadow-sm">
+<div class="relative shrink-0">
+<img class="w-11 h-11 rounded-full object-cover opacity-80" data-alt="Portrait of Ananya Pillai, young Malayali architect wearing spectacles with curly hair, natural relaxed expression in cafe setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3UPyicbVH4H1Jaav38T3FyB7aO2nvGMiFAPReR8i415v2DzGA7z75OU4evf1tcZ4G-cGnryZXa1-cTH3EQrYuEKgn_TFS9y7JEUduYe_8HVhXME7vx0JWdKU29hYYO_-Ly07zuvq97vSuCJkYzhQTfwc5TY6-C6fijIUa8No6oVA7Wcvq4Fnk7WUOEZRwnvs_LWN_ubZuScpfW-ng54njcH7a3xI4bSQiL--WHy2xa1ufnN0-ayGT"/>
+<div class="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-[13px]">hourglass_top</span>
+</div>
+</div>
+<div class="flex-1 min-w-0">
+<p class="font-label-lg text-label-lg font-bold text-on-surface truncate">Ananya Pillai</p>
+<p class="font-body-sm text-body-sm text-on-tertiary-container font-medium">Invite Sent via SMS · Pending Review</p>
+</div>
+<button class="px-2.5 py-1 rounded-full bg-surface-container text-on-surface font-label-sm text-label-sm hover:bg-surface-container-high transition-colors" type="button">
+          Nudge
+        </button>
+</div>
+<!-- Peer 3: Empty / Slot Available -->
+<div class="flex items-center gap-3 p-3 bg-surface-container-lowest rounded-DEFAULT shadow-sm">
+<div class="w-11 h-11 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant shrink-0">
+<span class="material-symbols-outlined text-[20px]">person_add</span>
+</div>
+<div class="flex-1 min-w-0">
+<p class="font-label-lg text-label-lg font-bold text-on-surface">3rd Peer Slot Open</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Requires any verified Koodam member</p>
+</div>
+<button class="px-3 py-1.5 rounded-full bg-primary-container text-on-primary font-label-sm text-label-sm font-semibold shadow-sm flex items-center gap-1" onclick="triggerPeerSearch()" type="button">
+<span>Invite</span>
+</button>
+</div>
+</div>
+<!-- WhatsApp Share / Vouch Dispatch Action -->
+<div class="pt-1">
+<button class="w-full h-12 rounded-full bg-surface-container-lowest text-primary font-label-lg text-label-lg font-bold flex items-center justify-center gap-2 shadow-sm hover:bg-surface-container-highest transition-colors active:scale-[0.98]" onclick="copyVouchLink(this)" type="button">
+<span class="material-symbols-outlined text-[20px]">share</span>
+<span>Copy &amp; Share Vouch Link on WhatsApp</span>
+</button>
+<div class="hidden text-center mt-2 font-label-sm text-label-sm text-primary-container font-bold transition-all" id="vouchCopiedNotice">
+        ✓ Link copied! Share with two trusted friends who have Koodam profiles.
+      </div>
+</div>
+</div>
+<!-- SECTION 4: Optional Featured Boost Strip -->
+<div class="bg-surface-container-lowest rounded-lg p-space-md shadow-sm space-y-3 relative overflow-hidden">
+<div class="flex items-start justify-between gap-3">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-full bg-secondary-fixed text-on-secondary-fixed flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[18px]">rocket_launch</span>
+</div>
+<div>
+<h4 class="font-label-lg text-label-lg font-bold text-on-surface">Spotlight Pin on Kochi Discovery Feed</h4>
+<span class="font-label-sm text-label-sm text-secondary font-bold">Optional 48-Hour Boost</span>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer shrink-0 mt-1">
+<input class="sr-only peer" id="boostCheck" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-surface-container-lowest after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-surface-container-lowest after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-secondary"></div>
+</label>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+      Pins this acoustic circle to the hero spot across Ernakulam &amp; Fort Kochi diaspora channels once your 3 peer vouches complete. <strong class="text-on-surface">₹199 flat</strong>.
+    </p>
+</div>
+<!-- Safety Affirmation Disclaimer -->
+<div class="flex items-center gap-2.5 px-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px] text-primary shrink-0">verified</span>
+<p class="font-body-sm text-body-sm">
+      By continuing, you agree to host in a public venue and adhere to the Koodam Anti-Harassment Charter.
+    </p>
+</div>
+<!-- Sticky Bottom Actions Bar (Floating Pill Matrix) -->
+<div class="fixed bottom-0 left-0 right-0 p-margin bg-surface/90 backdrop-blur-xl z-40 pb-safe">
+<div class="max-w-md mx-auto flex items-center gap-3">
+<button class="w-1/3 h-[52px] rounded-full bg-surface-container text-on-surface font-label-lg text-label-lg font-semibold hover:bg-surface-container-high transition-colors active:scale-95 shadow-sm" type="button">
+        Save Draft
+      </button>
+<button class="w-2/3 h-[52px] rounded-full bg-primary-container text-on-primary font-label-lg text-label-lg font-bold flex items-center justify-center gap-2 hover:bg-primary transition-colors active:scale-95 shadow-md" onclick="submitMeetupFlow()" type="button">
+<span>Preview &amp; Submit</span>
+<span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<script>
+  function copyVouchLink(btn) {
+    const notice = document.getElementById('vouchCopiedNotice');
+    if (notice) {
+      notice.classList.remove('hidden');
+      setTimeout(() => {
+        notice.classList.add('hidden');
+      }, 3500);
+    }
+  }
+
+  function triggerPeerSearch() {
+    alert("Select a connected peer from your trusted Koodam circles or address book to request a vouch.");
+  }
+
+  function submitMeetupFlow() {
+    alert("Meetup summary saved. Vouch requests dispatched to Ananya and Rahul. Event will publish to Kochi map once Peer 3 accepts!");
+  }
+</script></main></body></html>
