@@ -88,66 +88,173 @@ Koodam supports all 14 administrative districts of Kerala and major global diasp
 
 ## 3. Complete Endpoint Reference
 
-### 3.1 Authentication & Onboarding (Phone/Email OTP + Auto-Registration)
-Koodam supports passwordless OTP login via Phone (WhatsApp/SMS) and Email. If the user is not yet registered, verifying the OTP will **automatically register** them and issue active JWT credentials with `isNewUser: true`.
+### 3.1 Authentication & Registration (Email OTP, Email & Password, and Complete Member Registration)
 
-- **`POST /api/v1/auth/otp/send`** (or `/api/v1/auth/otp/request`)
-  Send OTP via WhatsApp, SMS, or Email.
-  ```json
-  // Phone OTP
-  { "identifier": "+919876543210", "channel": "whatsapp" }
+Koodam supports two primary login methods:
+1. **Email OTP Login** (No phone required for login)
+2. **Email & Password Login**
 
-  // Email OTP
-  { "identifier": "anjali@koodam.app", "channel": "email" }
-  ```
-  Response:
-  ```json
-  {
-    "message": "OTP sent successfully to anjali@koodam.app",
-    "expiresInSeconds": 300,
-    "isRegistered": false
-  }
-  ```
+Member registration collects all identity and geospatial details upfront (phone, email, password, gender, dob, district, map selector lat/lng, profile photo, bio, and interests) to ensure high-trust, safe Kerala communities.
 
-- **`POST /api/v1/auth/otp/verify`**  
-  Verify OTP code. Returns JWT session tokens (`accessToken` & `refreshToken`). If the user was not previously registered, creates their account automatically and returns `isNewUser: true`.
-  ```json
-  {
-    "identifier": "+919876543210",
-    "code": "482910",
-    "displayName": "Anjali Nair",     // Optional during first-time OTP verification
-    "district": "KL-EKM",             // Optional: Kerala district code
-    "dob": "1998-05-14",              // Optional: YYYY-MM-DD
-    "gender": "FEMALE"                // Optional: MALE | FEMALE | NON_BINARY | OTHER
-  }
-  ```
-  Response:
-  ```json
-  {
+---
+
+#### A. Member Registration (`POST /api/v1/auth/register`)
+Creates a new account with complete profile details, map selector coordinates (stored with 400m-900m Gaussian Ghost Centroid obfuscation for privacy), and profile avatar.
+
+* **Method & Endpoint:** `POST /api/v1/auth/register`
+* **Auth:** Public
+* **Request Body:**
+```json
+{
+  "email": "devika@koodam.app",
+  "phone": "+919847012345",
+  "password": "Password@2026",
+  "displayName": "Devika Suresh",
+  "gender": "FEMALE",
+  "dob": "1998-05-14",
+  "district": "KL-EKM",
+  "latitude": 9.9816,
+  "longitude": 76.2999,
+  "profilePhoto": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400",
+  "bio": "Architect from Fort Kochi • Passionate about heritage walks, architecture, and chai.",
+  "interests": ["Heritage & Culture", "Chai Meetups", "Trekking", "Indie Tech"],
+  "profession": "Architect",
+  "homeDistrict": "KL-KKD",
+  "relationshipIntention": "OPEN_TO_CONNECTIONS",
+  "languages": ["Malayalam", "English"]
+}
+```
+
+* **Response (HTTP 201 Created):**
+```json
+{
+  "success": true,
+  "data": {
     "user": {
       "id": "usr_9481ab...",
-      "phone": "+919876543210",
-      "email": null,
+      "email": "devika@koodam.app",
+      "phone": "+919847012345",
       "role": "USER",
       "isVerified": true,
-      "isProfileComplete": true
+      "isProfileComplete": true,
+      "displayName": "Devika Suresh",
+      "district": "KL-EKM",
+      "profilePhoto": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400"
     },
     "tokens": {
       "accessToken": "eyJhbGciOi...",
       "refreshToken": "koodam_rf_...",
-      "expiresIn": 900
+      "expiresIn": 900,
+      "tokenType": "Bearer"
     },
     "isNewUser": true
   }
-  ```
+}
+```
 
+---
+
+#### B. Email & Password Login (`POST /api/v1/auth/login`)
+Standard authentication for registered members.
+
+* **Method & Endpoint:** `POST /api/v1/auth/login`
+* **Auth:** Public
+* **Request Body:**
+```json
+{
+  "email": "devika@koodam.app",
+  "password": "Password@2026"
+}
+```
+
+* **Response (HTTP 200 OK):**
+```json
+{
+  "success": true,
+  "data": {
+    "user": {
+      "id": "usr_9481ab...",
+      "email": "devika@koodam.app",
+      "phone": "+919847012345",
+      "role": "USER",
+      "isVerified": true,
+      "isProfileComplete": true,
+      "displayName": "Devika Suresh",
+      "district": "KL-EKM"
+    },
+    "tokens": {
+      "accessToken": "eyJhbGciOi...",
+      "refreshToken": "koodam_rf_...",
+      "expiresIn": 900,
+      "tokenType": "Bearer"
+    }
+  }
+}
+```
+
+---
+
+#### C. Email OTP Login (`POST /api/v1/auth/otp/send` & `/verify`)
+Passwordless login using a 6-digit email verification code. No phone number required!
+
+1. **Request OTP:** `POST /api/v1/auth/otp/send`
+   ```json
+   {
+     "email": "devika@koodam.app"
+   }
+   ```
+   Response:
+   ```json
+   {
+     "success": true,
+     "data": {
+       "message": "A verification code has been sent to de••••@koodam.app",
+       "expiresInSeconds": 300,
+       "isRegistered": true
+     }
+   }
+   ```
+
+2. **Verify OTP:** `POST /api/v1/auth/otp/verify`
+   ```json
+   {
+     "email": "devika@koodam.app",
+     "code": "482910"
+   }
+   ```
+   Response:
+   ```json
+   {
+     "success": true,
+     "data": {
+       "user": {
+         "id": "usr_9481ab...",
+         "email": "devika@koodam.app",
+         "role": "USER",
+         "isVerified": true,
+         "isProfileComplete": true
+       },
+       "tokens": {
+         "accessToken": "eyJhbGciOi...",
+         "refreshToken": "koodam_rf_...",
+         "expiresIn": 900,
+         "tokenType": "Bearer"
+       },
+       "isNewUser": false
+     }
+   }
+   ```
+
+---
+
+#### D. Session Refresh & Logout
 - **`POST /api/v1/auth/refresh`**  
-  Rotate refresh token family and get new access token.
+  Rotate refresh token family and retrieve new access token without re-login.
   ```json
   { "refreshToken": "koodam_rf_..." }
   ```
-- **`POST /api/v1/auth/logout`**  
-  Revoke current device session and purge cached Redis tokens.
+- **`POST /api/v1/auth/logout`** `[Bearer Auth]`  
+  Revoke current session and invalidate tokens.
 
 ### 3.2 User Profile & Discovery Preferences
 - **`GET /api/v1/profiles/me`**  

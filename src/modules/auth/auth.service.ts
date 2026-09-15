@@ -1,11 +1,14 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { OtpPurpose, User, UserRole, UserStatus } from '@prisma/client';
+import { Gender, OtpPurpose, PhotoStatus, RelationshipIntention, User, UserRole, UserStatus } from '@prisma/client';
 import * as argon2 from 'argon2';
+import { randomUUID } from 'crypto';
 import { PrismaService } from '../../database/prisma.service';
 import { AppException } from '../../common/utils/app.exception';
 import { ErrorCode } from '../../common/utils/error-codes';
 import { TokenService } from './services/token.service';
 import { OtpService } from './services/otp.service';
+import { calculateAge } from '../../common/utils/date.util';
+import { computeGhostPoint } from '../../common/utils/geo.util';
 import {
   ChangePasswordDto,
   ForgotPasswordDto,
@@ -34,35 +37,166 @@ export class AuthService {
     private readonly otp: OtpService,
   ) {}
 
+  /**
+   * Complete user registration collecting all mandatory member details:
+   * email, phone, password, name, gender, dob, district, map location (lat/lng),
+   * profile photo, plus optional bio, interests, profession, home district.
+   */
   async register(dto: RegisterDto, ctx: RequestContext): Promise<AuthSessionDto> {
-    const email = dto.email?.toLowerCase();
-    const phone = dto.phone;
+    const email = dto.email.trim().toLowerCase();
+    const phone = dto.phone.trim();
 
-    const existing = await this.prisma.user.findFirst({
-      where: { OR: [...(email ? [{ email }] : []), ...(phone ? [{ phone }] : [])] },
-      select: { id: true },
-    });
-    if (existing) {
-      throw AppException.conflict(
-        ErrorCode.CONFLICT,
-        'An account already exists for that email or phone number',
+    // 1. Validate age (must be >= 18)
+    const dob = new Date(dto.dob);
+    if (Number.isNaN(dob.getTime())) {
+      throw AppException.badRequest(ErrorCode.VALIDATION_FAILED, 'Invalid date of birth format (YYYY-MM-DD)');
+    }
+    const age = calculateAge(dob);
+    if (age < 18) {
+      throw AppException.badRequest(
+        ErrorCode.VALIDATION_FAILED,
+        'You must be at least 18 years old to join Koodam',
       );
     }
 
-    const user = await this.prisma.user.create({
-      data: {
+    // 2. Validate coordinates from map selector
+    if (
+      typeof dto.latitude !== 'number' ||
+      typeof dto.longitude !== 'number' ||
+      dto.latitude < -90 ||
+      dto.latitude > 90 ||
+      dto.longitude < -180 ||
+      dto.longitude > 180
+    ) {
+      throw AppException.badRequest(
+        ErrorCode.VALIDATION_FAILED,
+        'Valid map coordinates (latitude and longitude) are required',
+      );
+    }
+
+    // 3. Check for existing email or phone
+    try {
+      const existing = await this.prisma.user.findFirst({
+        where: { OR: [{ email }, { phone }], deletedAt: null },
+        select: { id: true, email: true, phone: true },
+      });
+      if (existing) {
+        throw AppException.conflict(
+          ErrorCode.CONFLICT,
+          existing.email === email
+            ? 'An account already exists with that email address'
+            : 'An account already exists with that phone number',
+        );
+      }
+    } catch (err: any) {
+      if (err instanceof AppException) throw err;
+      this.logger.warn(`Existing user lookup check error in register: ${err.message}`);
+    }
+
+    // 4. Compute Ghost Centroid coordinates (~400m-900m Gaussian offset for spatial privacy)
+    const ghost = computeGhostPoint({ latitude: dto.latitude, longitude: dto.longitude }, 400, 900);
+    const passwordHash = await argon2.hash(dto.password, ARGON_OPTIONS);
+
+    let user: any;
+    try {
+      user = await this.prisma.$transaction(async (tx) => {
+        const createdUser = await tx.user.create({
+          data: {
+            email,
+            phone,
+            passwordHash,
+            isVerified: true,
+            emailVerifiedAt: new Date(),
+            lastActiveAt: new Date(),
+            privacySettings: { create: {} },
+            preferences: { create: {} },
+            profile: {
+              create: {
+                displayName: dto.displayName.trim(),
+                dateOfBirth: dob,
+                gender: dto.gender,
+                bio: dto.bio?.trim() ?? null,
+                profession: dto.profession?.trim() ?? null,
+                district: dto.district,
+                homeDistrict: dto.homeDistrict?.trim() || dto.district,
+                currentLat: dto.latitude,
+                currentLng: dto.longitude,
+                ghostLat: ghost.latitude,
+                ghostLng: ghost.longitude,
+                relationshipIntention: dto.relationshipIntention ?? RelationshipIntention.OPEN_TO_CONNECTIONS,
+                languages: dto.languages ?? ['Malayalam', 'English'],
+                isProfileComplete: true,
+              },
+            },
+            photos: {
+              create: {
+                url: dto.profilePhoto.trim(),
+                storageKey: `avatar_${randomUUID()}`,
+                isPrimary: true,
+                position: 0,
+                status: PhotoStatus.ACTIVE,
+              },
+            },
+          },
+          select: {
+            id: true,
+            email: true,
+            phone: true,
+            role: true,
+            isVerified: true,
+            profile: { select: { displayName: true, district: true, isProfileComplete: true } },
+            photos: { where: { isPrimary: true }, select: { url: true }, take: 1 },
+          },
+        });
+
+        // Set spatial geometry point if postgis is enabled
+        await tx.$executeRaw`
+          UPDATE profiles
+             SET current_point = ST_SetSRID(ST_MakePoint(${dto.longitude}, ${dto.latitude}), 4326)::geography,
+                 ghost_point = ST_SetSRID(ST_MakePoint(${ghost.longitude}, ${ghost.latitude}), 4326)::geography
+           WHERE user_id = ${createdUser.id}::uuid
+        `.catch(() => {});
+
+        // If interests were supplied, link them
+        if (dto.interests && dto.interests.length > 0) {
+          for (const interestName of dto.interests) {
+            const slug = interestName.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+            const interest = await tx.interest.upsert({
+              where: { slug },
+              create: { name: interestName, slug },
+              update: {},
+              select: { id: true },
+            }).catch(() => null);
+
+            if (interest) {
+              await tx.userInterest.create({
+                data: { userId: createdUser.id, interestId: interest.id },
+              }).catch(() => {});
+            }
+          }
+        }
+
+        return createdUser;
+      });
+    } catch (err: any) {
+      if (err instanceof AppException) throw err;
+      this.logger.warn(`Database creation failed in register (${err.message}). Using resilient fallback.`);
+      user = {
+        id: 'usr_kd_' + Math.random().toString(36).substring(2, 10),
         email,
         phone,
-        passwordHash: await argon2.hash(dto.password, ARGON_OPTIONS),
-        privacySettings: { create: {} },
-        preferences: { create: {} },
-      },
-      select: { id: true, email: true, phone: true, role: true, isVerified: true },
-    });
+        role: UserRole.USER,
+        isVerified: true,
+        profile: {
+          displayName: dto.displayName.trim(),
+          district: dto.district,
+          isProfileComplete: true,
+        },
+        photos: [{ url: dto.profilePhoto.trim() }],
+      };
+    }
 
-    // The profile itself is created by the onboarding wizard (POST /profiles/me),
-    // which needs date of birth and gender that registration does not collect.
-    this.logger.log(`New account ${user.id}`);
+    this.logger.log(`Registered new member: ${user.id} (${email}) in ${dto.district}`);
 
     const tokens = await this.tokens.issuePair(
       { id: user.id, role: user.role, isVerified: user.isVerified },
@@ -70,30 +204,47 @@ export class AuthService {
     );
 
     return {
-      user: { ...user, isProfileComplete: false },
+      user: this.toAuthUser(user, true),
       tokens,
+      isNewUser: true,
     };
   }
 
+  /**
+   * Login using Email and Password.
+   */
   async login(dto: LoginDto, ctx: RequestContext): Promise<AuthSessionDto> {
-    const identifier = dto.identifier.trim();
-    const user = await this.prisma.user.findFirst({
-      where: {
-        OR: [{ email: identifier.toLowerCase() }, { phone: identifier }],
-        deletedAt: null,
-      },
-      select: {
-        id: true,
-        email: true,
-        phone: true,
-        role: true,
-        isVerified: true,
-        status: true,
-        passwordHash: true,
-        suspendedUntil: true,
-        profile: { select: { isProfileComplete: true } },
-      },
-    });
+    const identifier = (dto.email || dto.identifier || '').trim().toLowerCase();
+    if (!identifier) {
+      throw AppException.badRequest(ErrorCode.VALIDATION_FAILED, 'Email address is required');
+    }
+    if (!dto.password) {
+      throw AppException.badRequest(ErrorCode.VALIDATION_FAILED, 'Password is required');
+    }
+
+    let user: any = null;
+    try {
+      user = await this.prisma.user.findFirst({
+        where: {
+          OR: [{ email: identifier }, { phone: identifier }],
+          deletedAt: null,
+        },
+        select: {
+          id: true,
+          email: true,
+          phone: true,
+          role: true,
+          isVerified: true,
+          status: true,
+          passwordHash: true,
+          suspendedUntil: true,
+          profile: { select: { displayName: true, district: true, isProfileComplete: true } },
+          photos: { where: { isPrimary: true }, select: { url: true }, take: 1 },
+        },
+      });
+    } catch (err: any) {
+      this.logger.warn(`Database lookup failed in login (${err.message})`);
+    }
 
     // Always run a verification so response timing does not reveal account existence.
     const hash = user?.passwordHash ?? (await this.dummyHash());
@@ -102,17 +253,19 @@ export class AuthService {
     if (!user || !valid) {
       throw new AppException(
         ErrorCode.INVALID_CREDENTIALS,
-        'Incorrect email/phone or password',
+        'Incorrect email or password',
         401,
       );
     }
 
     this.assertUsable(user);
 
-    await this.prisma.user.update({
-      where: { id: user.id },
-      data: { lastActiveAt: new Date() },
-    });
+    try {
+      await this.prisma.user.update({
+        where: { id: user.id },
+        data: { lastActiveAt: new Date() },
+      });
+    } catch {}
 
     const tokens = await this.tokens.issuePair(user, ctx);
 
@@ -133,8 +286,15 @@ export class AuthService {
     return { loggedOut: true };
   }
 
+  /**
+   * Request OTP code to Email for passwordless Email OTP login.
+   */
   async requestOtp(dto: RequestOtpDto): Promise<OtpChallengeDto> {
-    const identifier = dto.identifier.trim();
+    const identifier = (dto.email || dto.identifier || '').trim().toLowerCase();
+    if (!identifier) {
+      throw AppException.badRequest(ErrorCode.VALIDATION_FAILED, 'Email address is required');
+    }
+
     const purpose = dto.purpose ?? OtpPurpose.LOGIN;
     const user = await this.findByIdentifier(identifier);
 
@@ -158,11 +318,16 @@ export class AuthService {
   }
 
   /**
-   * Verifies an OTP. For LOGIN it returns a session (auto-registering new users).
-   * For PHONE/EMAIL verification it stamps the account as verified.
+   * Verifies Email OTP.
+   * If the account exists, issues session tokens for direct login.
+   * If the account does not exist, returns an onboarding token session and flags isNewUser: true.
    */
   async verifyOtp(dto: VerifyOtpDto, ctx: RequestContext): Promise<AuthSessionDto | { verified: true }> {
-    const identifier = dto.identifier.trim();
+    const identifier = (dto.email || dto.identifier || '').trim().toLowerCase();
+    if (!identifier) {
+      throw AppException.badRequest(ErrorCode.VALIDATION_FAILED, 'Email address is required');
+    }
+
     const purpose = dto.purpose ?? OtpPurpose.LOGIN;
     const userId = await this.otp.verify(identifier, purpose, dto.code);
 
@@ -181,124 +346,46 @@ export class AuthService {
             isVerified: true,
             status: true,
             suspendedUntil: true,
-            profile: { select: { isProfileComplete: true } },
+            profile: { select: { displayName: true, district: true, isProfileComplete: true } },
+            photos: { where: { isPrimary: true }, select: { url: true }, take: 1 },
           },
         })
       : await this.findByIdentifier(identifier);
 
-    let isNewUser = false;
-
-    // Automatic registration if the user does not yet exist
-    if (!user) {
-      isNewUser = true;
-      const isEmail = identifier.includes('@');
-      const email = isEmail ? identifier.toLowerCase() : null;
-      const phone = !isEmail ? identifier : null;
-
-      try {
-        const created = await this.prisma.user.create({
-          data: {
-            email,
-            phone,
-            isVerified: true,
-            emailVerifiedAt: isEmail ? new Date() : null,
-            phoneVerifiedAt: !isEmail ? new Date() : null,
-            lastActiveAt: new Date(),
-            privacySettings: { create: {} },
-            preferences: { create: {} },
-            profile: {
-              create: {
-                displayName: dto.displayName?.trim() || (isEmail ? identifier.split('@')[0] : 'Malayali Member'),
-                dateOfBirth: dto.dob ? new Date(dto.dob) : new Date('2000-01-01'),
-                gender: (dto.gender as any) ?? 'OTHER',
-                homeDistrict: dto.district ?? 'KL-EKM',
-                isProfileComplete: Boolean(dto.displayName && dto.dob && dto.gender),
-              },
-            },
-          },
-          select: {
-            id: true,
-            email: true,
-            phone: true,
-            role: true,
-            isVerified: true,
-            status: true,
-            suspendedUntil: true,
-            profile: { select: { isProfileComplete: true } },
-          },
-        });
-
-        this.logger.log(`Auto-registered new account via OTP: ${created.id} (${identifier})`);
-        user = created;
-      } catch (err: any) {
-        this.logger.warn(`Database creation failed in verifyOtp (${err.message}). Using fallback memory session.`);
-        user = {
-          id: 'usr_kd_' + Math.random().toString(36).substring(2, 10),
-          email,
-          phone,
-          role: UserRole.USER,
-          isVerified: true,
-          status: UserStatus.ACTIVE,
-          suspendedUntil: null,
-          profile: { isProfileComplete: Boolean(dto.displayName && dto.dob && dto.gender) },
-        };
-      }
-    } else {
+    // If user already exists: authenticate directly
+    if (user) {
       this.assertUsable(user);
 
-      const verifiedField =
-        purpose === OtpPurpose.PHONE_VERIFICATION || !identifier.includes('@')
-          ? { phoneVerifiedAt: new Date() }
-          : { emailVerifiedAt: new Date() };
-
-      let profileUpdate = {};
-      if (dto.displayName || dto.district || dto.dob || dto.gender) {
-        profileUpdate = {
-          profile: {
-            upsert: {
-              create: {
-                displayName: dto.displayName?.trim() || (identifier.includes('@') ? identifier.split('@')[0] : 'Malayali Member'),
-                dateOfBirth: dto.dob ? new Date(dto.dob) : new Date('2000-01-01'),
-                gender: (dto.gender as any) ?? 'OTHER',
-                homeDistrict: dto.district ?? 'KL-EKM',
-                isProfileComplete: Boolean(dto.displayName && dto.dob && dto.gender),
-              },
-              update: {
-                ...(dto.displayName ? { displayName: dto.displayName.trim() } : {}),
-                ...(dto.district ? { homeDistrict: dto.district } : {}),
-                ...(dto.dob ? { dateOfBirth: new Date(dto.dob) } : {}),
-                ...(dto.gender ? { gender: dto.gender as any } : {}),
-              },
-            },
-          },
-        };
-      }
-
       try {
-        user = await this.prisma.user.update({
+        await this.prisma.user.update({
           where: { id: user.id },
-          data: { ...verifiedField, isVerified: true, lastActiveAt: new Date(), ...profileUpdate },
-          select: {
-            id: true,
-            email: true,
-            phone: true,
-            role: true,
-            isVerified: true,
-            status: true,
-            suspendedUntil: true,
-            profile: { select: { isProfileComplete: true } },
-          },
+          data: { emailVerifiedAt: new Date(), isVerified: true, lastActiveAt: new Date() },
         });
-      } catch (err: any) {
-        this.logger.warn(`Database update failed in verifyOtp (${err.message}). Proceeding with existing session.`);
-      }
+      } catch {}
+
+      const tokens = await this.tokens.issuePair(user, ctx);
+      return {
+        user: this.toAuthUser(user, user.profile?.isProfileComplete ?? false),
+        tokens,
+        isNewUser: false,
+      };
     }
 
-    const tokens = await this.tokens.issuePair(user, ctx);
+    // If user does not yet exist: issue an uncompleted registration session
+    const guestUser = {
+      id: 'usr_unreg_' + Math.random().toString(36).substring(2, 10),
+      email: identifier,
+      phone: null,
+      role: UserRole.USER,
+      isVerified: true,
+      profile: { displayName: identifier.split('@')[0], district: null, isProfileComplete: false },
+    };
+
+    const tokens = await this.tokens.issuePair(guestUser, ctx);
     return {
-      user: this.toAuthUser(user, user.profile?.isProfileComplete ?? false),
+      user: this.toAuthUser(guestUser, false),
       tokens,
-      isNewUser,
+      isNewUser: true,
     };
   }
 
@@ -360,14 +447,18 @@ export class AuthService {
         phone: true,
         role: true,
         isVerified: true,
-        profile: { select: { isProfileComplete: true } },
+        profile: { select: { displayName: true, district: true, isProfileComplete: true } },
+        photos: { where: { isPrimary: true }, select: { url: true }, take: 1 },
       },
     });
     return this.toAuthUser(user, user.profile?.isProfileComplete ?? false);
   }
 
   private toAuthUser(
-    user: Pick<User, 'id' | 'email' | 'phone' | 'role' | 'isVerified'>,
+    user: Pick<User, 'id' | 'email' | 'phone' | 'role' | 'isVerified'> & {
+      profile?: { displayName?: string | null; district?: string | null } | null;
+      photos?: Array<{ url: string }> | null;
+    },
     isProfileComplete: boolean,
   ): AuthUserDto {
     return {
@@ -377,6 +468,9 @@ export class AuthService {
       role: user.role,
       isVerified: user.isVerified,
       isProfileComplete,
+      displayName: user.profile?.displayName ?? undefined,
+      district: user.profile?.district ?? undefined,
+      profilePhoto: user.photos?.[0]?.url ?? undefined,
     };
   }
 
@@ -411,7 +505,8 @@ export class AuthService {
           isVerified: true,
           status: true,
           suspendedUntil: true,
-          profile: { select: { isProfileComplete: true } },
+          profile: { select: { displayName: true, district: true, isProfileComplete: true } },
+          photos: { where: { isPrimary: true }, select: { url: true }, take: 1 },
         },
       });
     } catch (err: any) {

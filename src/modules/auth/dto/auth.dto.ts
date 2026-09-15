@@ -1,18 +1,22 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Transform } from 'class-transformer';
 import {
+  IsArray,
   IsDateString,
   IsEmail,
   IsEnum,
   IsNotEmpty,
+  IsNumber,
   IsOptional,
   IsString,
   Matches,
+  Max,
   MaxLength,
+  Min,
   MinLength,
   ValidateIf,
 } from 'class-validator';
-import { OtpPurpose } from '@prisma/client';
+import { Gender, OtpPurpose, RelationshipIntention } from '@prisma/client';
 
 /** E.164, which is what the Flutter client sends after country-code selection. */
 const E164 = /^\+[1-9]\d{7,14}$/;
@@ -21,107 +25,177 @@ const normaliseEmail = ({ value }: { value: unknown }) =>
   typeof value === 'string' ? value.trim().toLowerCase() : value;
 
 export class RegisterDto {
-  @ApiPropertyOptional({ example: 'devika@example.com' })
-  @ValidateIf((o: RegisterDto) => !o.phone)
+  @ApiProperty({ example: 'devika@koodam.app', description: 'Valid email address' })
   @Transform(normaliseEmail)
-  @IsEmail({}, { message: 'A valid email or phone number is required' })
-  email?: string;
+  @IsEmail({}, { message: 'A valid email address is required' })
+  @IsNotEmpty()
+  email!: string;
 
-  @ApiPropertyOptional({ example: '+919847012345' })
-  @ValidateIf((o: RegisterDto) => !o.email)
-  @Matches(E164, { message: 'Phone must be in international format, e.g. +919847012345' })
-  phone?: string;
+  @ApiProperty({ example: '+919847012345', description: 'Mobile phone number in international format (+91...)' })
+  @IsString()
+  @IsNotEmpty({ message: 'Phone number is required' })
+  phone!: string;
 
-  @ApiProperty({ minLength: 8, example: 'Koodam@2026' })
+  @ApiProperty({ minLength: 8, example: 'Koodam@2026', description: 'Password (min 8 chars, 1 letter, 1 number)' })
   @IsString()
   @MinLength(8, { message: 'Password must be at least 8 characters' })
   @MaxLength(128)
-  @Matches(/[a-zA-Z]/, { message: 'Password must contain a letter' })
-  @Matches(/\d/, { message: 'Password must contain a number' })
+  @Matches(/[a-zA-Z]/, { message: 'Password must contain at least one letter' })
+  @Matches(/\d/, { message: 'Password must contain at least one number' })
   password!: string;
 
-  @ApiProperty({ example: 'Devika S.' })
+  @ApiProperty({ example: 'Devika Suresh', description: 'User full display name' })
   @IsString()
-  @IsNotEmpty()
+  @IsNotEmpty({ message: 'Name is required' })
   @MaxLength(80)
   displayName!: string;
+
+  @ApiProperty({ enum: Gender, example: Gender.FEMALE, description: 'Gender identity' })
+  @IsEnum(Gender, { message: 'Gender must be FEMALE, MALE, NON_BINARY, OTHER, or PREFER_NOT_TO_SAY' })
+  @IsNotEmpty()
+  gender!: Gender;
+
+  @ApiProperty({ example: '1998-05-14', description: 'Date of Birth (YYYY-MM-DD), must be 18+' })
+  @IsDateString({}, { message: 'Date of birth must be a valid date string (YYYY-MM-DD)' })
+  @IsNotEmpty()
+  dob!: string;
+
+  @ApiProperty({ example: 'KL-EKM', description: 'Current Kerala district code or name' })
+  @IsString()
+  @IsNotEmpty({ message: 'District is required' })
+  district!: string;
+
+  @ApiProperty({ example: 9.9816, description: 'Latitude selected from Map Pin Selector' })
+  @IsNumber()
+  @Min(-90)
+  @Max(90)
+  latitude!: number;
+
+  @ApiProperty({ example: 76.2999, description: 'Longitude selected from Map Pin Selector' })
+  @IsNumber()
+  @Min(-180)
+  @Max(180)
+  longitude!: number;
+
+  @ApiProperty({
+    example: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400',
+    description: 'Primary profile photo URL',
+  })
+  @IsString()
+  @IsNotEmpty({ message: 'Profile photo is required' })
+  profilePhoto!: string;
+
+  @ApiPropertyOptional({
+    example: 'Architect from Fort Kochi • Passionate about heritage walks, literature and chai.',
+    description: 'Short profile biography (optional)',
+  })
+  @IsOptional()
+  @IsString()
+  @MaxLength(600)
+  bio?: string;
+
+  @ApiPropertyOptional({
+    example: ['Heritage & Culture', 'Chai Meetups', 'Trekking', 'Indie Tech'],
+    description: 'List of interest tags (optional)',
+  })
+  @IsOptional()
+  @IsArray()
+  @IsString({ each: true })
+  interests?: string[];
+
+  @ApiPropertyOptional({ example: 'Architect', description: 'Profession or occupation (optional)' })
+  @IsOptional()
+  @IsString()
+  @MaxLength(120)
+  profession?: string;
+
+  @ApiPropertyOptional({ example: 'KL-KKD', description: 'Native home district in Kerala (optional)' })
+  @IsOptional()
+  @IsString()
+  homeDistrict?: string;
+
+  @ApiPropertyOptional({
+    enum: RelationshipIntention,
+    default: RelationshipIntention.OPEN_TO_CONNECTIONS,
+    description: 'What the user is looking for (optional)',
+  })
+  @IsOptional()
+  @IsEnum(RelationshipIntention)
+  relationshipIntention?: RelationshipIntention;
+
+  @ApiPropertyOptional({ example: ['Malayalam', 'English'], description: 'Languages spoken (optional)' })
+  @IsOptional()
+  @IsArray()
+  @IsString({ each: true })
+  languages?: string[];
 }
 
 export class LoginDto {
-  @ApiProperty({ description: 'Email address or E.164 phone number', example: 'devika@koodam.app' })
-  @Transform(({ value }: { value: unknown }) =>
-    typeof value === 'string' ? value.trim() : value,
-  )
+  @ApiPropertyOptional({ description: 'Email address', example: 'devika@koodam.app' })
+  @IsOptional()
   @IsString()
-  @IsNotEmpty()
-  identifier!: string;
+  email?: string;
 
-  @ApiProperty({ example: 'Koodam@2026' })
+  @ApiPropertyOptional({ description: 'Email address or username', example: 'devika@koodam.app' })
+  @IsOptional()
   @IsString()
-  @IsNotEmpty()
+  identifier?: string;
+
+  @ApiProperty({ example: 'Koodam@2026', description: 'Account password' })
+  @IsString()
+  @IsNotEmpty({ message: 'Password is required' })
   password!: string;
 }
 
 export class RefreshTokenDto {
-  @ApiProperty()
+  @ApiProperty({ description: 'Valid refresh token string' })
   @IsString()
   @IsNotEmpty()
   refreshToken!: string;
 }
 
 export class RequestOtpDto {
-  @ApiProperty({ description: 'Email address or E.164 phone number', example: '+919847012345' })
+  @ApiPropertyOptional({ description: 'Email address for OTP delivery', example: 'devika@koodam.app' })
+  @IsOptional()
   @IsString()
-  @IsNotEmpty()
-  identifier!: string;
+  email?: string;
+
+  @ApiPropertyOptional({ description: 'Email address or identifier', example: 'devika@koodam.app' })
+  @IsOptional()
+  @IsString()
+  identifier?: string;
 
   @ApiPropertyOptional({ enum: OtpPurpose, default: OtpPurpose.LOGIN })
   @IsOptional()
   @IsEnum(OtpPurpose)
   purpose?: OtpPurpose;
 
-  @ApiPropertyOptional({ enum: ['whatsapp', 'sms', 'email'], default: 'whatsapp' })
+  @ApiPropertyOptional({ enum: ['email', 'whatsapp', 'sms'], default: 'email' })
   @IsOptional()
   @IsString()
-  channel?: 'whatsapp' | 'sms' | 'email';
+  channel?: 'email' | 'whatsapp' | 'sms';
 }
 
 export class VerifyOtpDto {
-  @ApiProperty({ description: 'Email address or E.164 phone number', example: '+919847012345' })
-  @IsString()
-  @IsNotEmpty()
-  identifier!: string;
-
-  @ApiPropertyOptional({ enum: OtpPurpose, default: OtpPurpose.LOGIN })
+  @ApiPropertyOptional({ description: 'Email address', example: 'devika@koodam.app' })
   @IsOptional()
-  @IsEnum(OtpPurpose)
-  purpose?: OtpPurpose;
+  @IsString()
+  email?: string;
 
-  @ApiProperty({ example: '482910' })
+  @ApiPropertyOptional({ description: 'Email address or identifier', example: 'devika@koodam.app' })
+  @IsOptional()
+  @IsString()
+  identifier?: string;
+
+  @ApiProperty({ example: '482910', description: '6-digit OTP code' })
   @IsString()
   @Matches(/^\d{4,8}$/, { message: 'OTP must be 4–8 digits' })
   code!: string;
 
-  @ApiPropertyOptional({ example: 'Anjali Nair', description: 'Name to use if registering for the first time' })
+  @ApiPropertyOptional({ enum: OtpPurpose, default: OtpPurpose.LOGIN })
   @IsOptional()
-  @IsString()
-  @MaxLength(80)
-  displayName?: string;
-
-  @ApiPropertyOptional({ example: 'KL-EKM', description: 'Kerala district code for registration' })
-  @IsOptional()
-  @IsString()
-  district?: string;
-
-  @ApiPropertyOptional({ example: '1998-05-14', description: 'Date of Birth (YYYY-MM-DD)' })
-  @IsOptional()
-  @IsDateString()
-  dob?: string;
-
-  @ApiPropertyOptional({ enum: ['MALE', 'FEMALE', 'NON_BINARY', 'OTHER'] })
-  @IsOptional()
-  @IsString()
-  gender?: string;
+  @IsEnum(OtpPurpose)
+  purpose?: OtpPurpose;
 }
 
 export class ForgotPasswordDto {

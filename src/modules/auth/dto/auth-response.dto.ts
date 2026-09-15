@@ -30,8 +30,17 @@ export class AuthUserDto {
   @ApiProperty()
   isVerified!: boolean;
 
-  @ApiProperty({ description: 'False until the onboarding wizard has been completed' })
+  @ApiProperty({ description: 'True when full profile information has been collected' })
   isProfileComplete!: boolean;
+
+  @ApiPropertyOptional({ example: 'Devika Suresh' })
+  displayName?: string;
+
+  @ApiPropertyOptional({ example: 'KL-EKM' })
+  district?: string;
+
+  @ApiPropertyOptional({ example: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb' })
+  profilePhoto?: string;
 }
 
 export class AuthSessionDto {

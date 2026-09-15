@@ -125,29 +125,74 @@ Koodam implements native localization for all 14 districts and primary Malayali 
 
 ## 4. Complete 23 Functional Modules Endpoint Specification
 
-### 4.1 Module 1: Authentication (`/api/v1/auth`)
-- **`POST /api/v1/auth/otp/send`**
-  - **Body:** `{ "phone": "+919876543210", "channel": "whatsapp" | "sms" }`
-  - **Response:** `{ "success": true, "data": { "message": "OTP sent successfully", "ttlSeconds": 300 } }`
-- **`POST /api/v1/auth/otp/verify`**
-  - **Body:** `{ "phone": "+919876543210", "code": "482910" }`
-  - **Response:**
-    ```json
-    {
-      "success": true,
-      "data": {
+### 4.1 Module 1: Authentication & Registration (`/api/v1/auth`)
+
+#### 1. Complete Member Registration (`POST /api/v1/auth/register`)
+Collects all mandatory member identity and geospatial location data upfront (stored with Gaussian Ghost Centroid 400m–900m spatial blur):
+- **Body:**
+  ```json
+  {
+    "email": "devika@koodam.app",
+    "phone": "+919847012345",
+    "password": "Password@2026",
+    "displayName": "Devika Suresh",
+    "gender": "FEMALE",
+    "dob": "1998-05-14",
+    "district": "KL-EKM",
+    "latitude": 9.9816,
+    "longitude": 76.2999,
+    "profilePhoto": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400",
+    "bio": "Architect from Fort Kochi • Passionate about heritage walks, architecture, and chai.",
+    "interests": ["Heritage & Culture", "Chai Meetups", "Trekking", "Indie Tech"],
+    "profession": "Architect",
+    "homeDistrict": "KL-KKD",
+    "relationshipIntention": "OPEN_TO_CONNECTIONS",
+    "languages": ["Malayalam", "English"]
+  }
+  ```
+- **Response:**
+  ```json
+  {
+    "success": true,
+    "data": {
+      "user": {
+        "id": "usr_9481ab...",
+        "email": "devika@koodam.app",
+        "phone": "+919847012345",
+        "role": "USER",
+        "isVerified": true,
+        "isProfileComplete": true,
+        "displayName": "Devika Suresh",
+        "district": "KL-EKM",
+        "profilePhoto": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400"
+      },
+      "tokens": {
         "accessToken": "eyJhbGciOi...",
         "refreshToken": "koodam_rf_...",
-        "isNewUser": false,
-        "user": { "id": "usr_...", "phone": "+919876543210", "role": "USER" }
-      }
+        "expiresIn": 900,
+        "tokenType": "Bearer"
+      },
+      "isNewUser": true
     }
-    ```
-- **`POST /api/v1/auth/refresh`**
-  - **Body:** `{ "refreshToken": "koodam_rf_..." }`
-  - **Response:** Fresh token pair `{ accessToken, refreshToken }`.
-- **`POST /api/v1/auth/logout`**
-  - Revokes current refresh token family and purges active session in Redis.
+  }
+  ```
+
+#### 2. Email & Password Login (`POST /api/v1/auth/login`)
+- **Body:** `{ "email": "devika@koodam.app", "password": "Password@2026" }`
+- **Response:** `{ "success": true, "data": { "user": { ... }, "tokens": { "accessToken": "...", "refreshToken": "..." } } }`
+
+#### 3. Email OTP Login (`POST /api/v1/auth/otp/send` & `verify`)
+No phone number required for login!
+- **`POST /api/v1/auth/otp/send`**
+  - **Body:** `{ "email": "devika@koodam.app" }`
+  - **Response:** `{ "success": true, "data": { "message": "A verification code has been sent to de••••@koodam.app", "expiresInSeconds": 300, "isRegistered": true } }`
+- **`POST /api/v1/auth/otp/verify`**
+  - **Body:** `{ "email": "devika@koodam.app", "code": "482910" }`
+  - **Response:** `{ "success": true, "data": { "user": { ... }, "tokens": { ... }, "isNewUser": false } }`
+
+#### 4. Session Refresh & Logout
+- **`POST /api/v1/auth/refresh`**: `{ "refreshToken": "koodam_rf_..." }`
+- **`POST /api/v1/auth/logout`**: Revokes refresh token family and session.
 
 ### 4.2 Module 2: Profiles (`/api/v1/profiles`)
 - **`GET /api/v1/profiles/me`**
