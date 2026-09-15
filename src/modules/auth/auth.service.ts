@@ -31,6 +31,25 @@ const ARGON_OPTIONS = { type: argon2.argon2id, memoryCost: 19_456, timeCost: 2, 
 export class AuthService {
   private readonly logger = new Logger(AuthService.name);
 
+  private static readonly memoryUserStore = new Map<
+    string,
+    {
+      id: string;
+      email: string;
+      phone: string;
+      passwordHash: string;
+      role: UserRole;
+      isVerified: boolean;
+      status: UserStatus;
+      profile: {
+        displayName: string;
+        district: string;
+        isProfileComplete: boolean;
+      };
+      photos: Array<{ url: string }>;
+    }
+  >();
+
   constructor(
     private readonly prisma: PrismaService,
     private readonly tokens: TokenService,
@@ -196,6 +215,23 @@ export class AuthService {
       };
     }
 
+    // Cache in memory for seamless serverless / demo sessions
+    AuthService.memoryUserStore.set(email, {
+      id: user.id,
+      email,
+      phone,
+      passwordHash,
+      role: user.role,
+      isVerified: true,
+      status: UserStatus.ACTIVE,
+      profile: {
+        displayName: dto.displayName.trim(),
+        district: dto.district,
+        isProfileComplete: true,
+      },
+      photos: [{ url: dto.profilePhoto.trim() }],
+    });
+
     this.logger.log(`Registered new member: ${user.id} (${email}) in ${dto.district}`);
 
     const tokens = await this.tokens.issuePair(
@@ -244,6 +280,10 @@ export class AuthService {
       });
     } catch (err: any) {
       this.logger.warn(`Database lookup failed in login (${err.message})`);
+    }
+
+    if (!user) {
+      user = AuthService.memoryUserStore.get(identifier);
     }
 
     // Always run a verification so response timing does not reveal account existence.
@@ -491,8 +531,9 @@ export class AuthService {
   }
 
   private async findByIdentifier(identifier: string) {
+    let found = null;
     try {
-      return await this.prisma.user.findFirst({
+      found = await this.prisma.user.findFirst({
         where: {
           OR: [{ email: identifier.toLowerCase() }, { phone: identifier }],
           deletedAt: null,
@@ -510,9 +551,13 @@ export class AuthService {
         },
       });
     } catch (err: any) {
-      this.logger.warn(`Database lookup failed in findByIdentifier (${err.message}). Treating as unregistered identifier.`);
-      return null;
+      this.logger.warn(`Database lookup failed in findByIdentifier (${err.message}). Checking memory cache.`);
     }
+
+    if (!found) {
+      found = AuthService.memoryUserStore.get(identifier.toLowerCase()) ?? null;
+    }
+    return found;
   }
 
   /** Constant-work stand-in so failed lookups cost the same as real verifies. */
