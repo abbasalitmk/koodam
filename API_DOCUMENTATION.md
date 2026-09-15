@@ -1,4 +1,4 @@
-# Koodam (കൂടം) — Master API Documentation & Integration Specification
+# Koodaam (കൂടം) — Master API Documentation & Integration Specification
 > **Platform Target:** iOS & Android Native Mobile App (Flutter) + Enterprise Cloud Backend (NestJS / Node.js)  
 > **Live Production Base URL:** `https://koodam-mu.vercel.app`  
 > **Health Check:** `https://koodam-mu.vercel.app/health` & `https://koodam-mu.vercel.app/health/live`  

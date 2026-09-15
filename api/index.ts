@@ -7,6 +7,8 @@ import { ValidationPipe, VersioningType } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import helmet from 'helmet';
 import compression from 'compression';
+import { AppException } from '../src/common/utils/app.exception';
+import { ErrorCode } from '../src/common/utils/error-codes';
 
 let cachedServer: express.Express;
 
@@ -28,6 +30,16 @@ async function bootstrapServer(): Promise<express.Express> {
         transform: true,
         whitelist: true,
         forbidNonWhitelisted: true,
+        transformOptions: { enableImplicitConversion: false },
+        exceptionFactory: (errors) => {
+          const messages = errors.flatMap((e) => Object.values(e.constraints ?? {}));
+          return new AppException(
+            ErrorCode.VALIDATION_FAILED,
+            messages[0] ?? 'Request validation failed',
+            400,
+            { fields: messages },
+          );
+        },
       }),
     );
 
