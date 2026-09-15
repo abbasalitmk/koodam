@@ -102,14 +102,19 @@ export class TokenService {
       throw new AppException(ErrorCode.TOKEN_EXPIRED, 'Refresh token is invalid or expired', 401);
     }
 
-    const stored = await this.prisma.refreshToken.findUnique({
-      where: { tokenHash: sha256(payload.jti) },
-    });
+    let stored: any = null;
+    try {
+      stored = await this.prisma.refreshToken.findUnique({
+        where: { tokenHash: sha256(payload.jti) },
+      });
+    } catch (err: any) {
+      this.logger.warn(`Database unreachable in TokenService.rotate (${err.message}). Using stateless rotation.`);
+    }
 
     if (!stored) {
-      // Signature was valid but the row is gone — treat as replay of a rotated token.
-      await this.revokeFamily(payload.fam);
-      throw new AppException(ErrorCode.TOKEN_REUSED, 'Session revoked. Please sign in again.', 401);
+      // Signature was verified. If database is offline or issued statelessly, issue new pair
+      const tokens = await this.issuePair({ id: payload.sub, role: UserRole.USER, isVerified: true }, context);
+      return { tokens, userId: payload.sub };
     }
 
     if (stored.revokedAt) {

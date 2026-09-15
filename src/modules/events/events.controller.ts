@@ -65,7 +65,7 @@ export class EventsController {
   @Get(':id')
   @ApiOperation({ summary: 'Get single event details with vouches and attendee preview' })
   getEventById(
-    @Param('id', ParseUUIDPipe) eventId: string,
+    @Param('id') eventId: string,
     @CurrentUser('id') currentUserId?: string,
   ) {
     return this.events.getEventById(eventId, currentUserId);
